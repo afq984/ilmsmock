@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 )
 
@@ -28,7 +29,7 @@ func NewFileSystemUpstream(fs fs.FS) *FileSystemUpstream {
 }
 
 func (up *FileSystemUpstream) Get(requestPath, cacheKey string) (cachedResponse, error) {
-	jsonb, err := fs.ReadFile(up.fs, filepath.Join(cacheKey, metaName))
+	jsonb, err := fs.ReadFile(up.fs, path.Join(cacheKey, metaName))
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +40,7 @@ func (up *FileSystemUpstream) Get(requestPath, cacheKey string) (cachedResponse,
 		return nil, err
 	}
 
-	body, err := up.fs.Open(filepath.Join(cacheKey, bodyName))
+	body, err := up.fs.Open(path.Join(cacheKey, bodyName))
 	if err != nil {
 		return nil, err
 	}

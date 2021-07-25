@@ -1,0 +1,1 @@
+<div style='color:#606060; text-align: center; font-size: 13px; border: 1px solid #ccc; margin: 20px; padding: 20px 2px 20px 2px;'>已刪除<br><br><input type=button value=返回 onclick='history.back()'></input></div>

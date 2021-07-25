@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>平行程式Parallel Programming - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>288</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 46274;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=46274&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/46274'">平行程式Parallel Programming</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"46274", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=46274&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=46274", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=46274", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=46274", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=46274", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:1091 時間:2020-08-31 ~ 2021-01-31'>1091 <span class=hint>(2020-08-31~2021-01-31)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=46274&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=46274&f=doclist'>上課教材</a> <span class=hint>(13)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=46274&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=46274&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=46274&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=46274&f=forumlist'>討論區</a> <span class=hint>(123)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=46274&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=46274&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=46274&f=hwlist'>作業</a> <span class=hint><span class=hint>(12)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=46274&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=46274&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='Final Project報告時間調整 (01-08)' href='/course.php?courseID=46274&f=forum&tid=311253'>Final Project報告時間調整</a> <span class=hint>(01-08)</span></div><div class=boxItem><a title='run程式時出現問題 (01-04)' href='/course.php?courseID=46274&f=forum&tid=310522'>re: run程式時出現問題</a> <span class=hint>(01-04)</span></div><div class=boxItem><a title='No space left on device (01-04)' href='/course.php?courseID=46274&f=forum&tid=310536'>No space left on device</a> <span class=hint>(01-04)</span></div><div class=boxItem><a title='國網中心資源 (01-02)' href='/course.php?courseID=46274&f=forum&tid=310204'>re: 國網中心資源</a> <span class=hint>(01-02)</span></div><div class=boxItem><a title='-fopenmp flag (12-30)' href='/course.php?courseID=46274&f=forum&tid=309874'>re: -fopenmp flag</a> <span class=hint>(12-30)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=46274&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 13285</div>
+                <div>文章: 777</div>
+                <div>討論: 124</div>
+                <div>容量: 剩餘 <b>2.4 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 周志遠</div>
+                
+                <div style='white-space:normal'>助教: 黃文遠 , &nbsp;王子文 , &nbsp;周裕閔 , &nbsp;林恩德</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                <script>
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function add()
+    {
+        $showModal('重新分組', '/course/group/insert.php?courseID=46274', 750, 380, onFinish);
+    }
+    function edit(groupID)
+    {
+        $showModal('設定', '/course/group/edit.php?groupID=' + groupID, 750, 380, onFinish);
+    }
+    function del(groupID)
+    {
+        $showModal('刪除', '/course/group/delete.php?groupID=' + groupID, 350, 270, onFinish);
+    }
+</script>
+<div class=infoPath>
+                    位置:
+                    <a href='/course/46274'>平行程式Parallel Programming</a> &gt;
+                    <span class=curr>小組專區</span>
+                    <span class=tool></span>
+              </div><div style='padding-bottom:25px'><div class=blockTitle>作業 <span class=hint></span></div><div>
+                <img align=absmiddle src='/sys/res/icon/cal_homework.gif'/> <a title=作業 href='/course.php?courseID=46274&f=hw&hw=234944'>Final Project</a> <span class='hint'>(2021-01-12 23:59, 僅組長才可上傳)</span>
+                 
+              </div></div><div class=blockTitle>分組 | <a href='/course.php?courseID=46274&f=teamall&groupID=30698'>詳細</a> <span class=hint></span></div>
+        <script>
+        var _lstLastClick = "";
+        var tid = "t1";
+        tid = tid.substr(1);
+        var tblChk = new Array();
+        
+function _lstMouseOver(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = "rowOver";
+}
+
+function _lstMouseOut(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = (id % 2) ? 'row': 'row2' ;
+
+    var ctrl = document.getElementById(tblID + "_item" + id);
+    if (ctrl && ctrl.checked)
+    {
+        document.getElementById(tblID + "_tr" + id).className = "selected";
+        return;
+    }
+}
+
+function _lstSetItem(tblID, id, bChecked)
+{
+    var ctrl;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.value == id)
+        {
+            ctrl.checked = bChecked;
+            break;
+        }
+    }
+    _lstItemOnClick(event, tblID);
+}
+
+function _lstGetItem(tblID, delim)
+{
+    var ret = "";
+    var tid = tblID.substr(1);
+    var ctrl;
+    delim = delim || "#";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (tblChk[tid][i] == 1) ret = (ret == "") ? ctrl.value : ret + delim + ctrl.value;
+    }
+    return ret;
+}
+
+function _lstItemOnClick(aEvent, tblID)
+{
+    // process shift multi-selection control, follows Gmail behavior
+    var e = (aEvent) ? aEvent : window.event;
+
+    //var e = window.event;
+    if (navigator.userAgent.indexOf("MSIE") != -1)
+        var currClick = e.srcElement.id;
+    else
+        var currClick = e.target.id;
+
+    var end = parseInt(currClick.substr(currClick.lastIndexOf("item") + 4), 10);
+    var bChecked = document.getElementById(currClick).checked;
+    var tid = tblID.substr(1);
+    if (bChecked)
+    {
+            tblChk[tid][end] = 1;
+            document.getElementById(tblID + "_tr" + end).className = "selected";
+    }
+    else
+    {
+            tblChk[tid][end] = 0;
+            document.getElementById(tblID + "_tr" + end).className = (end % 2) ? "row" : "row2";
+    }
+
+
+    tblChk[tid][end] = (bChecked) ? 1 : 0;
+
+    if (e.shiftKey && _lstLastClick)
+    {
+        var start = parseInt(_lstLastClick.substr(_lstLastClick.lastIndexOf("item") + 4), 10);
+
+        if (start > end)
+        {
+            var tmp = end;
+            end = start;
+            start = tmp;
+        }
+
+        for (i=start; i<=end; i++)
+        {
+                    if (document.getElementById(tblID + "_item" + i).disabled) continue;
+
+                    document.getElementById(tblID + "_item" + i).checked = bChecked;
+
+                    if (bChecked)
+                    {
+                            tblChk[tid][i] = 1;
+                            document.getElementById(tblID + "_tr" + i).className = "selected";
+                    }
+                    else
+                    {
+                            tblChk[tid][i] = 0;
+                            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+                    }
+        }
+    }
+
+    _lstLastClick = currClick;
+
+    var val = true;
+    for (i=0; i< tblChk[tid].length ; i++)
+    {
+            if (tblChk[tid][i] == 0)
+            {
+                val = false;
+                break;
+            }
+    }
+
+    ctrl = document.getElementById(tblID + "_itemall");
+    if (ctrl) ctrl.checked = val;
+}
+
+function _lstCheckAllOnClick(tblID)
+{
+    var val = document.getElementById(tblID + "_itemall").checked;
+    var tid = tblID.substr(1);
+    var ctrl;
+    var tblChkVal = (val) ? 1 : 0;
+    var rowClass = "";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.disabled) continue;
+        ctrl.checked = val;
+        tblChk[tid][i] = tblChkVal;
+        rowClass = (i % 2) ? "row" : "row2";
+        document.getElementById(tblID + "_tr" + i).className = (val) ? "selected" : rowClass;
+    }
+}
+function _lstCheckClearAll(tblID)
+{
+    var tid = tblID.substr(1);
+    var ctrl;
+    document.getElementById(tblID + "_itemall").checked = 0 ;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (!tblChk[tid][i])
+        {
+            ctrl.checked = 0;
+            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+        }
+        else
+        {
+            ctrl.checked = "checked";
+            document.getElementById(tblID + "_tr" + i).className = "selected";
+        }
+    }
+}
+</script><div class=tableBox><table class=table id=t1>
+<tr class=header>
+	<td width=40 class=td align=center><a href='/course.php?courseID=46274&f=group&groupID=30698&order=sn&precedence=DESC' title='排序方式:  項次'>項次</a></td>
+	<td  class=td align=center><a href='/course.php?courseID=46274&f=group&groupID=30698&order=name&precedence=ASC' title='排序方式:  組別名稱'>組別名稱</a></td>
+	<td width=300 class=td align=center>組員</td>
+	<td width=35 class=td align=center><a href='/course.php?courseID=46274&f=group&groupID=30698&order=members&precedence=ASC' title='排序方式:  人數'>人數</a></td>
+	<td width=35 class=td align=center><a href='/course.php?courseID=46274&f=group&groupID=30698&order=comments&precedence=ASC' title='排序方式:  討論'>討論</a></td>
+	<td width=130 class=td align=center>動作</td>
+</tr>
+<tr id=t1_tr0 class=row2  onmouseover='_lstMouseOver("t1", 0)' onmouseout='_lstMouseOut("t1", 0)'>
+	<td class=td  align=center>1</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36619'>第 1 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>黃恩明<span class=hint>(組長)</span>, 黃永玄</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36619'>組員</a></span></td>
+</tr>
+<tr id=t1_tr1 class=row  onmouseover='_lstMouseOver("t1", 1)' onmouseout='_lstMouseOut("t1", 1)'>
+	<td class=td  align=center>2</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36620'>第 2 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>洪嘉廷<span class=hint>(組長)</span>, 朱彥竹</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36620'>組員</a></span></td>
+</tr>
+<tr id=t1_tr2 class=row2  onmouseover='_lstMouseOver("t1", 2)' onmouseout='_lstMouseOut("t1", 2)'>
+	<td class=td  align=center>3</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36621'>第 3 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>呂佳勳<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36621'>組員</a></span></td>
+</tr>
+<tr id=t1_tr3 class=row  onmouseover='_lstMouseOver("t1", 3)' onmouseout='_lstMouseOut("t1", 3)'>
+	<td class=td  align=center>4</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36622'>第 4 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳麒懋<span class=hint>(組長)</span>, 蔡旻翰</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36622'>組員</a></span></td>
+</tr>
+<tr id=t1_tr4 class=row2  onmouseover='_lstMouseOver("t1", 4)' onmouseout='_lstMouseOut("t1", 4)'>
+	<td class=td  align=center>5</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36623'>第 5 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>周明曄<span class=hint>(組長)</span>, 李忠翰</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36623'>組員</a></span></td>
+</tr>
+<tr id=t1_tr5 class=row  onmouseover='_lstMouseOver("t1", 5)' onmouseout='_lstMouseOut("t1", 5)'>
+	<td class=td  align=center>6</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36624'>第 6 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>張子健<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36624'>組員</a></span></td>
+</tr>
+<tr id=t1_tr6 class=row2  onmouseover='_lstMouseOver("t1", 6)' onmouseout='_lstMouseOut("t1", 6)'>
+	<td class=td  align=center>7</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36625'>第 7 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>邱筑琪<span class=hint>(組長)</span>, 簡子昀</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36625'>組員</a></span></td>
+</tr>
+<tr id=t1_tr7 class=row  onmouseover='_lstMouseOver("t1", 7)' onmouseout='_lstMouseOut("t1", 7)'>
+	<td class=td  align=center>8</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36626'>第 8 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>徐嘉欣<span class=hint>(組長)</span>, 黎彥君</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36626'>組員</a></span></td>
+</tr>
+<tr id=t1_tr8 class=row2  onmouseover='_lstMouseOver("t1", 8)' onmouseout='_lstMouseOut("t1", 8)'>
+	<td class=td  align=center>9</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36627'>第 9 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>林育駿<span class=hint>(組長)</span>, 鄭盛元</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36627'>組員</a></span></td>
+</tr>
+<tr id=t1_tr9 class=row  onmouseover='_lstMouseOver("t1", 9)' onmouseout='_lstMouseOut("t1", 9)'>
+	<td class=td  align=center>10</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36628'>第 10 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36628'>組員</a></span></td>
+</tr>
+<tr id=t1_tr10 class=row2  onmouseover='_lstMouseOver("t1", 10)' onmouseout='_lstMouseOut("t1", 10)'>
+	<td class=td  align=center>11</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36629'>第 11 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>鄭柏文<span class=hint>(組長)</span>, 景  璞</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36629'>組員</a></span></td>
+</tr>
+<tr id=t1_tr11 class=row  onmouseover='_lstMouseOver("t1", 11)' onmouseout='_lstMouseOut("t1", 11)'>
+	<td class=td  align=center>12</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36630'>第 12 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>江岷錡<span class=hint>(組長)</span>, 林奕鑫</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36630'>組員</a></span></td>
+</tr>
+<tr id=t1_tr12 class=row2  onmouseover='_lstMouseOver("t1", 12)' onmouseout='_lstMouseOut("t1", 12)'>
+	<td class=td  align=center>13</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36631'>第 13 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳博暐<span class=hint>(組長)</span>, 蕭亦程</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36631'>組員</a></span></td>
+</tr>
+<tr id=t1_tr13 class=row  onmouseover='_lstMouseOver("t1", 13)' onmouseout='_lstMouseOut("t1", 13)'>
+	<td class=td  align=center>14</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36632'>第 14 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>范孜亦<span class=hint>(組長)</span>, 謝佳穎</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36632'>組員</a></span></td>
+</tr>
+<tr id=t1_tr14 class=row2  onmouseover='_lstMouseOver("t1", 14)' onmouseout='_lstMouseOut("t1", 14)'>
+	<td class=td  align=center>15</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36633'>第 16 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳磊恩<span class=hint>(組長)</span>, 吳岱儒</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36633'>組員</a></span></td>
+</tr>
+<tr id=t1_tr15 class=row  onmouseover='_lstMouseOver("t1", 15)' onmouseout='_lstMouseOut("t1", 15)'>
+	<td class=td  align=center>16</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36634'>第 15 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>蔡宗勳<span class=hint>(組長)</span>, 廖敏君</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36634'>組員</a></span></td>
+</tr>
+<tr id=t1_tr16 class=row2  onmouseover='_lstMouseOver("t1", 16)' onmouseout='_lstMouseOut("t1", 16)'>
+	<td class=td  align=center>17</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36635'>第 17 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>張宜蓁<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36635'>組員</a></span></td>
+</tr>
+<tr id=t1_tr17 class=row  onmouseover='_lstMouseOver("t1", 17)' onmouseout='_lstMouseOut("t1", 17)'>
+	<td class=td  align=center>18</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36636'>第 18 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>張露文<span class=hint>(組長)</span>, 余洪楓</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36636'>組員</a></span></td>
+</tr>
+<tr id=t1_tr18 class=row2  onmouseover='_lstMouseOver("t1", 18)' onmouseout='_lstMouseOut("t1", 18)'>
+	<td class=td  align=center>19</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36637'>第 19 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>袁銓嶽<span class=hint>(組長)</span>, 廖卉馨</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36637'>組員</a></span></td>
+</tr>
+<tr id=t1_tr19 class=row  onmouseover='_lstMouseOver("t1", 19)' onmouseout='_lstMouseOut("t1", 19)'>
+	<td class=td  align=center>20</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36638'>第 20 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>賴明毅<span class=hint>(組長)</span>, 林哲嘉</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36638'>組員</a></span></td>
+</tr>
+<tr id=t1_tr20 class=row2  onmouseover='_lstMouseOver("t1", 20)' onmouseout='_lstMouseOut("t1", 20)'>
+	<td class=td  align=center>21</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36639'>第 21 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳元捷<span class=hint>(組長)</span>, 謝達永</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36639'>組員</a></span></td>
+</tr>
+<tr id=t1_tr21 class=row  onmouseover='_lstMouseOver("t1", 21)' onmouseout='_lstMouseOut("t1", 21)'>
+	<td class=td  align=center>22</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36640'>第 22 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>楊竣傑<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36640'>組員</a></span></td>
+</tr>
+<tr id=t1_tr22 class=row2  onmouseover='_lstMouseOver("t1", 22)' onmouseout='_lstMouseOut("t1", 22)'>
+	<td class=td  align=center>23</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36641'>第 23 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>藍雍淵<span class=hint>(組長)</span>, 林燁馳</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36641'>組員</a></span></td>
+</tr>
+<tr id=t1_tr23 class=row  onmouseover='_lstMouseOver("t1", 23)' onmouseout='_lstMouseOut("t1", 23)'>
+	<td class=td  align=center>24</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36642'>第 24 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>葉哲欣<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36642'>組員</a></span></td>
+</tr>
+<tr id=t1_tr24 class=row2  onmouseover='_lstMouseOver("t1", 24)' onmouseout='_lstMouseOut("t1", 24)'>
+	<td class=td  align=center>25</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36643'>第 25 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳奕儒<span class=hint>(組長)</span>, 鄭書&#20227;</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36643'>組員</a></span></td>
+</tr>
+<tr id=t1_tr25 class=row  onmouseover='_lstMouseOver("t1", 25)' onmouseout='_lstMouseOut("t1", 25)'>
+	<td class=td  align=center>26</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36644'>第 26 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>方志強<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36644'>組員</a></span></td>
+</tr>
+<tr id=t1_tr26 class=row2  onmouseover='_lstMouseOver("t1", 26)' onmouseout='_lstMouseOut("t1", 26)'>
+	<td class=td  align=center>27</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36645'>第 27 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>林佳縈<span class=hint>(組長)</span>, 藍詩雅</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36645'>組員</a></span></td>
+</tr>
+<tr id=t1_tr27 class=row  onmouseover='_lstMouseOver("t1", 27)' onmouseout='_lstMouseOut("t1", 27)'>
+	<td class=td  align=center>28</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36646'>第 28 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36646'>組員</a></span></td>
+</tr>
+<tr id=t1_tr28 class=row2  onmouseover='_lstMouseOver("t1", 28)' onmouseout='_lstMouseOut("t1", 28)'>
+	<td class=td  align=center>29</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36647'>第 29 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>王鳳鐸<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36647'>組員</a></span></td>
+</tr>
+<tr id=t1_tr29 class=row  onmouseover='_lstMouseOver("t1", 29)' onmouseout='_lstMouseOut("t1", 29)'>
+	<td class=td  align=center>30</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36648'>第 30 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>王子文<span class=hint>(組長)</span>, 黃文遠</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36648'>組員</a></span></td>
+</tr>
+<tr id=t1_tr30 class=row2  onmouseover='_lstMouseOver("t1", 30)' onmouseout='_lstMouseOut("t1", 30)'>
+	<td class=td  align=center>31</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36649'>第 31 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>粘鈞泰<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36649'>組員</a></span></td>
+</tr>
+<tr id=t1_tr31 class=row  onmouseover='_lstMouseOver("t1", 31)' onmouseout='_lstMouseOut("t1", 31)'>
+	<td class=td  align=center>32</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36650'>第 32 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>葉正航<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36650'>組員</a></span></td>
+</tr>
+<tr id=t1_tr32 class=row2  onmouseover='_lstMouseOver("t1", 32)' onmouseout='_lstMouseOut("t1", 32)'>
+	<td class=td  align=center>33</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36651'>第 33 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>王楷翔<span class=hint>(組長)</span>, 曹家誠</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36651'>組員</a></span></td>
+</tr>
+<tr id=t1_tr33 class=row  onmouseover='_lstMouseOver("t1", 33)' onmouseout='_lstMouseOut("t1", 33)'>
+	<td class=td  align=center>34</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36652'>第 34 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>翁愷廷<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36652'>組員</a></span></td>
+</tr>
+<tr id=t1_tr34 class=row2  onmouseover='_lstMouseOver("t1", 34)' onmouseout='_lstMouseOut("t1", 34)'>
+	<td class=td  align=center>35</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=36653'>第 35 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>陳泓仁<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=36653'>組員</a></span></td>
+</tr>
+<tr id=t1_tr35 class=row  onmouseover='_lstMouseOver("t1", 35)' onmouseout='_lstMouseOut("t1", 35)'>
+	<td class=td  align=center>36</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=37131'>第 36 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>周聖諺<span class=hint>(組長)</span>, 嚴中璟</td>
+	<td class=td width=35 align=center>2</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=37131'>組員</a></span></td>
+</tr>
+<tr id=t1_tr36 class=row2  onmouseover='_lstMouseOver("t1", 36)' onmouseout='_lstMouseOut("t1", 36)'>
+	<td class=td  align=center>37</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=37132'>第 37 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>顧翔予<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=37132'>組員</a></span></td>
+</tr>
+<tr id=t1_tr37 class=row  onmouseover='_lstMouseOver("t1", 37)' onmouseout='_lstMouseOut("t1", 37)'>
+	<td class=td  align=center>38</td>
+	<td class=td  align=left><a href='/course.php?courseID=46274&f=team_forumlist&teamID=37133'>第 38 組</a> <img src='/sys/res/icon/lock.gif' title='不開放觀摩'></td>
+	<td class=td width=300 align=left>許力仁<span class=hint>(組長)</span></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=130 align=center><span class=hint><a href='/course.php?courseID=46274&f=team_memberlist&teamID=37133'>組員</a></span></td>
+</tr>
+
+            <script>
+            tid = "t1";
+            tid = tid.substr(1);
+            tblChk[tid] = new Array();
+            tblChk[tid][0] = 0;
+tblChk[tid][1] = 0;
+tblChk[tid][2] = 0;
+tblChk[tid][3] = 0;
+tblChk[tid][4] = 0;
+tblChk[tid][5] = 0;
+tblChk[tid][6] = 0;
+tblChk[tid][7] = 0;
+tblChk[tid][8] = 0;
+tblChk[tid][9] = 0;
+tblChk[tid][10] = 0;
+tblChk[tid][11] = 0;
+tblChk[tid][12] = 0;
+tblChk[tid][13] = 0;
+tblChk[tid][14] = 0;
+tblChk[tid][15] = 0;
+tblChk[tid][16] = 0;
+tblChk[tid][17] = 0;
+tblChk[tid][18] = 0;
+tblChk[tid][19] = 0;
+tblChk[tid][20] = 0;
+tblChk[tid][21] = 0;
+tblChk[tid][22] = 0;
+tblChk[tid][23] = 0;
+tblChk[tid][24] = 0;
+tblChk[tid][25] = 0;
+tblChk[tid][26] = 0;
+tblChk[tid][27] = 0;
+tblChk[tid][28] = 0;
+tblChk[tid][29] = 0;
+tblChk[tid][30] = 0;
+tblChk[tid][31] = 0;
+tblChk[tid][32] = 0;
+tblChk[tid][33] = 0;
+tblChk[tid][34] = 0;
+tblChk[tid][35] = 0;
+tblChk[tid][36] = 0;
+tblChk[tid][37] = 0;
+</script></table></div>
+<div>* 表示我所屬的小組</div><script>
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function add()
+    {
+        $showModal('重新分組', '/course/group/insert.php?courseID=46274', 750, 370, onFinish);
+    }
+    function addHW()
+    {
+        $showModal('新增作業', '/course/hw_insert.php?courseID=46274&groupID=30698', 785, 530, onFinish);
+    }
+    function editHW(id)
+    {
+        $showModal('編輯', '/course/hw_edit.php?id=' + id + '&groupID=30698' , 785, 480, onFinish);
+    }
+
+    function delHW(id)
+    {
+        $showModal('刪除', '/course/hw_delete.php?id=' + id, 350, 200, onFinish);
+    }
+    function addTeam()
+    {
+        $showModal('新增組別', '/course/group/team_insert.php?groupID=30698', 750, 200, onFinish);
+    }
+    function editTeam(teamID)
+    {
+        $showModal('編輯', '/course/group/team_edit.php?teamID=' + teamID, 750, 360, onFinish);
+    }
+    function delTeam(teamID)
+    {
+        $showModal('刪除分組', '/course/group/team_delete.php?teamID=' + teamID, 380, 280, onFinish);
+    }
+    function joinTeam(teamID)
+    {
+        $showModal('加入分組', '/course/group/team_join.php?teamID=' + teamID, 380, 280, onFinish);
+    }
+    function editGroup()
+    {
+        $showModal('設定', '/course/group/edit.php?groupID=30698', 750, 360, onFinish);
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

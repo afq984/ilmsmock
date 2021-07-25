@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>平行程式Parallel Programming - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>290</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 40596;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=40596&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/40596'">平行程式Parallel Programming</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"40596", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=40596&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=40596", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=40596", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=40596", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=40596", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:1081 時間:2019-09-01 ~ 2020-01-19'>1081 <span class=hint>(2019-09-01~2020-01-19)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=40596&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=40596&f=doclist'>上課教材</a> <span class=hint>(13)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=40596&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=40596&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=40596&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=40596&f=forumlist'>討論區</a> <span class=hint>(55)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=40596&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=40596&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=40596&f=hwlist'>作業</a> <span class=hint><span class=hint>(12)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=40596&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=40596&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='HW3 (01-16)' href='/course.php?courseID=40596&f=forum&tid=261927'>re: HW3</a> <span class=hint>(01-16)</span></div><div class=boxItem><a title='HW3 (01-16)' href='/course.php?courseID=40596&f=forum&tid=261926'>HW3</a> <span class=hint>(01-16)</span></div><div class=boxItem><a title='不能 srun - QOSMaxGRESMinutesPerJob (12-29)' href='/course.php?courseID=40596&f=forum&tid=258543'>re: 不能 srun - QOSMaxGRESMinutesPerJob</a> <span class=hint>(12-29)</span></div><div class=boxItem><a title='無法srun (12-28)' href='/course.php?courseID=40596&f=forum&tid=258409'>re: 無法srun</a> <span class=hint>(12-28)</span></div><div class=boxItem><a title='工作站問題 (12-28)' href='/course.php?courseID=40596&f=forum&tid=258403'>re: 工作站問題</a> <span class=hint>(12-28)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=40596&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 19998</div>
+                <div>文章: 663</div>
+                <div>討論: 55</div>
+                <div>容量: 剩餘 <b>2.6 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 周志遠</div>
+                
+                <div style='white-space:normal'>助教: 王宇正 , &nbsp;尤立宇 , &nbsp;許耿瑞</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                
+            <div class=infoPath>
+                位置: <a href='/course.php?courseID=40596'>平行程式Parallel Programming</a> &gt;
+                <a href='/course.php?courseID=40596&f=hwlist'>作業</a> &gt;
+                <a href='/course.php?courseID=40596&f=hw&hw=201015'>HW3: All-Pairs Shortest Path (CPU)</a>  &gt;
+                <span class=curr>已交名單</span>
+            </div>
+            <div style='float:left' class=toolWrapper><a href='/course.php?courseID=40596&f=hw&hw=201015'>作業資訊</a>&nbsp; | &nbsp;<span style='font-weight:bold; color:red'>已交名單</span><span class=hint>(47)</span> <span class='small redfont'>(本作業不開放觀摩)</span></div>
+            <div style='float:right'></div>
+            <div class=clear></div>
+        
+        <script>
+        var _lstLastClick = "";
+        var tid = "t1";
+        tid = tid.substr(1);
+        var tblChk = new Array();
+        
+function _lstMouseOver(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = "rowOver";
+}
+
+function _lstMouseOut(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = (id % 2) ? 'row': 'row2' ;
+
+    var ctrl = document.getElementById(tblID + "_item" + id);
+    if (ctrl && ctrl.checked)
+    {
+        document.getElementById(tblID + "_tr" + id).className = "selected";
+        return;
+    }
+}
+
+function _lstSetItem(tblID, id, bChecked)
+{
+    var ctrl;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.value == id)
+        {
+            ctrl.checked = bChecked;
+            break;
+        }
+    }
+    _lstItemOnClick(event, tblID);
+}
+
+function _lstGetItem(tblID, delim)
+{
+    var ret = "";
+    var tid = tblID.substr(1);
+    var ctrl;
+    delim = delim || "#";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (tblChk[tid][i] == 1) ret = (ret == "") ? ctrl.value : ret + delim + ctrl.value;
+    }
+    return ret;
+}
+
+function _lstItemOnClick(aEvent, tblID)
+{
+    // process shift multi-selection control, follows Gmail behavior
+    var e = (aEvent) ? aEvent : window.event;
+
+    //var e = window.event;
+    if (navigator.userAgent.indexOf("MSIE") != -1)
+        var currClick = e.srcElement.id;
+    else
+        var currClick = e.target.id;
+
+    var end = parseInt(currClick.substr(currClick.lastIndexOf("item") + 4), 10);
+    var bChecked = document.getElementById(currClick).checked;
+    var tid = tblID.substr(1);
+    if (bChecked)
+    {
+            tblChk[tid][end] = 1;
+            document.getElementById(tblID + "_tr" + end).className = "selected";
+    }
+    else
+    {
+            tblChk[tid][end] = 0;
+            document.getElementById(tblID + "_tr" + end).className = (end % 2) ? "row" : "row2";
+    }
+
+
+    tblChk[tid][end] = (bChecked) ? 1 : 0;
+
+    if (e.shiftKey && _lstLastClick)
+    {
+        var start = parseInt(_lstLastClick.substr(_lstLastClick.lastIndexOf("item") + 4), 10);
+
+        if (start > end)
+        {
+            var tmp = end;
+            end = start;
+            start = tmp;
+        }
+
+        for (i=start; i<=end; i++)
+        {
+                    if (document.getElementById(tblID + "_item" + i).disabled) continue;
+
+                    document.getElementById(tblID + "_item" + i).checked = bChecked;
+
+                    if (bChecked)
+                    {
+                            tblChk[tid][i] = 1;
+                            document.getElementById(tblID + "_tr" + i).className = "selected";
+                    }
+                    else
+                    {
+                            tblChk[tid][i] = 0;
+                            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+                    }
+        }
+    }
+
+    _lstLastClick = currClick;
+
+    var val = true;
+    for (i=0; i< tblChk[tid].length ; i++)
+    {
+            if (tblChk[tid][i] == 0)
+            {
+                val = false;
+                break;
+            }
+    }
+
+    ctrl = document.getElementById(tblID + "_itemall");
+    if (ctrl) ctrl.checked = val;
+}
+
+function _lstCheckAllOnClick(tblID)
+{
+    var val = document.getElementById(tblID + "_itemall").checked;
+    var tid = tblID.substr(1);
+    var ctrl;
+    var tblChkVal = (val) ? 1 : 0;
+    var rowClass = "";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.disabled) continue;
+        ctrl.checked = val;
+        tblChk[tid][i] = tblChkVal;
+        rowClass = (i % 2) ? "row" : "row2";
+        document.getElementById(tblID + "_tr" + i).className = (val) ? "selected" : rowClass;
+    }
+}
+function _lstCheckClearAll(tblID)
+{
+    var tid = tblID.substr(1);
+    var ctrl;
+    document.getElementById(tblID + "_itemall").checked = 0 ;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (!tblChk[tid][i])
+        {
+            ctrl.checked = 0;
+            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+        }
+        else
+        {
+            ctrl.checked = "checked";
+            document.getElementById(tblID + "_tr" + i).className = "selected";
+        }
+    }
+}
+</script><div class=tableBox><table class=table id=t1>
+<tr class=header>
+	<td width=50 class=td align=center><a href='/course.php?courseID=40596&f=hw_doclist&hw=201015&status=4&order=id&precedence=ASC' title='排序方式:  編號'>編號</a></td>
+	<td  class=td align=center><a href='/course.php?courseID=40596&f=hw_doclist&hw=201015&status=4&order=title&precedence=ASC' title='排序方式:  標題'>標題</a></td>
+	<td width=65 class=td align=center><a href='/course.php?courseID=40596&f=hw_doclist&hw=201015&status=4&order=name&precedence=ASC' title='排序方式:  姓名'>姓名</a></td>
+	<td width=35 class=td align=center><a href='/course.php?courseID=40596&f=hw_doclist&hw=201015&status=4&order=comments&precedence=ASC' title='排序方式:  討論'>討論</a></td>
+	<td width=85 class=td align=center><a href='/course.php?courseID=40596&f=hw_doclist&hw=201015&status=4&order=postTime&precedence=ASC' title='排序方式:  更新時間'>繳交時間</a></td>
+</tr>
+<tr id=t1_tr0 class=row2  onmouseover='_lstMouseOver("t1", 0)' onmouseout='_lstMouseOut("t1", 0)'>
+	<td class=td width=50 align=center>2139828</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107064518吳秉翰    </div></td>
+	<td class=td width=65 align=center><div class=hidden>吳秉翰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 12:59:12'>11-25 12:59</span></td>
+</tr>
+<tr id=t1_tr1 class=row  onmouseover='_lstMouseOver("t1", 1)' onmouseout='_lstMouseOut("t1", 1)'>
+	<td class=td width=50 align=center>2139851</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062806_hw3    </div></td>
+	<td class=td width=65 align=center><div class=hidden>余孟勳</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 12:45:56'>11-25 12:45</span></td>
+</tr>
+<tr id=t1_tr2 class=row2  onmouseover='_lstMouseOver("t1", 2)' onmouseout='_lstMouseOut("t1", 2)'>
+	<td class=td width=50 align=center>2139842</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062632_謝宗佐    </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝宗佐</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 12:34:32'>11-25 12:34</span></td>
+</tr>
+<tr id=t1_tr3 class=row  onmouseover='_lstMouseOver("t1", 3)' onmouseout='_lstMouseOut("t1", 3)'>
+	<td class=td width=50 align=center>2139835</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106060008_陳煜翔    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳煜翔</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 12:27:18'>11-25 12:27</span></td>
+</tr>
+<tr id=t1_tr4 class=row2  onmouseover='_lstMouseOver("t1", 4)' onmouseout='_lstMouseOut("t1", 4)'>
+	<td class=td width=50 align=center>2139821</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062651_龔威勤    </div></td>
+	<td class=td width=65 align=center><div class=hidden>龔威勤</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 12:10:39'>11-25 12:10</span></td>
+</tr>
+<tr id=t1_tr5 class=row  onmouseover='_lstMouseOver("t1", 5)' onmouseout='_lstMouseOut("t1", 5)'>
+	<td class=td width=50 align=center>2139803</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108065531_蔡旻翰    </div></td>
+	<td class=td width=65 align=center><div class=hidden>蔡旻翰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 11:42:14'>11-25 11:42</span></td>
+</tr>
+<tr id=t1_tr6 class=row2  onmouseover='_lstMouseOver("t1", 6)' onmouseout='_lstMouseOut("t1", 6)'>
+	<td class=td width=50 align=center>2139789</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062527_陳韋諭    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳韋諭</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 11:34:32'>11-25 11:34</span></td>
+</tr>
+<tr id=t1_tr7 class=row  onmouseover='_lstMouseOver("t1", 7)' onmouseout='_lstMouseOut("t1", 7)'>
+	<td class=td width=50 align=center>2139658</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108033578_蕭晼妤    </div></td>
+	<td class=td width=65 align=center><div class=hidden>蕭晼妤</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 09:37:38'>11-25 09:37</span></td>
+</tr>
+<tr id=t1_tr8 class=row2  onmouseover='_lstMouseOver("t1", 8)' onmouseout='_lstMouseOut("t1", 8)'>
+	<td class=td width=50 align=center>2139653</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105062234_張景翔    </div></td>
+	<td class=td width=65 align=center><div class=hidden>張景翔</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 09:33:14'>11-25 09:33</span></td>
+</tr>
+<tr id=t1_tr9 class=row  onmouseover='_lstMouseOver("t1", 9)' onmouseout='_lstMouseOut("t1", 9)'>
+	<td class=td width=50 align=center>2139643</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105062329 林原慶    </div></td>
+	<td class=td width=65 align=center><div class=hidden>林原慶</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 09:33:06'>11-25 09:33</span></td>
+</tr>
+<tr id=t1_tr10 class=row2  onmouseover='_lstMouseOver("t1", 10)' onmouseout='_lstMouseOut("t1", 10)'>
+	<td class=td width=50 align=center>2139620</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062140李泓燁    </div></td>
+	<td class=td width=65 align=center><div class=hidden>李泓燁</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 08:36:16'>11-25 08:36</span></td>
+</tr>
+<tr id=t1_tr11 class=row  onmouseover='_lstMouseOver("t1", 11)' onmouseout='_lstMouseOut("t1", 11)'>
+	<td class=td width=50 align=center>2139603</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062203    </div></td>
+	<td class=td width=65 align=center><div class=hidden>孫偉芳</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 08:01:49'>11-25 08:01</span></td>
+</tr>
+<tr id=t1_tr12 class=row2  onmouseover='_lstMouseOver("t1", 12)' onmouseout='_lstMouseOut("t1", 12)'>
+	<td class=td width=50 align=center>2139583</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105062118_周裕閔    </div></td>
+	<td class=td width=65 align=center><div class=hidden>周裕閔</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 06:11:21'>11-25 06:11</span></td>
+</tr>
+<tr id=t1_tr13 class=row  onmouseover='_lstMouseOver("t1", 13)' onmouseout='_lstMouseOut("t1", 13)'>
+	<td class=td width=50 align=center>2139579</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062606_楊孟軒    </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊孟軒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 05:54:43'>11-25 05:54</span></td>
+</tr>
+<tr id=t1_tr14 class=row2  onmouseover='_lstMouseOver("t1", 14)' onmouseout='_lstMouseOut("t1", 14)'>
+	<td class=td width=50 align=center>2139573</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062226_陳品蓉    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳品蓉</div></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=85 align=center><span title='2019-11-25 04:40:58'>11-25 04:40</span></td>
+</tr>
+<tr id=t1_tr15 class=row  onmouseover='_lstMouseOver("t1", 15)' onmouseout='_lstMouseOut("t1", 15)'>
+	<td class=td width=50 align=center>2139571</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062556_嚴心平    </div></td>
+	<td class=td width=65 align=center><div class=hidden>嚴心平</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 04:24:41'>11-25 04:24</span></td>
+</tr>
+<tr id=t1_tr16 class=row2  onmouseover='_lstMouseOver("t1", 16)' onmouseout='_lstMouseOut("t1", 16)'>
+	<td class=td width=50 align=center>2139558</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105062228_陳楓翔    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳楓翔</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 03:17:07'>11-25 03:17</span></td>
+</tr>
+<tr id=t1_tr17 class=row  onmouseover='_lstMouseOver("t1", 17)' onmouseout='_lstMouseOut("t1", 17)'>
+	<td class=td width=50 align=center>2139556</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062703_阮郁善    </div></td>
+	<td class=td width=65 align=center><div class=hidden>阮郁善</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 03:16:06'>11-25 03:16</span></td>
+</tr>
+<tr id=t1_tr18 class=row2  onmouseover='_lstMouseOver("t1", 18)' onmouseout='_lstMouseOut("t1", 18)'>
+	<td class=td width=50 align=center>2139532</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062557_張言鴻    </div></td>
+	<td class=td width=65 align=center><div class=hidden>張言鴻</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 02:19:04'>11-25 02:19</span></td>
+</tr>
+<tr id=t1_tr19 class=row  onmouseover='_lstMouseOver("t1", 19)' onmouseout='_lstMouseOut("t1", 19)'>
+	<td class=td width=50 align=center>2139515</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105060010    </div></td>
+	<td class=td width=65 align=center><div class=hidden>李含鴻</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 02:02:43'>11-25 02:02</span></td>
+</tr>
+<tr id=t1_tr20 class=row2  onmouseover='_lstMouseOver("t1", 20)' onmouseout='_lstMouseOut("t1", 20)'>
+	<td class=td width=50 align=center>2139505</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062655_羅中廷    </div></td>
+	<td class=td width=65 align=center><div class=hidden>羅中廷</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 01:55:03'>11-25 01:55</span></td>
+</tr>
+<tr id=t1_tr21 class=row  onmouseover='_lstMouseOver("t1", 21)' onmouseout='_lstMouseOut("t1", 21)'>
+	<td class=td width=50 align=center>2139453</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062603_鍾旻修    </div></td>
+	<td class=td width=65 align=center><div class=hidden>鍾旻修</div></td>
+	<td class=td width=35 align=center>1</td>
+	<td class=td width=85 align=center><span title='2019-11-25 01:26:21'>11-25 01:26</span></td>
+</tr>
+<tr id=t1_tr22 class=row2  onmouseover='_lstMouseOver("t1", 22)' onmouseout='_lstMouseOut("t1", 22)'>
+	<td class=td width=50 align=center>2139402</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108065505_陳姵珮    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳姵珮</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 00:52:25'>11-25 00:52</span></td>
+</tr>
+<tr id=t1_tr23 class=row  onmouseover='_lstMouseOver("t1", 23)' onmouseout='_lstMouseOut("t1", 23)'>
+	<td class=td width=50 align=center>2139331</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105060016_謝承儒    </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝承儒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-25 00:10:30'>11-25 00:10</span></td>
+</tr>
+<tr id=t1_tr24 class=row2  onmouseover='_lstMouseOver("t1", 24)' onmouseout='_lstMouseOut("t1", 24)'>
+	<td class=td width=50 align=center>2139294</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062625_甯國勛    </div></td>
+	<td class=td width=65 align=center><div class=hidden>甯國勛</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 23:56:35'>11-24 23:56</span></td>
+</tr>
+<tr id=t1_tr25 class=row  onmouseover='_lstMouseOver("t1", 25)' onmouseout='_lstMouseOut("t1", 25)'>
+	<td class=td width=50 align=center>2139291</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062605_呂宸漢    </div></td>
+	<td class=td width=65 align=center><div class=hidden>呂宸漢</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 23:56:08'>11-24 23:56</span></td>
+</tr>
+<tr id=t1_tr26 class=row2  onmouseover='_lstMouseOver("t1", 26)' onmouseout='_lstMouseOut("t1", 26)'>
+	<td class=td width=50 align=center>2139275</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062561_趙振廷    </div></td>
+	<td class=td width=65 align=center><div class=hidden>趙振廷</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 23:54:04'>11-24 23:54</span></td>
+</tr>
+<tr id=t1_tr27 class=row  onmouseover='_lstMouseOver("t1", 27)' onmouseout='_lstMouseOut("t1", 27)'>
+	<td class=td width=50 align=center>2139207</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062132_趙仰生    </div></td>
+	<td class=td width=65 align=center><div class=hidden>趙仰生</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 23:39:13'>11-24 23:39</span></td>
+</tr>
+<tr id=t1_tr28 class=row2  onmouseover='_lstMouseOver("t1", 28)' onmouseout='_lstMouseOut("t1", 28)'>
+	<td class=td width=50 align=center>2139205</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107065528_徐嘉駿    </div></td>
+	<td class=td width=65 align=center><div class=hidden>徐嘉駿</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 23:38:55'>11-24 23:38</span></td>
+</tr>
+<tr id=t1_tr29 class=row  onmouseover='_lstMouseOver("t1", 29)' onmouseout='_lstMouseOut("t1", 29)'>
+	<td class=td width=50 align=center>2139073</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106060009_游智鈞    </div></td>
+	<td class=td width=65 align=center><div class=hidden>游智鈞</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 22:55:18'>11-24 22:55</span></td>
+</tr>
+<tr id=t1_tr30 class=row2  onmouseover='_lstMouseOver("t1", 30)' onmouseout='_lstMouseOut("t1", 30)'>
+	<td class=td width=50 align=center>2138982</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062560_張嘉軒    </div></td>
+	<td class=td width=65 align=center><div class=hidden>張嘉軒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 22:24:00'>11-24 22:24</span></td>
+</tr>
+<tr id=t1_tr31 class=row  onmouseover='_lstMouseOver("t1", 31)' onmouseout='_lstMouseOut("t1", 31)'>
+	<td class=td width=50 align=center>2138906</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062546_楊仲愷    </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊仲愷</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 21:53:45'>11-24 21:53</span></td>
+</tr>
+<tr id=t1_tr32 class=row2  onmouseover='_lstMouseOver("t1", 32)' onmouseout='_lstMouseOut("t1", 32)'>
+	<td class=td width=50 align=center>2138883</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062618_許琇筑    </div></td>
+	<td class=td width=65 align=center><div class=hidden>許琇筑</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 21:44:30'>11-24 21:44</span></td>
+</tr>
+<tr id=t1_tr33 class=row  onmouseover='_lstMouseOver("t1", 33)' onmouseout='_lstMouseOut("t1", 33)'>
+	<td class=td width=50 align=center>2138867</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> report    </div></td>
+	<td class=td width=65 align=center><div class=hidden>蔡承祐</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 21:38:40'>11-24 21:38</span></td>
+</tr>
+<tr id=t1_tr34 class=row2  onmouseover='_lstMouseOver("t1", 34)' onmouseout='_lstMouseOut("t1", 34)'>
+	<td class=td width=50 align=center>2138756</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062646_林奕丞    </div></td>
+	<td class=td width=65 align=center><div class=hidden>林奕丞</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 20:51:06'>11-24 20:51</span></td>
+</tr>
+<tr id=t1_tr35 class=row  onmouseover='_lstMouseOver("t1", 35)' onmouseout='_lstMouseOut("t1", 35)'>
+	<td class=td width=50 align=center>2138718</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108033581_羅偲云    </div></td>
+	<td class=td width=65 align=center><div class=hidden>羅偲云</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 20:27:02'>11-24 20:27</span></td>
+</tr>
+<tr id=t1_tr36 class=row2  onmouseover='_lstMouseOver("t1", 36)' onmouseout='_lstMouseOut("t1", 36)'>
+	<td class=td width=50 align=center>2138418</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062594_蔡俊彥    </div></td>
+	<td class=td width=65 align=center><div class=hidden>蔡俊彥</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 20:11:52'>11-24 20:11</span></td>
+</tr>
+<tr id=t1_tr37 class=row  onmouseover='_lstMouseOver("t1", 37)' onmouseout='_lstMouseOut("t1", 37)'>
+	<td class=td width=50 align=center>2138672</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107061517_張簡崇堯    </div></td>
+	<td class=td width=65 align=center><div class=hidden>張簡崇堯</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 19:56:56'>11-24 19:56</span></td>
+</tr>
+<tr id=t1_tr38 class=row2  onmouseover='_lstMouseOver("t1", 38)' onmouseout='_lstMouseOut("t1", 38)'>
+	<td class=td width=50 align=center>2138623</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062520    </div></td>
+	<td class=td width=65 align=center><div class=hidden>鄧晉杰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 19:31:02'>11-24 19:31</span></td>
+</tr>
+<tr id=t1_tr39 class=row  onmouseover='_lstMouseOver("t1", 39)' onmouseout='_lstMouseOut("t1", 39)'>
+	<td class=td width=50 align=center>2138316</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 106062331_李沛穎    </div></td>
+	<td class=td width=65 align=center><div class=hidden>李沛穎</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 18:36:28'>11-24 18:36</span></td>
+</tr>
+<tr id=t1_tr40 class=row2  onmouseover='_lstMouseOver("t1", 40)' onmouseout='_lstMouseOut("t1", 40)'>
+	<td class=td width=50 align=center>2138463</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062511_林煜峰    </div></td>
+	<td class=td width=65 align=center><div class=hidden>林煜峰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 17:13:34'>11-24 17:13</span></td>
+</tr>
+<tr id=t1_tr41 class=row  onmouseover='_lstMouseOver("t1", 41)' onmouseout='_lstMouseOut("t1", 41)'>
+	<td class=td width=50 align=center>2138291</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062654_朱偉緒    </div></td>
+	<td class=td width=65 align=center><div class=hidden>朱偉緒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 15:16:50'>11-24 15:16</span></td>
+</tr>
+<tr id=t1_tr42 class=row2  onmouseover='_lstMouseOver("t1", 42)' onmouseout='_lstMouseOut("t1", 42)'>
+	<td class=td width=50 align=center>2138214</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107061529_賴柏辰    </div></td>
+	<td class=td width=65 align=center><div class=hidden>賴柏辰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 14:26:01'>11-24 14:26</span></td>
+</tr>
+<tr id=t1_tr43 class=row  onmouseover='_lstMouseOver("t1", 43)' onmouseout='_lstMouseOut("t1", 43)'>
+	<td class=td width=50 align=center>2138192</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107061594_陳頌仁    </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳頌仁</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 14:11:05'>11-24 14:11</span></td>
+</tr>
+<tr id=t1_tr44 class=row2  onmouseover='_lstMouseOver("t1", 44)' onmouseout='_lstMouseOut("t1", 44)'>
+	<td class=td width=50 align=center>2138176</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 105061114_蕭瑤    </div></td>
+	<td class=td width=65 align=center><div class=hidden>蕭  瑤</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 13:56:49'>11-24 13:56</span></td>
+</tr>
+<tr id=t1_tr45 class=row  onmouseover='_lstMouseOver("t1", 45)' onmouseout='_lstMouseOut("t1", 45)'>
+	<td class=td width=50 align=center>2137881</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 107062535_羅士恩    </div></td>
+	<td class=td width=65 align=center><div class=hidden>羅士恩</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-24 00:54:03'>11-24 00:54</span></td>
+</tr>
+<tr id=t1_tr46 class=row2  onmouseover='_lstMouseOver("t1", 46)' onmouseout='_lstMouseOut("t1", 46)'>
+	<td class=td width=50 align=center>2137608</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> 108062633_石育瑋    </div></td>
+	<td class=td width=65 align=center><div class=hidden>石育瑋</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2019-11-23 21:57:20'>11-23 21:57</span></td>
+</tr>
+
+            <script>
+            tid = "t1";
+            tid = tid.substr(1);
+            tblChk[tid] = new Array();
+            tblChk[tid][0] = 0;
+tblChk[tid][1] = 0;
+tblChk[tid][2] = 0;
+tblChk[tid][3] = 0;
+tblChk[tid][4] = 0;
+tblChk[tid][5] = 0;
+tblChk[tid][6] = 0;
+tblChk[tid][7] = 0;
+tblChk[tid][8] = 0;
+tblChk[tid][9] = 0;
+tblChk[tid][10] = 0;
+tblChk[tid][11] = 0;
+tblChk[tid][12] = 0;
+tblChk[tid][13] = 0;
+tblChk[tid][14] = 0;
+tblChk[tid][15] = 0;
+tblChk[tid][16] = 0;
+tblChk[tid][17] = 0;
+tblChk[tid][18] = 0;
+tblChk[tid][19] = 0;
+tblChk[tid][20] = 0;
+tblChk[tid][21] = 0;
+tblChk[tid][22] = 0;
+tblChk[tid][23] = 0;
+tblChk[tid][24] = 0;
+tblChk[tid][25] = 0;
+tblChk[tid][26] = 0;
+tblChk[tid][27] = 0;
+tblChk[tid][28] = 0;
+tblChk[tid][29] = 0;
+tblChk[tid][30] = 0;
+tblChk[tid][31] = 0;
+tblChk[tid][32] = 0;
+tblChk[tid][33] = 0;
+tblChk[tid][34] = 0;
+tblChk[tid][35] = 0;
+tblChk[tid][36] = 0;
+tblChk[tid][37] = 0;
+tblChk[tid][38] = 0;
+tblChk[tid][39] = 0;
+tblChk[tid][40] = 0;
+tblChk[tid][41] = 0;
+tblChk[tid][42] = 0;
+tblChk[tid][43] = 0;
+tblChk[tid][44] = 0;
+tblChk[tid][45] = 0;
+tblChk[tid][46] = 0;
+</script></table></div>
+<span class=hint>繳交時間若為紅色表示遲交</span><script>
+    var editID = "";
+    var editValue = "";
+    var editFinished = 0;
+    var stmp = "";
+    var uid = "";
+
+    function changeFilter()
+    {
+        var status = $V("fmStatus");
+        window.location.href = "/course.php?courseID=40596&f=hw_doclist&hw=201015&status=" + status;
+    }
+    function key(e)
+    {
+        var evt = (window.event)   ? event : e;
+        var key = (evt.charCode)   ? evt.charCode : evt.keyCode;
+
+        if (key == 13) editScoreFinish();
+        if (key == 27) editCancel();
+    }
+    function editCancel()
+    {
+        $(editID).innerHTML = editValue;
+        editID = editValue = "";
+        $(uid+"txt").style.display = "none";
+        $(uid+"link").style.display = "inline";
+    }
+    function editScore(id)
+    {
+        editFinished = 0;
+        if (editID != "") return;
+        editID = id;
+        editValue = $(id).innerHTML;
+        stmp = editID.split("s");
+        uid = stmp[0];
+        $(uid+"link").style.display = "none";
+        $(uid+"txt").style.display = "inline";
+        $(uid+"txt").innerHTML = "<input id='"+uid+"fmScore' onkeypress='key(event)' onblur='editScoreFinish()' onfocus='this.select()' type=text maxlength=10 value='" + editValue + "' style='border:0px; width:40px; height:14px; font-size:12px; text-align:center'>";
+        $(uid+"fmScore").focus();
+    }
+    function editScoreFinish()
+    {
+        if (editFinished) return; editFinished = 1;
+        var tmp = editID.split("_");
+        var id = tmp[1];
+        var score = $V(uid+"fmScore");
+        if (score == editValue || score == ""){ editCancel(); return; }
+        if (!$isNum(score)) 
+        {
+                alert(score + " - 成績輸入錯誤，請輸入數字!!"); 
+                $(uid+"fmScore").value = ""; 
+                $(uid+"fmScore").focus(); 
+                editFinished = 0; 
+                return;
+        }
+
+
+        var obj = $syncload('/course/http_hw_score.php', {id:id, score:score});
+        if (obj)
+        {
+            if (obj.ret.status == "true")
+            {
+                $(editID).innerHTML = score;
+                editID = editValue = "";
+                $(uid+"txt").style.display = "none";
+                $(uid+"link").style.display = "inline";
+                $("status" + id).innerHTML = "已評分";
+            }
+            else
+            {
+                alert(obj.ret.msg);
+                editCancel();
+            }
+        }
+        else
+        {
+            alert("update error!");
+            editCancel();
+        }
+    }
+
+    function editGroupScore(teamID)
+    {
+        $showModal('評分', '/course/hw_group_score.php?courseID=40596&folderID=201015&teamID=' + teamID, 400, 500, onFinish);
+    }
+
+    function addDoc()
+    {
+        // teacher at [student mode]
+        if ("0" == 1)
+        {
+            alert("您現在處於學生的瀏覽模式，並非正式學生，所以無法交作業");
+            return;
+        }
+
+        if (0)
+        {
+            if (confirm('該作業已有繳交記錄，是否要編輯作業內容?')) $showModal('修改作業', '/course/doc_edit.php?id=', 800, 510, onFinish);
+        }
+        else
+            $showModal('交作業', '/course/doc_insert.php?folderID=201015', 800, 510, onFinish);
+    }
+
+    function btnCallback(id)
+    {
+        if (id == 1)
+        {
+            hw_zip();
+        }
+    }
+    function mnuCallback(mnuID, itemID)
+    {
+        if (mnuID == 2)
+        {
+            if (itemID == 0)
+                hw_open(1);
+            else
+                hw_open(0);
+        }
+    }
+    function hw_zip()
+    {
+        var docIDs =  _lstGetItem('t1', ",");;
+        if (docIDs == '')
+        {
+            alert('請選取至少一筆資料');
+            return;
+        }
+
+        var sbody  = "<div style='height: 150px'><iframe id=if frameborder=0 width=100% height=100%></iframe></div>";
+        var browserScreen = $getBrowserSize();
+        var left = (browserScreen.width - 220) / 2;
+        var top  = (browserScreen.height - 180) / 2 + m_scrollTop();
+        $showPopup("下載", sbody, left, top, 220);
+        $("if").src = "/course/hw_zip.php?id=201015&docIDs=" + docIDs;
+    }
+
+    function hw_open(openFlag)
+    {
+        var docIDs =  _lstGetItem('t1', ",");;
+        if (docIDs == '')
+        {
+            alert('請選取至少一筆資料');
+            return;
+        }
+
+        var obj = $syncload("/course/http_hw_open.php", {courseID:40596, ids:docIDs, openFlag:openFlag});
+        if (!obj)
+        {
+            alert('ajax load error!');
+            return;
+        }
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+
+        alert(obj.ret.msg);
+        $reload();
+    }
+
+    function onFinish()
+    {
+        window.location.reload();
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="國立清華大學 iLMS數位學習平台" />
+	<title>國立清華大學 iLMS數位學習平台</title>
+	<style>@import URL("/sys/style/dom.css");</style>
+	<style>@import URL("/sysdata/index/1/themes/1/style.css");</style>
+	<style>@import URL("/sys/style/form.css");</style>
+	<style>@import URL('/sys/style/highslide.css');</style>	
+	<script src='/sys/lib/js/dom.js'></script>
+	<script src='/sys/lib/js/lib.js'></script>
+	<script src='/lib/js/calendar.js'></script>
+	<script src='/sys/lib/js/active_control.js'></script>
+	<script src='/sys/lib/js/charts.js'></script>
+	<script src='/sys/lib/js/jquery.js'></script>
+	<script src='/sys/lib/js/highslide-with-html.js'></script>
+	<script>
+		var sysconf = {"domain":"lms.nthu.edu.tw","ssl_login":0},
+			gRedirectHome = false;
+			
+		function init()
+		{
+		    $("loginAccount").focus();
+		}
+		
+		var res = {
+            noaccount:  '請輸入: 帳號',
+            nopassword: '請輸入: 密碼',
+            noseccode:  '請輸入: 校驗碼'
+        };  
+		
+		var checkSecCode;		
+        checkSecCode = true;
+	</script>
+	<script type="text/javascript" src='/lib/js/login.js'></script>
+	<style>
+        .loginWrapper {
+        	text-align:center;
+        	background: #FFC;
+        	border:1px solid #e4e4da;
+        	padding: 10px 0px 10px 0px;
+        	width: 300px;
+        }
+	</style>
+</head>
+<body onload='init()'> 
+	<div id=base>
+    	<input id='backUrl' type='hidden' value="http://lms.nthu.edu.tw/home.php">		
+    	<div style='margin:100px 0px 0px 0px; text-align:center;'><img src='/sysdata/index/1/logo.jpg'></div>
+    			<div style='width:300px; height:300px; margin:30px auto 0; text-align:center'>
+        			<div class="loginWrapper">
+        				<div style='width:200px; margin:0 auto;'>
+        					<div style='text-align:right'>帳號 <input id=loginAccount type=text style='width:125px' size=16 onkeypress='m_loginEnter(event)'></div>
+        					<div style='text-align:right;'>密碼 <input id=loginPasswd type=password size=16 style='width:125px' autocomplete='off' onkeypress='m_loginEnter(event)'></div>
+        					<div style='text-align:right;'><img id=secCode src="/sys/lib/class/csecimg.php?width=80&height=26&characters=4&rk=1767830677"> <a href='#' onclick="document.getElementById('secCode').src='/sys/lib/class/csecimg.php?width=80&height=26&characters=4&rk='+Math.random();"><img src='/sys/res/icon/reconvert.png' border=0 title='看不清楚，重新載入校驗碼'></a> 校驗碼: <input type=text id=loginSecCode name=loginSecCode size=2 maxlength=4 value='' class=Text onkeypress='m_loginEnter(event)'></div>
+        					<div style='text-align:right;'><input id=chk type=checkbox> 記住我的登入資訊<br><a href='/password_forgot.php'>忘記密碼</a></div>
+        					<div style='padding:10px 0 0 0'>
+        						<input onclick='m_loginSubmit()' type=button value='確定'>
+        						<input onclick='history.back()' type=button value='返回'>    						
+        						<span id=loginwait></span>
+        					</div>        					
+        				</div>        				
+        				<fieldset style='text-align:left; font-size:12px; border:1px solid #e4e4da;; margin: 10px'>
+                     <legend style='margin-top:20px'>登入說明</legend>
+                     <div style='margin: 5px 5px 5px 5px; line-height: 1.5;'><span style='color: red; font-size:13px; font-weight:bold'>入侵他人帳號<br>重者會觸犯刑法<br>妨害電腦使用罪</span></div>
+                     </fieldset>        				
+        			</div>        			
+    		    </div>       
+	</div>
+</body>
+</html>

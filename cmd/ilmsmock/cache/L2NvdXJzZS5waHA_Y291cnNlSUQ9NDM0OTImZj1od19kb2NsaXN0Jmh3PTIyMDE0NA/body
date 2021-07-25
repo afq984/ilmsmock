@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>雲端計算Cloud Computing - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>297</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 43492;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=43492&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/43492'">雲端計算Cloud Computing</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"43492", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=43492&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=43492", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=43492", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=43492", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=43492", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:1082 時間:2020-01-20 ~ 2020-07-31'>1082 <span class=hint>(2020-01-20~2020-07-31)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=43492&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=43492&f=doclist'>上課教材</a> <span class=hint>(10)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=43492&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=43492&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=43492&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=43492&f=forumlist'>討論區</a> <span class=hint>(118)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=43492&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=43492&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=43492&f=hwlist'>作業</a> <span class=hint><span class=hint>(8)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=43492&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=43492&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='eval.py (06-18)' href='/course.php?courseID=43492&f=forum&tid=291482'>re: eval.py</a> <span class=hint>(06-18)</span></div><div class=boxItem><a title='pruning.py 執行錯誤 (06-18)' href='/course.php?courseID=43492&f=forum&tid=291628'>re: pruning.py 執行錯誤</a> <span class=hint>(06-18)</span></div><div class=boxItem><a title='model pruning frequency (06-17)' href='/course.php?courseID=43492&f=forum&tid=292030'>re: model pruning frequency</a> <span class=hint>(06-17)</span></div><div class=boxItem><a title='Make a table to compare tflite file’s size and val_acc (original, FP16 and dynamic range) (06-17)' href='/course.php?courseID=43492&f=forum&tid=291923'>re: Make a table to compare tflite file’s size and val_acc (original, FP16 and dynamic range)</a> <span class=hint>(06-17)</span></div><div class=boxItem><a title='HW3 pruning original (06-14)' href='/course.php?courseID=43492&f=forum&tid=291240'>re: HW3 pruning original</a> <span class=hint>(06-14)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=43492&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 10880</div>
+                <div>文章: 575</div>
+                <div>討論: 118</div>
+                <div>容量: 剩餘 <b>1.8 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 李哲榮</div>
+                
+                <div style='white-space:normal'>助教: 謝冠賢</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                
+            <div class=infoPath>
+                位置: <a href='/course.php?courseID=43492'>雲端計算Cloud Computing</a> &gt;
+                <a href='/course.php?courseID=43492&f=hwlist'>作業</a> &gt;
+                <a href='/course.php?courseID=43492&f=hw&hw=220144'>Slides for paper presentation</a>  &gt;
+                <span class=curr>已交名單</span>
+            </div>
+            <div style='float:left' class=toolWrapper><a href='/course.php?courseID=43492&f=hw&hw=220144'>作業資訊</a>&nbsp; | &nbsp;<span style='font-weight:bold; color:red'>已交名單</span><span class=hint>(69)</span> </div>
+            <div style='float:right'></div>
+            <div class=clear></div>
+        
+        <script>
+        var _lstLastClick = "";
+        var tid = "t1";
+        tid = tid.substr(1);
+        var tblChk = new Array();
+        
+function _lstMouseOver(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = "rowOver";
+}
+
+function _lstMouseOut(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = (id % 2) ? 'row': 'row2' ;
+
+    var ctrl = document.getElementById(tblID + "_item" + id);
+    if (ctrl && ctrl.checked)
+    {
+        document.getElementById(tblID + "_tr" + id).className = "selected";
+        return;
+    }
+}
+
+function _lstSetItem(tblID, id, bChecked)
+{
+    var ctrl;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.value == id)
+        {
+            ctrl.checked = bChecked;
+            break;
+        }
+    }
+    _lstItemOnClick(event, tblID);
+}
+
+function _lstGetItem(tblID, delim)
+{
+    var ret = "";
+    var tid = tblID.substr(1);
+    var ctrl;
+    delim = delim || "#";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (tblChk[tid][i] == 1) ret = (ret == "") ? ctrl.value : ret + delim + ctrl.value;
+    }
+    return ret;
+}
+
+function _lstItemOnClick(aEvent, tblID)
+{
+    // process shift multi-selection control, follows Gmail behavior
+    var e = (aEvent) ? aEvent : window.event;
+
+    //var e = window.event;
+    if (navigator.userAgent.indexOf("MSIE") != -1)
+        var currClick = e.srcElement.id;
+    else
+        var currClick = e.target.id;
+
+    var end = parseInt(currClick.substr(currClick.lastIndexOf("item") + 4), 10);
+    var bChecked = document.getElementById(currClick).checked;
+    var tid = tblID.substr(1);
+    if (bChecked)
+    {
+            tblChk[tid][end] = 1;
+            document.getElementById(tblID + "_tr" + end).className = "selected";
+    }
+    else
+    {
+            tblChk[tid][end] = 0;
+            document.getElementById(tblID + "_tr" + end).className = (end % 2) ? "row" : "row2";
+    }
+
+
+    tblChk[tid][end] = (bChecked) ? 1 : 0;
+
+    if (e.shiftKey && _lstLastClick)
+    {
+        var start = parseInt(_lstLastClick.substr(_lstLastClick.lastIndexOf("item") + 4), 10);
+
+        if (start > end)
+        {
+            var tmp = end;
+            end = start;
+            start = tmp;
+        }
+
+        for (i=start; i<=end; i++)
+        {
+                    if (document.getElementById(tblID + "_item" + i).disabled) continue;
+
+                    document.getElementById(tblID + "_item" + i).checked = bChecked;
+
+                    if (bChecked)
+                    {
+                            tblChk[tid][i] = 1;
+                            document.getElementById(tblID + "_tr" + i).className = "selected";
+                    }
+                    else
+                    {
+                            tblChk[tid][i] = 0;
+                            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+                    }
+        }
+    }
+
+    _lstLastClick = currClick;
+
+    var val = true;
+    for (i=0; i< tblChk[tid].length ; i++)
+    {
+            if (tblChk[tid][i] == 0)
+            {
+                val = false;
+                break;
+            }
+    }
+
+    ctrl = document.getElementById(tblID + "_itemall");
+    if (ctrl) ctrl.checked = val;
+}
+
+function _lstCheckAllOnClick(tblID)
+{
+    var val = document.getElementById(tblID + "_itemall").checked;
+    var tid = tblID.substr(1);
+    var ctrl;
+    var tblChkVal = (val) ? 1 : 0;
+    var rowClass = "";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.disabled) continue;
+        ctrl.checked = val;
+        tblChk[tid][i] = tblChkVal;
+        rowClass = (i % 2) ? "row" : "row2";
+        document.getElementById(tblID + "_tr" + i).className = (val) ? "selected" : rowClass;
+    }
+}
+function _lstCheckClearAll(tblID)
+{
+    var tid = tblID.substr(1);
+    var ctrl;
+    document.getElementById(tblID + "_itemall").checked = 0 ;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (!tblChk[tid][i])
+        {
+            ctrl.checked = 0;
+            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+        }
+        else
+        {
+            ctrl.checked = "checked";
+            document.getElementById(tblID + "_tr" + i).className = "selected";
+        }
+    }
+}
+</script><div class=tableBox><table class=table id=t1>
+<tr class=header>
+	<td width=50 class=td align=center><a href='/course.php?courseID=43492&f=hw_doclist&hw=220144&status=4&order=id&precedence=ASC' title='排序方式:  編號'>編號</a></td>
+	<td  class=td align=center><a href='/course.php?courseID=43492&f=hw_doclist&hw=220144&status=4&order=title&precedence=ASC' title='排序方式:  標題'>標題</a></td>
+	<td width=65 class=td align=center><a href='/course.php?courseID=43492&f=hw_doclist&hw=220144&status=4&order=name&precedence=ASC' title='排序方式:  姓名'>姓名</a></td>
+	<td width=35 class=td align=center><a href='/course.php?courseID=43492&f=hw_doclist&hw=220144&status=4&order=comments&precedence=ASC' title='排序方式:  討論'>討論</a></td>
+	<td width=85 class=td align=center><a href='/course.php?courseID=43492&f=hw_doclist&hw=220144&status=4&order=postTime&precedence=ASC' title='排序方式:  更新時間'>繳交時間</a></td>
+</tr>
+<tr id=t1_tr0 class=row2  onmouseover='_lstMouseOver("t1", 0)' onmouseout='_lstMouseOut("t1", 0)'>
+	<td class=td width=50 align=center>2534923</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2534923'>Paper Assignment</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>顧翔予</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-07-06 07:51:33' class='redfont bold'>07-06 07:51</span></td>
+</tr>
+<tr id=t1_tr1 class=row  onmouseover='_lstMouseOver("t1", 1)' onmouseout='_lstMouseOut("t1", 1)'>
+	<td class=td width=50 align=center>2508071</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2508071'>Paper Assignment</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>李杰倫</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 17:14:15'>06-18 17:14</span></td>
+</tr>
+<tr id=t1_tr2 class=row2  onmouseover='_lstMouseOver("t1", 2)' onmouseout='_lstMouseOut("t1", 2)'>
+	<td class=td width=50 align=center>2508026</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2508026'>Paper Assignment</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>郭皓文</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 16:57:37'>06-18 16:57</span></td>
+</tr>
+<tr id=t1_tr3 class=row  onmouseover='_lstMouseOver("t1", 3)' onmouseout='_lstMouseOut("t1", 3)'>
+	<td class=td width=50 align=center>2507975</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507975'>Paper Assignment</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>盧允凡</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 16:41:04'>06-18 16:41</span></td>
+</tr>
+<tr id=t1_tr4 class=row2  onmouseover='_lstMouseOver("t1", 4)' onmouseout='_lstMouseOut("t1", 4)'>
+	<td class=td width=50 align=center>2507577</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507577'>108134505</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>丁  寧</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 14:29:02'>06-18 14:29</span></td>
+</tr>
+<tr id=t1_tr5 class=row  onmouseover='_lstMouseOver("t1", 5)' onmouseout='_lstMouseOut("t1", 5)'>
+	<td class=td width=50 align=center>2507472</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507472'>108064532</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>莊安琦</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 14:02:49'>06-18 14:02</span></td>
+</tr>
+<tr id=t1_tr6 class=row2  onmouseover='_lstMouseOver("t1", 6)' onmouseout='_lstMouseOut("t1", 6)'>
+	<td class=td width=50 align=center>2507599</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507599'>Paper Assignment</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>蕭子謦</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 13:38:28'>06-18 13:38</span></td>
+</tr>
+<tr id=t1_tr7 class=row  onmouseover='_lstMouseOver("t1", 7)' onmouseout='_lstMouseOut("t1", 7)'>
+	<td class=td width=50 align=center>2507595</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507595'>107062625</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>甯國勛</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 13:37:21'>06-18 13:37</span></td>
+</tr>
+<tr id=t1_tr8 class=row2  onmouseover='_lstMouseOver("t1", 8)' onmouseout='_lstMouseOut("t1", 8)'>
+	<td class=td width=50 align=center>2506608</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2506608'>108062586</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊子儀</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 13:32:45'>06-18 13:32</span></td>
+</tr>
+<tr id=t1_tr9 class=row  onmouseover='_lstMouseOver("t1", 9)' onmouseout='_lstMouseOut("t1", 9)'>
+	<td class=td width=50 align=center>2505832</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2505832'>108065536</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>鄭可寯</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 12:54:40'>06-18 12:54</span></td>
+</tr>
+<tr id=t1_tr10 class=row2  onmouseover='_lstMouseOver("t1", 10)' onmouseout='_lstMouseOut("t1", 10)'>
+	<td class=td width=50 align=center>2507502</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507502'>107065710</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>寶戴麗</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 12:41:16'>06-18 12:41</span></td>
+</tr>
+<tr id=t1_tr11 class=row  onmouseover='_lstMouseOver("t1", 11)' onmouseout='_lstMouseOut("t1", 11)'>
+	<td class=td width=50 align=center>2507454</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507454'>108062602</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>官家妤</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 12:31:10'>06-18 12:31</span></td>
+</tr>
+<tr id=t1_tr12 class=row2  onmouseover='_lstMouseOver("t1", 12)' onmouseout='_lstMouseOut("t1", 12)'>
+	<td class=td width=50 align=center>2507449</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507449'>107062655</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>羅中廷</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 12:14:52'>06-18 12:14</span></td>
+</tr>
+<tr id=t1_tr13 class=row  onmouseover='_lstMouseOver("t1", 13)' onmouseout='_lstMouseOut("t1", 13)'>
+	<td class=td width=50 align=center>2507215</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2507215'>108064531</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>張柏毅</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 11:18:50'>06-18 11:18</span></td>
+</tr>
+<tr id=t1_tr14 class=row2  onmouseover='_lstMouseOver("t1", 14)' onmouseout='_lstMouseOut("t1", 14)'>
+	<td class=td width=50 align=center>2506535</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2506535'>106062527</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>孔啟熙</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 03:17:14'>06-18 03:17</span></td>
+</tr>
+<tr id=t1_tr15 class=row  onmouseover='_lstMouseOver("t1", 15)' onmouseout='_lstMouseOut("t1", 15)'>
+	<td class=td width=50 align=center>2506362</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2506362'>108064529</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>張正一</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-18 01:02:01'>06-18 01:02</span></td>
+</tr>
+<tr id=t1_tr16 class=row2  onmouseover='_lstMouseOver("t1", 16)' onmouseout='_lstMouseOut("t1", 16)'>
+	<td class=td width=50 align=center>2505617</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2505617'>108064551</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>簡瑜成</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-17 21:17:55'>06-17 21:17</span></td>
+</tr>
+<tr id=t1_tr17 class=row  onmouseover='_lstMouseOver("t1", 17)' onmouseout='_lstMouseOut("t1", 17)'>
+	<td class=td width=50 align=center>2469927</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469927'>108062567</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>沈冠霖</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-17 00:31:46'>06-17 00:31</span></td>
+</tr>
+<tr id=t1_tr18 class=row2  onmouseover='_lstMouseOver("t1", 18)' onmouseout='_lstMouseOut("t1", 18)'>
+	<td class=td width=50 align=center>2503034</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2503034'>108065702</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>洪欣茹</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-16 22:49:40'>06-16 22:49</span></td>
+</tr>
+<tr id=t1_tr19 class=row  onmouseover='_lstMouseOver("t1", 19)' onmouseout='_lstMouseOut("t1", 19)'>
+	<td class=td width=50 align=center>2501358</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2501358'>107061521 107061604 107065507 108061532 108061535</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳奕仁</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-16 13:50:38'>06-16 13:50</span></td>
+</tr>
+<tr id=t1_tr20 class=row2  onmouseover='_lstMouseOver("t1", 20)' onmouseout='_lstMouseOut("t1", 20)'>
+	<td class=td width=50 align=center>2501092</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2501092'>108062597</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>劉敬遠</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-16 12:01:04'>06-16 12:01</span></td>
+</tr>
+<tr id=t1_tr21 class=row  onmouseover='_lstMouseOver("t1", 21)' onmouseout='_lstMouseOut("t1", 21)'>
+	<td class=td width=50 align=center>2499061</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2499061'>105062118</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>周裕閔</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-15 19:32:27'>06-15 19:32</span></td>
+</tr>
+<tr id=t1_tr22 class=row2  onmouseover='_lstMouseOver("t1", 22)' onmouseout='_lstMouseOut("t1", 22)'>
+	<td class=td width=50 align=center>2498785</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2498785'>108065467</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>張家成</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-15 17:11:47'>06-15 17:11</span></td>
+</tr>
+<tr id=t1_tr23 class=row  onmouseover='_lstMouseOver("t1", 23)' onmouseout='_lstMouseOut("t1", 23)'>
+	<td class=td width=50 align=center>2476165</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2476165'>108062702</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>鐘偉豪</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-15 17:00:31'>06-15 17:00</span></td>
+</tr>
+<tr id=t1_tr24 class=row2  onmouseover='_lstMouseOver("t1", 24)' onmouseout='_lstMouseOut("t1", 24)'>
+	<td class=td width=50 align=center>2491008</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2491008'>108061532</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>劉宗岳</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-12 13:51:19'>06-12 13:51</span></td>
+</tr>
+<tr id=t1_tr25 class=row  onmouseover='_lstMouseOver("t1", 25)' onmouseout='_lstMouseOut("t1", 25)'>
+	<td class=td width=50 align=center>2489397</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2489397'>107064528</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝秉翰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 17:04:47'>06-11 17:04</span></td>
+</tr>
+<tr id=t1_tr26 class=row2  onmouseover='_lstMouseOver("t1", 26)' onmouseout='_lstMouseOut("t1", 26)'>
+	<td class=td width=50 align=center>2487094</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2487094'>108062655</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>林憶萱</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 16:24:20'>06-11 16:24</span></td>
+</tr>
+<tr id=t1_tr27 class=row  onmouseover='_lstMouseOver("t1", 27)' onmouseout='_lstMouseOut("t1", 27)'>
+	<td class=td width=50 align=center>2489159</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2489159'>105066802</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝憲毅</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 15:45:45'>06-11 15:45</span></td>
+</tr>
+<tr id=t1_tr28 class=row2  onmouseover='_lstMouseOver("t1", 28)' onmouseout='_lstMouseOut("t1", 28)'>
+	<td class=td width=50 align=center>2488953</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2488953'>108064524</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>俞柏同</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 14:53:06'>06-11 14:53</span></td>
+</tr>
+<tr id=t1_tr29 class=row  onmouseover='_lstMouseOver("t1", 29)' onmouseout='_lstMouseOut("t1", 29)'>
+	<td class=td width=50 align=center>2486291</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486291'>108164510</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳楹豐</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 13:43:37'>06-11 13:43</span></td>
+</tr>
+<tr id=t1_tr30 class=row2  onmouseover='_lstMouseOver("t1", 30)' onmouseout='_lstMouseOut("t1", 30)'>
+	<td class=td width=50 align=center>2488519</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2488519'>108164508</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>葉奇軒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 13:34:48'>06-11 13:34</span></td>
+</tr>
+<tr id=t1_tr31 class=row  onmouseover='_lstMouseOver("t1", 31)' onmouseout='_lstMouseOut("t1", 31)'>
+	<td class=td width=50 align=center>2488708</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2488708'>108062632</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝宗佐</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 13:03:09'>06-11 13:03</span></td>
+</tr>
+<tr id=t1_tr32 class=row2  onmouseover='_lstMouseOver("t1", 32)' onmouseout='_lstMouseOut("t1", 32)'>
+	<td class=td width=50 align=center>2485655</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2485655'>108062518</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>郭俊甫</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 13:02:49'>06-11 13:02</span></td>
+</tr>
+<tr id=t1_tr33 class=row  onmouseover='_lstMouseOver("t1", 33)' onmouseout='_lstMouseOut("t1", 33)'>
+	<td class=td width=50 align=center>2488676</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2488676'>106061209</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>廖宏儒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 12:52:11'>06-11 12:52</span></td>
+</tr>
+<tr id=t1_tr34 class=row2  onmouseover='_lstMouseOver("t1", 34)' onmouseout='_lstMouseOut("t1", 34)'>
+	<td class=td width=50 align=center>2488496</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2488496'>106061101</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>曾泓硯</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 12:06:03'>06-11 12:06</span></td>
+</tr>
+<tr id=t1_tr35 class=row  onmouseover='_lstMouseOver("t1", 35)' onmouseout='_lstMouseOut("t1", 35)'>
+	<td class=td width=50 align=center>2487021</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2487021'>105062140</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳建愷</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-11 11:28:56'>06-11 11:28</span></td>
+</tr>
+<tr id=t1_tr36 class=row2  onmouseover='_lstMouseOver("t1", 36)' onmouseout='_lstMouseOut("t1", 36)'>
+	<td class=td width=50 align=center>2486552</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486552'>106062301</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>林意清</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 22:57:21'>06-10 22:57</span></td>
+</tr>
+<tr id=t1_tr37 class=row  onmouseover='_lstMouseOver("t1", 37)' onmouseout='_lstMouseOut("t1", 37)'>
+	<td class=td width=50 align=center>2486497</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486497'>107062560 105061114</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>蕭  瑤</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 22:52:41'>06-10 22:52</span></td>
+</tr>
+<tr id=t1_tr38 class=row2  onmouseover='_lstMouseOver("t1", 38)' onmouseout='_lstMouseOut("t1", 38)'>
+	<td class=td width=50 align=center>2486499</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486499'>106060023</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>李佳璋</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 22:43:46'>06-10 22:43</span></td>
+</tr>
+<tr id=t1_tr39 class=row  onmouseover='_lstMouseOver("t1", 39)' onmouseout='_lstMouseOut("t1", 39)'>
+	<td class=td width=50 align=center>2486445</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486445'>108164501</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>王暐皓</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 22:35:53'>06-10 22:35</span></td>
+</tr>
+<tr id=t1_tr40 class=row2  onmouseover='_lstMouseOver("t1", 40)' onmouseout='_lstMouseOut("t1", 40)'>
+	<td class=td width=50 align=center>2486073</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2486073'>105062223</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>王聿欣</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 20:30:05'>06-10 20:30</span></td>
+</tr>
+<tr id=t1_tr41 class=row  onmouseover='_lstMouseOver("t1", 41)' onmouseout='_lstMouseOut("t1", 41)'>
+	<td class=td width=50 align=center>2485811</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2485811'>107065808</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊政新</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-10 18:18:54'>06-10 18:18</span></td>
+</tr>
+<tr id=t1_tr42 class=row2  onmouseover='_lstMouseOver("t1", 42)' onmouseout='_lstMouseOut("t1", 42)'>
+	<td class=td width=50 align=center>2479366</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2479366'>108061527</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>成家聲</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-08 23:06:09'>06-08 23:06</span></td>
+</tr>
+<tr id=t1_tr43 class=row  onmouseover='_lstMouseOver("t1", 43)' onmouseout='_lstMouseOut("t1", 43)'>
+	<td class=td width=50 align=center>2475698</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2475698'>108062514</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>黃騰陞</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-07 15:39:21'>06-07 15:39</span></td>
+</tr>
+<tr id=t1_tr44 class=row2  onmouseover='_lstMouseOver("t1", 44)' onmouseout='_lstMouseOut("t1", 44)'>
+	<td class=td width=50 align=center>2475349</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2475349'>108061558</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>丁文謙</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-07 09:46:50'>06-07 09:46</span></td>
+</tr>
+<tr id=t1_tr45 class=row  onmouseover='_lstMouseOver("t1", 45)' onmouseout='_lstMouseOut("t1", 45)'>
+	<td class=td width=50 align=center>2475268</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2475268'>108061519</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳泓仁</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-07 03:51:35'>06-07 03:51</span></td>
+</tr>
+<tr id=t1_tr46 class=row2  onmouseover='_lstMouseOver("t1", 46)' onmouseout='_lstMouseOut("t1", 46)'>
+	<td class=td width=50 align=center>2474481</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2474481'>105062321</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳弘欣</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-06 19:11:12'>06-06 19:11</span></td>
+</tr>
+<tr id=t1_tr47 class=row  onmouseover='_lstMouseOver("t1", 47)' onmouseout='_lstMouseOut("t1", 47)'>
+	<td class=td width=50 align=center>2469656</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469656'>108062575</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>蔡承祐</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-05 11:54:20'>06-05 11:54</span></td>
+</tr>
+<tr id=t1_tr48 class=row2  onmouseover='_lstMouseOver("t1", 48)' onmouseout='_lstMouseOut("t1", 48)'>
+	<td class=td width=50 align=center>2461109</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2461109'>108065506</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>馬若芸</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 23:17:55'>06-04 23:17</span></td>
+</tr>
+<tr id=t1_tr49 class=row  onmouseover='_lstMouseOver("t1", 49)' onmouseout='_lstMouseOut("t1", 49)'>
+	<td class=td width=50 align=center>2469922</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469922'>106060016</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>史康一</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 21:35:25'>06-04 21:35</span></td>
+</tr>
+<tr id=t1_tr50 class=row2  onmouseover='_lstMouseOver("t1", 50)' onmouseout='_lstMouseOut("t1", 50)'>
+	<td class=td width=50 align=center>2468655</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2468655'>106033211</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>余孟旂</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 18:27:59'>06-04 18:27</span></td>
+</tr>
+<tr id=t1_tr51 class=row  onmouseover='_lstMouseOver("t1", 51)' onmouseout='_lstMouseOut("t1", 51)'>
+	<td class=td width=50 align=center>2469783</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469783'>108061613</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>黃雅琳</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 16:10:38'>06-04 16:10</span></td>
+</tr>
+<tr id=t1_tr52 class=row2  onmouseover='_lstMouseOver("t1", 52)' onmouseout='_lstMouseOut("t1", 52)'>
+	<td class=td width=50 align=center>2469954</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469954'>108026506</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>吳宜謙</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 16:08:11'>06-04 16:08</span></td>
+</tr>
+<tr id=t1_tr53 class=row  onmouseover='_lstMouseOver("t1", 53)' onmouseout='_lstMouseOut("t1", 53)'>
+	<td class=td width=50 align=center>2469409</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469409'>108062570</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>紀冠名</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 15:56:22'>06-04 15:56</span></td>
+</tr>
+<tr id=t1_tr54 class=row2  onmouseover='_lstMouseOver("t1", 54)' onmouseout='_lstMouseOut("t1", 54)'>
+	<td class=td width=50 align=center>2469788</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469788'>108062637</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>馮翔荏</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 15:37:42'>06-04 15:37</span></td>
+</tr>
+<tr id=t1_tr55 class=row  onmouseover='_lstMouseOver("t1", 55)' onmouseout='_lstMouseOut("t1", 55)'>
+	<td class=td width=50 align=center>2468842</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2468842'>106060024</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>許尊霖</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 15:33:04'>06-04 15:33</span></td>
+</tr>
+<tr id=t1_tr56 class=row2  onmouseover='_lstMouseOver("t1", 56)' onmouseout='_lstMouseOut("t1", 56)'>
+	<td class=td width=50 align=center>2469938</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469938'>106060015</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>徐逢禧</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 14:55:19'>06-04 14:55</span></td>
+</tr>
+<tr id=t1_tr57 class=row  onmouseover='_lstMouseOver("t1", 57)' onmouseout='_lstMouseOut("t1", 57)'>
+	<td class=td width=50 align=center>2469473</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469473'>108062626</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>謝昌賢</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 14:26:56'>06-04 14:26</span></td>
+</tr>
+<tr id=t1_tr58 class=row2  onmouseover='_lstMouseOver("t1", 58)' onmouseout='_lstMouseOut("t1", 58)'>
+	<td class=td width=50 align=center>2469445</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469445'>106062109</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>黃中鈺</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 14:10:20'>06-04 14:10</span></td>
+</tr>
+<tr id=t1_tr59 class=row  onmouseover='_lstMouseOver("t1", 59)' onmouseout='_lstMouseOut("t1", 59)'>
+	<td class=td width=50 align=center>2469816</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469816'>108062803</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>陳志杰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 14:09:32'>06-04 14:09</span></td>
+</tr>
+<tr id=t1_tr60 class=row2  onmouseover='_lstMouseOver("t1", 60)' onmouseout='_lstMouseOut("t1", 60)'>
+	<td class=td width=50 align=center>2469781</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469781'>108033581_羅偲云</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>羅偲云</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:55:54'>06-04 13:55</span></td>
+</tr>
+<tr id=t1_tr61 class=row  onmouseover='_lstMouseOver("t1", 61)' onmouseout='_lstMouseOut("t1", 61)'>
+	<td class=td width=50 align=center>2467962</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2467962'>105060018 Slide</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>梁景勛</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:48:12'>06-04 13:48</span></td>
+</tr>
+<tr id=t1_tr62 class=row2  onmouseover='_lstMouseOver("t1", 62)' onmouseout='_lstMouseOut("t1", 62)'>
+	<td class=td width=50 align=center>2469453</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469453'>108062644</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>張立明</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:35:42'>06-04 13:35</span></td>
+</tr>
+<tr id=t1_tr63 class=row  onmouseover='_lstMouseOver("t1", 63)' onmouseout='_lstMouseOut("t1", 63)'>
+	<td class=td width=50 align=center>2469024</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469024'>108062515</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>施辰翰</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:32:46'>06-04 13:32</span></td>
+</tr>
+<tr id=t1_tr64 class=row2  onmouseover='_lstMouseOver("t1", 64)' onmouseout='_lstMouseOut("t1", 64)'>
+	<td class=td width=50 align=center>2469317</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469317'>105061129</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊詠旭</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:32:14'>06-04 13:32</span></td>
+</tr>
+<tr id=t1_tr65 class=row  onmouseover='_lstMouseOver("t1", 65)' onmouseout='_lstMouseOut("t1", 65)'>
+	<td class=td width=50 align=center>2469693</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469693'>108062641</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>沈兆恩</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 13:18:52'>06-04 13:18</span></td>
+</tr>
+<tr id=t1_tr66 class=row2  onmouseover='_lstMouseOver("t1", 66)' onmouseout='_lstMouseOut("t1", 66)'>
+	<td class=td width=50 align=center>2469630</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2469630'>108062585</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>王鳳鐸</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 12:54:55'>06-04 12:54</span></td>
+</tr>
+<tr id=t1_tr67 class=row  onmouseover='_lstMouseOver("t1", 67)' onmouseout='_lstMouseOut("t1", 67)'>
+	<td class=td width=50 align=center>2468693</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2468693'>108062606</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>楊孟軒</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-06-04 12:25:10'>06-04 12:25</span></td>
+</tr>
+<tr id=t1_tr68 class=row2  onmouseover='_lstMouseOver("t1", 68)' onmouseout='_lstMouseOut("t1", 68)'>
+	<td class=td width=50 align=center>2457738</td>
+	<td class=td  align=left><div class=Econtent style='width:99%; overflow:hidden;'> <a href='/course.php?courseID=43492&f=doc&cid=2457738'>108065511</a>     </div></td>
+	<td class=td width=65 align=center><div class=hidden>葉偉良</div></td>
+	<td class=td width=35 align=center>0</td>
+	<td class=td width=85 align=center><span title='2020-05-31 18:49:31'>05-31 18:49</span></td>
+</tr>
+
+            <script>
+            tid = "t1";
+            tid = tid.substr(1);
+            tblChk[tid] = new Array();
+            tblChk[tid][0] = 0;
+tblChk[tid][1] = 0;
+tblChk[tid][2] = 0;
+tblChk[tid][3] = 0;
+tblChk[tid][4] = 0;
+tblChk[tid][5] = 0;
+tblChk[tid][6] = 0;
+tblChk[tid][7] = 0;
+tblChk[tid][8] = 0;
+tblChk[tid][9] = 0;
+tblChk[tid][10] = 0;
+tblChk[tid][11] = 0;
+tblChk[tid][12] = 0;
+tblChk[tid][13] = 0;
+tblChk[tid][14] = 0;
+tblChk[tid][15] = 0;
+tblChk[tid][16] = 0;
+tblChk[tid][17] = 0;
+tblChk[tid][18] = 0;
+tblChk[tid][19] = 0;
+tblChk[tid][20] = 0;
+tblChk[tid][21] = 0;
+tblChk[tid][22] = 0;
+tblChk[tid][23] = 0;
+tblChk[tid][24] = 0;
+tblChk[tid][25] = 0;
+tblChk[tid][26] = 0;
+tblChk[tid][27] = 0;
+tblChk[tid][28] = 0;
+tblChk[tid][29] = 0;
+tblChk[tid][30] = 0;
+tblChk[tid][31] = 0;
+tblChk[tid][32] = 0;
+tblChk[tid][33] = 0;
+tblChk[tid][34] = 0;
+tblChk[tid][35] = 0;
+tblChk[tid][36] = 0;
+tblChk[tid][37] = 0;
+tblChk[tid][38] = 0;
+tblChk[tid][39] = 0;
+tblChk[tid][40] = 0;
+tblChk[tid][41] = 0;
+tblChk[tid][42] = 0;
+tblChk[tid][43] = 0;
+tblChk[tid][44] = 0;
+tblChk[tid][45] = 0;
+tblChk[tid][46] = 0;
+tblChk[tid][47] = 0;
+tblChk[tid][48] = 0;
+tblChk[tid][49] = 0;
+tblChk[tid][50] = 0;
+tblChk[tid][51] = 0;
+tblChk[tid][52] = 0;
+tblChk[tid][53] = 0;
+tblChk[tid][54] = 0;
+tblChk[tid][55] = 0;
+tblChk[tid][56] = 0;
+tblChk[tid][57] = 0;
+tblChk[tid][58] = 0;
+tblChk[tid][59] = 0;
+tblChk[tid][60] = 0;
+tblChk[tid][61] = 0;
+tblChk[tid][62] = 0;
+tblChk[tid][63] = 0;
+tblChk[tid][64] = 0;
+tblChk[tid][65] = 0;
+tblChk[tid][66] = 0;
+tblChk[tid][67] = 0;
+tblChk[tid][68] = 0;
+</script></table></div>
+<span class=hint>繳交時間若為紅色表示遲交</span><script>
+    var editID = "";
+    var editValue = "";
+    var editFinished = 0;
+    var stmp = "";
+    var uid = "";
+
+    function changeFilter()
+    {
+        var status = $V("fmStatus");
+        window.location.href = "/course.php?courseID=43492&f=hw_doclist&hw=220144&status=" + status;
+    }
+    function key(e)
+    {
+        var evt = (window.event)   ? event : e;
+        var key = (evt.charCode)   ? evt.charCode : evt.keyCode;
+
+        if (key == 13) editScoreFinish();
+        if (key == 27) editCancel();
+    }
+    function editCancel()
+    {
+        $(editID).innerHTML = editValue;
+        editID = editValue = "";
+        $(uid+"txt").style.display = "none";
+        $(uid+"link").style.display = "inline";
+    }
+    function editScore(id)
+    {
+        editFinished = 0;
+        if (editID != "") return;
+        editID = id;
+        editValue = $(id).innerHTML;
+        stmp = editID.split("s");
+        uid = stmp[0];
+        $(uid+"link").style.display = "none";
+        $(uid+"txt").style.display = "inline";
+        $(uid+"txt").innerHTML = "<input id='"+uid+"fmScore' onkeypress='key(event)' onblur='editScoreFinish()' onfocus='this.select()' type=text maxlength=10 value='" + editValue + "' style='border:0px; width:40px; height:14px; font-size:12px; text-align:center'>";
+        $(uid+"fmScore").focus();
+    }
+    function editScoreFinish()
+    {
+        if (editFinished) return; editFinished = 1;
+        var tmp = editID.split("_");
+        var id = tmp[1];
+        var score = $V(uid+"fmScore");
+        if (score == editValue || score == ""){ editCancel(); return; }
+        if (!$isNum(score)) 
+        {
+                alert(score + " - 成績輸入錯誤，請輸入數字!!"); 
+                $(uid+"fmScore").value = ""; 
+                $(uid+"fmScore").focus(); 
+                editFinished = 0; 
+                return;
+        }
+
+
+        var obj = $syncload('/course/http_hw_score.php', {id:id, score:score});
+        if (obj)
+        {
+            if (obj.ret.status == "true")
+            {
+                $(editID).innerHTML = score;
+                editID = editValue = "";
+                $(uid+"txt").style.display = "none";
+                $(uid+"link").style.display = "inline";
+                $("status" + id).innerHTML = "已評分";
+            }
+            else
+            {
+                alert(obj.ret.msg);
+                editCancel();
+            }
+        }
+        else
+        {
+            alert("update error!");
+            editCancel();
+        }
+    }
+
+    function editGroupScore(teamID)
+    {
+        $showModal('評分', '/course/hw_group_score.php?courseID=43492&folderID=220144&teamID=' + teamID, 400, 500, onFinish);
+    }
+
+    function addDoc()
+    {
+        // teacher at [student mode]
+        if ("0" == 1)
+        {
+            alert("您現在處於學生的瀏覽模式，並非正式學生，所以無法交作業");
+            return;
+        }
+
+        if (0)
+        {
+            if (confirm('該作業已有繳交記錄，是否要編輯作業內容?')) $showModal('修改作業', '/course/doc_edit.php?id=', 800, 510, onFinish);
+        }
+        else
+            $showModal('交作業', '/course/doc_insert.php?folderID=220144', 800, 510, onFinish);
+    }
+
+    function btnCallback(id)
+    {
+        if (id == 1)
+        {
+            hw_zip();
+        }
+    }
+    function mnuCallback(mnuID, itemID)
+    {
+        if (mnuID == 2)
+        {
+            if (itemID == 0)
+                hw_open(1);
+            else
+                hw_open(0);
+        }
+    }
+    function hw_zip()
+    {
+        var docIDs =  _lstGetItem('t1', ",");;
+        if (docIDs == '')
+        {
+            alert('請選取至少一筆資料');
+            return;
+        }
+
+        var sbody  = "<div style='height: 150px'><iframe id=if frameborder=0 width=100% height=100%></iframe></div>";
+        var browserScreen = $getBrowserSize();
+        var left = (browserScreen.width - 220) / 2;
+        var top  = (browserScreen.height - 180) / 2 + m_scrollTop();
+        $showPopup("下載", sbody, left, top, 220);
+        $("if").src = "/course/hw_zip.php?id=220144&docIDs=" + docIDs;
+    }
+
+    function hw_open(openFlag)
+    {
+        var docIDs =  _lstGetItem('t1', ",");;
+        if (docIDs == '')
+        {
+            alert('請選取至少一筆資料');
+            return;
+        }
+
+        var obj = $syncload("/course/http_hw_open.php", {courseID:43492, ids:docIDs, openFlag:openFlag});
+        if (!obj)
+        {
+            alert('ajax load error!');
+            return;
+        }
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+
+        alert(obj.ret.msg);
+        $reload();
+    }
+
+    function onFinish()
+    {
+        window.location.reload();
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

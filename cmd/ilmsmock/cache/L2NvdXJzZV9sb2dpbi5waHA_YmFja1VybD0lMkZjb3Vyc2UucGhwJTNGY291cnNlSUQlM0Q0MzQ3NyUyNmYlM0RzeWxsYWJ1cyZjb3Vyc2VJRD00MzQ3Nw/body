@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>平行計算概論Introduction to Parallel Computing - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/style/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/clist.css");</style>
+<style>@import URL("/sys/style/ctoc.css"); </style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/fbutton.css");</style>
+<style>@import URL("/sys/style/course.css");</style>
+<script src='/sys/lib/js/dom.js'></script>
+<script src='/sys/lib/js/jquery.js'></script>
+<script>
+    function init()
+	{
+	    if ($('loginAccount')) $('loginAccount').focus();
+	}
+	var checkSecCode;		
+    checkSecCode = true;</script>
+</head>
+<body align='center' onload='init()'> 
+<div id=wrapper>
+    <div id=base>
+        <div>
+            <div id=sysbar>
+    <div id=logo><a href=''><img src='/banner.gif' border=0></a></div>
+    <div id=sign>
+        <div id=login>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='javascript:window.location.href="/index.php"' id='_lms'>LMS</a>        </div>
+
+        <div style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數: <span id='counter'>240</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+</div>
+
+<script>
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=1&area=123&page=1&fmKeyword=' + k);    }
+    
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }
+
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>         </div>
+        <div id=mainbody>
+        
+                    <div id=left>
+                        <div style='color:#F00; padding-bottom:3px'>權限不足! 請先登入</div>
+                        <div class=mnu style='padding:0px;'>
+                            <div class=mnuTop><img src='/sys/res/icon/blank.gif'></div>
+                            <div class=mnuBody>
+                                <div class=mnuTitle>登入</div>
+                                <div style='text-align:right; padding:0px 0px 4px 0px'>帳號 <input id=loginAccount type=text style='width:130px' size=16 onkeypress='m_loginEnter(event)'></div>
+                                <div style='text-align:right;'>密碼 <input id=loginPasswd type=password size=16 style='width:130px' autocomplete='off' onkeypress='m_loginEnter(event)'></div>
+                                <div style='text-align:right;'><img src="/sys/lib/class/csecimg.php?width=80&height=24&characters=4"> 校驗碼: <input type=text id=loginSecCode name=loginSecCode size=2 maxlength=4 value='' class=Text onkeypress='m_loginEnter(event)'></div>
+                                <div style='text-align:right;'><input id=chk type=checkbox> 記住我的登入資訊</div>                                
+                                <div style='padding:10px 0px 0px 0px; text-align:right'>
+                                    <input type=hidden id=backUrl name=backUrl value='/course.php?courseID=43477&amp;f=syllabus'>
+                                    <span id=loginwait></span>
+                                    <input onclick='m_loginSubmit()' type=button value='確定'>  
+                                                                       
+                                </div>   
+                            </div>                            
+                            <div class=mnuBottom></div>    
+                            <fieldset style='text-align:left; font-size:12px; border:1px solid #e4e4da; margin: 10px;'>
+                                 <legend style='margin-top:20px'>登入說明</legend>
+                                 <div style='margin: 5px 5px 5px 5px; line-height: 1.5; white-space:normal'><span style='color: red; font-size:13px; font-weight:bold'>入侵他人帳號<br>重者會觸犯刑法<br>妨害電腦使用罪</span></div>
+                                 </fieldset>                      
+                      </div>
+                    </div>
+                    <div id=right><div class=infoPath>
+            位置: <a href='/course/43477'>平行計算概論Introduction to Parallel Computing</a> &gt;
+            <span class=curr>課程說明</span>
+          </div><script>
+    function editDoc(type)
+    {
+        switch (type)
+        {
+            case 1:
+                m_mgrProfile();
+                break;
+            case 2:
+                window.location.href = '/course.php?courseID=43477&f=syllabus_edit';
+                break;
+            case 3:
+                $showModal('成績欄位管理', '/course/score/mgr.php?courseID=43477', 600, 450, reload);
+                break;
+        }
+    }
+
+    function addAnchor(txt)
+    {
+        var s = 0;
+        while (1)
+        {
+            var p = txt.indexOf("http://", s);
+            if (p == -1) break;
+
+            var url = addAnchorToken(txt, p);
+            var url2 = "<a href='" + url + "'>" + url + "</a>";
+            txt = txt.substr(0, p) + url2 + txt.substr(p + url.length);
+            s = p + url2.length - 1;
+        }
+        return txt;
+    }
+
+    function addAnchorToken(str, pos)
+    {
+        var p1, p2;
+        var p1 = str.indexOf(" ", pos);
+        if (p1 > 0)
+        {
+            p2 = str.indexOf("<br>", pos);
+            if (p2 != -1 && p2 < p1) return str.substr(pos, p2 - pos);
+            else return str.substr(pos, p1 - pos);
+        }
+
+        p1 = str.indexOf("\n", pos);
+        if (p1 != -1) return str.substr(pos, p1 - pos);
+
+        return str.substr(pos);
+    }
+
+    function reload()
+    {
+        window.location.reload();
+    }
+</script>
+<div>
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>課程資訊 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>項目</td>
+                            <td class='cell header2' style='border-right:0px'>內容</td>
+                        </tr>
+                        <tr>
+                            <td class='cell col1 bg'>課程名稱</td>
+                            <td class='cell col2 bg'>平行計算概論Introduction to Parallel Computing <span class=hint>(1082, 10820CS411100, 資工系, 四年級)</span></td>
+                          </tr><tr>
+                            <td class='cell col1 '>閱讀權限</td>
+                            <td class='cell col2 '>不開放旁聽 (僅成員可以閱讀)</td>
+                          </tr><tr>
+                            <td class='cell col1 bg'>課堂整理權限</td>
+                            <td class='cell col2 bg'>不開放</td>
+                          </tr><tr>
+                            <td class='cell col1 '>老師</td>
+                            <td class='cell col2 '>李濬屹</td>
+                          </tr><tr>
+                            <td class='cell col1 bg'>助教</td>
+                            <td class='cell col2 bg'>尤立宇 , &nbsp;王宇正</td>
+                          </tr><tr>
+                            <td class='cell col1 '>學分</td>
+                            <td class='cell col2 '>3</td>
+                          </tr>
+                    </table>
+                </div>
+            </div>
+        
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>教學進度 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>進度</td>
+                            <td class='cell header2' style='border-right:0px'>內容</td>
+                        </tr>
+                        <tr>
+                        <td class='cell col1 bg'>第 1 週</td>
+                        <td class='cell col2 bg'></td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>成績計算 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>項目</td>
+                            <td class='cell header2' style='border-right:0px'>權重</td>
+                        </tr>
+                        <tr>
+                        <td class='cell col1 bg'>作業</td>
+                        <td class='cell col2 bg'>74%</td>
+                      </tr><tr>
+                        <td class='cell col1 '>Midterm</td>
+                        <td class='cell col2 '>15%</td>
+                      </tr><tr>
+                        <td class='cell col1 bg'>Final Exam</td>
+                        <td class='cell col2 bg'>15%</td>
+                      </tr><tr>
+                        <td class='cell col1 '>Final Project</td>
+                        <td class='cell col2 '>20%</td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+     <span class=blockTitle style='border:0px'>開放文件列表</span> <input type=radio id=fmMode0 name=fmMode value='0' onclick='changeFilter()' checked>全部 <input type=radio id=fmMode1 name=fmMode value='1' onclick='changeFilter()' >教材 <input type=radio id=fmMode2 name=fmMode value='2' onclick='changeFilter()' >作業
+        <script>
+        var _lstLastClick = "";
+        var tid = "t1";
+        tid = tid.substr(1);
+        var tblChk = new Array();
+        
+function _lstMouseOver(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = "rowOver";
+}
+
+function _lstMouseOut(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = (id % 2) ? 'row': 'row2' ;
+
+    var ctrl = document.getElementById(tblID + "_item" + id);
+    if (ctrl && ctrl.checked)
+    {
+        document.getElementById(tblID + "_tr" + id).className = "selected";
+        return;
+    }
+}
+
+function _lstSetItem(tblID, id, bChecked)
+{
+    var ctrl;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.value == id)
+        {
+            ctrl.checked = bChecked;
+            break;
+        }
+    }
+    _lstItemOnClick(event, tblID);
+}
+
+function _lstGetItem(tblID, delim)
+{
+    var ret = "";
+    var tid = tblID.substr(1);
+    var ctrl;
+    delim = delim || "#";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (tblChk[tid][i] == 1) ret = (ret == "") ? ctrl.value : ret + delim + ctrl.value;
+    }
+    return ret;
+}
+
+function _lstItemOnClick(aEvent, tblID)
+{
+    // process shift multi-selection control, follows Gmail behavior
+    var e = (aEvent) ? aEvent : window.event;
+
+    //var e = window.event;
+    if (navigator.userAgent.indexOf("MSIE") != -1)
+        var currClick = e.srcElement.id;
+    else
+        var currClick = e.target.id;
+
+    var end = parseInt(currClick.substr(currClick.lastIndexOf("item") + 4), 10);
+    var bChecked = document.getElementById(currClick).checked;
+    var tid = tblID.substr(1);
+    if (bChecked)
+    {
+            tblChk[tid][end] = 1;
+            document.getElementById(tblID + "_tr" + end).className = "selected";
+    }
+    else
+    {
+            tblChk[tid][end] = 0;
+            document.getElementById(tblID + "_tr" + end).className = (end % 2) ? "row" : "row2";
+    }
+
+
+    tblChk[tid][end] = (bChecked) ? 1 : 0;
+
+    if (e.shiftKey && _lstLastClick)
+    {
+        var start = parseInt(_lstLastClick.substr(_lstLastClick.lastIndexOf("item") + 4), 10);
+
+        if (start > end)
+        {
+            var tmp = end;
+            end = start;
+            start = tmp;
+        }
+
+        for (i=start; i<=end; i++)
+        {
+                    if (document.getElementById(tblID + "_item" + i).disabled) continue;
+
+                    document.getElementById(tblID + "_item" + i).checked = bChecked;
+
+                    if (bChecked)
+                    {
+                            tblChk[tid][i] = 1;
+                            document.getElementById(tblID + "_tr" + i).className = "selected";
+                    }
+                    else
+                    {
+                            tblChk[tid][i] = 0;
+                            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+                    }
+        }
+    }
+
+    _lstLastClick = currClick;
+
+    var val = true;
+    for (i=0; i< tblChk[tid].length ; i++)
+    {
+            if (tblChk[tid][i] == 0)
+            {
+                val = false;
+                break;
+            }
+    }
+
+    ctrl = document.getElementById(tblID + "_itemall");
+    if (ctrl) ctrl.checked = val;
+}
+
+function _lstCheckAllOnClick(tblID)
+{
+    var val = document.getElementById(tblID + "_itemall").checked;
+    var tid = tblID.substr(1);
+    var ctrl;
+    var tblChkVal = (val) ? 1 : 0;
+    var rowClass = "";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.disabled) continue;
+        ctrl.checked = val;
+        tblChk[tid][i] = tblChkVal;
+        rowClass = (i % 2) ? "row" : "row2";
+        document.getElementById(tblID + "_tr" + i).className = (val) ? "selected" : rowClass;
+    }
+}
+function _lstCheckClearAll(tblID)
+{
+    var tid = tblID.substr(1);
+    var ctrl;
+    document.getElementById(tblID + "_itemall").checked = 0 ;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (!tblChk[tid][i])
+        {
+            ctrl.checked = 0;
+            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+        }
+        else
+        {
+            ctrl.checked = "checked";
+            document.getElementById(tblID + "_tr" + i).className = "selected";
+        }
+    }
+}
+</script><div class=tableBox><table class=table id=t1>
+<tr class=header>
+	<td width=45 class=td align=center>編號</td>
+	<td  class=td align=center>標題</td>
+	<td width=80 class=td align=center>類別</td>
+	<td width=80 class=td align=center>發表人</td>
+	<td width=40 class=td align=center>人氣</td>
+	<td width=40 class=td align=center>討論</td>
+	<td width=90 class=td align=center>更新時間</td>
+</tr>
+
+            <script>
+            tid = "t1";
+            tid = tid.substr(1);
+            tblChk[tid] = new Array();
+            </script><tr class=row2>
+	<td class=td colspan=7 align=center>目前尚無資料</td>
+</tr>
+</table></div>
+<script>
+    function changeFilter()
+    {
+        var mode = 0;
+        var ctrls = document.getElementsByName("fmMode");
+        for (var i=0; i<ctrls.length; i++)
+        {
+            if (ctrls[i].checked)
+            {
+                mode = ctrls[i].value;
+                break;
+            }
+        }
+        window.location.href = "/course_open.php?courseID=43477&mode=" + mode;
+    }
+</script>
+                    </div>
+                    <div class=clear></div>        </div>
+
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta name="keywords" content="" />
+<meta name="description" content="國立清華大學 iLMS數位學習平台" />
+<title>國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sysdata/index/1/themes/1/style.css");</style>
+<style>@import URL("/sys/style/form.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<style>@import URL('/sys/style/cycle.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script src='/sys/lib/js/dom.js'></script>
+<script src='/sys/lib/js/lib.js'></script>
+<script src='/lib/js/calendar.js'></script>
+<script src='/sys/lib/js/active_control.js'></script>
+<script src='/sys/lib/js/charts.js'></script>
+<script src='/sys/lib/js/highslide-with-html.js'></script>
+<script src="/sys/lib/js/jquery.js"></script>
+<script src="/sys/lib/js/jquery.cycle2.min.js"></script>
+
+<script>
+    function insertBulletin()
+    {
+        $showModal('新增', '/sys/adm/bulletin_insert.php?modal=1&folderID=1', 800, 475, onCloseModal);
+    }
+    function onCloseModal()
+    {
+        if ($modalarg && $modalarg.status == "true")
+        {
+            window.location.reload();
+            return ;
+        }
+
+        $closeModal();
+    }
+    function onReload()
+    {
+        window.location.reload();
+    }
+    function init()
+    {
+        showChartList();
+    }
+    function menuPopup(src, id)
+    {
+        var display;
+        var obj = src.parentNode;
+        if (obj.getElementsByTagName('ul')[0])
+        {
+            display = obj.getElementsByTagName('ul')[0].style.display;
+            if ("1" == "1")
+            {
+                var ids = $getCookie("cookie_menu_0");
+                if (display == "block")
+                {
+                    if (ids.indexOf("," + id + ",",0) >= 0)
+                    {
+                        ids = ids.replace("," + id + ",", ",");
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+                else
+                {
+                    if (ids.indexOf("," + id + ",",0) < 0)
+                    {
+                        ids = (ids == "") ? "," + id + "," : ids + id + ",";
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+            }
+            obj.getElementsByTagName('ul')[0].style.display = (display == "block") ? "none" : "block";
+        }
+    }
+    function menuPopup2(obj, display)
+    {
+        display = (display == 1) ? "block" : "none";
+        if (obj.getElementsByTagName('ul')[0])
+            obj.getElementsByTagName('ul')[0].style.display = display;
+    }
+    function nothing(){}
+    function insertRss(id, h)
+    {
+        var obj = $("rss_body_" + id);
+        if (obj) obj.innerHTML = h;
+    }
+    function funcEdit(id)
+    {
+        $showModal('編輯', '/index/layout/func_edit.php?id=' + id + '&themeID=1&noOrder=1', 750, 350, onReload);
+    }
+    function divInit()
+    {
+        var cols = Math.floor($j("#divisionBox").width() / $j("#divisionBox .dir").width());
+        var count = $j("#divisionBox .dir").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#divisionBox .dir:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+    function statisticInit()
+    {
+        var cols = Math.floor($j("#statisticBox").width() / $j("#statisticBox .chart").width());
+        var count = $j("#statisticBox .chart").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#statisticBox .chart:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+</script>
+</head>
+
+<body onload="init();">    
+<div id=base>
+<div id=base2>
+<div id=base3>
+    <div id=sysbar>
+	<div id=sysbar2>
+	<div id=sysbar3>
+		    <div id=login>
+        <script type="text/javascript">var gRedirectHome = true;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>    </div>
+    <div id=search>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數: <span id='counter'>191</span>&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'><img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>    </div>
+    <div class=clear></div>
+
+<script>
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=1&area=251&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onCloseModal); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+
+    function m_mgrHomeMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("idxMgr", m_onIdxMgrMenuClick);
+
+        var _arg = {};
+        $mnu.m_append("首頁設定", "profile", _arg);
+        $mnu.m_append("選單管理", "menu", _arg);
+        $mnu.m_append("版面配置", "layout", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+
+        var a = $area($("idxMgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onIdxMgrMenuClick(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":     m_mgrIdxProfile(); break;
+            case "menu":        m_mgrIdxMenus(); break;
+            case "layout":      m_mgrIdxLayout(); break;
+            case "theme":       m_mgrIdxTheme(); break;
+            case "css":         m_mgrIdxCss(); break;
+        }
+    }
+    function m_mgrIdxProfile()      { $showModal("首頁設定", "/index/profile_edit.php?id=1", 750, 480, onCloseModal); }
+    function m_mgrIdxMenus()        { $showModal("選單管理", "/index/menu/menu.php?id=1", 720, 450, onReload); }
+    function m_mgrIdxLayout()       { window.location.href = "/index/layout/layout.php?id=1"}
+    function m_mgrIdxTheme()        { $showModal("套用版面樣式", "/index/theme.php?id=1", 800, 500, onCloseModal); }
+    function m_mgrIdxCss()          { $showModal("編輯樣式",   "/index/theme_edit.php?id=1", 800, 550, onCloseModal); }
+</script>  
+      </div>
+	</div>
+	</div>
+    <div id=mainBody>
+	<div id=mainBody2>
+	<div id=mainBody3>
+		<div id=banner>
+		<div id=banner2>
+		<div id=banner3>
+                <div><a href='/course/index.php'><img id=logo src='/sysdata/index/1/logo.jpg'></a></div>
+            <div style='clear:both'></div>
+                 </div>
+		</div>
+		</div>
+        <div id=content>
+		<div id=content2>
+		<div id=content3>
+            <div id=menu>
+			<div id=menu2>
+			<div id=menu3>
+				
+				<div id=mbox1>
+					<div id='textArea_153' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><div><a href="javascript:login('','','')"><img border="0" src="/blog/webhd_read_file.php?id=2956&amp;verifyCode=b0373a6c4287f291907febeb83424a29"></a></div> </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_196' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>HELPFUL LINKS </div>
+                    <div class=boxBody><ul>
+<li><span style="color: rgb(99, 36, 35); letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;">忘記密碼？<a title="重設密碼" href="https://lms.nthu.edu.tw/password_forgot.php">請點此</a></span> 
+</li><li>
+<div><span style="color: rgb(99, 36, 35); letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;">Forgot your password? <a title="Reset User Password" href="https://lms.nthu.edu.tw/password_forgot.php">Click here.</a></span></div>
+</li><li>
+<div><span style="color: rgb(99, 36, 35); letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;"><span style="color: rgb(99, 36, 35); font-family: 微軟正黑體; font-size: 16px;">申請助教：</span><a style="letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;" href="javascript:openDialog('申請助教','/home/assistant_apply.php',800,550)"><span style="font-weight: bold;">自行提出申請</span></a><span style="color: rgb(99, 36, 35); letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;">。</span></span></div>
+</li><li><span style="color: rgb(99, 36, 35); letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;"><a style="letter-spacing: 0.7pt; font-family: 微軟正黑體, sans-serif; font-size: 16px;" href="javascript:openDialog('TA','/home/assistant_apply.php',800,550)">TA application</a></span> </li></ul> </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_127' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><STRONG>使用iLMS</STRONG></SPAN></SPAN></DIV>
+<DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"></SPAN>(1) <A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=233363">登入方式說明</A>&nbsp;<SPAN style="COLOR: #000000"><A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=233766">Login Help</A></SPAN></SPAN></DIV>
+<DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="COLOR: #000000"><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(2) <A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=228683" target=_blank>iLMS平台特色</A></SPAN></SPAN></SPAN></DIV>
+<DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(3)【設定課程助教】授課教師</SPAN><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); LETTER-SPACING: 0.7pt">可自行設定，請參考</SPAN><A style="FONT-SIZE: 16px; FONT-FAMILY: 微軟正黑體, sans-serif; LETTER-SPACING: 0.7pt" href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=171485">設定步驟</A><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); LETTER-SPACING: 0.7pt">，助教也可以</SPAN><A style="FONT-SIZE: 16px; FONT-FAMILY: 微軟正黑體, sans-serif; LETTER-SPACING: 0.7pt" href="javascript:openDialog('申請助教','/home/assistant_apply.php',800,550)"><STRONG>自行提出申請</STRONG></A><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); LETTER-SPACING: 0.7pt">。</SPAN></DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="FONT-SIZE: 16px">
+<DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(4) <A href="http://lms.nthu.edu.tw/course/74">常見問題Q&amp;A / 線上客服專區</A></SPAN></DIV>
+<DIV><SPAN style="FONT-SIZE: 16px; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; LETTER-SPACING: 0.7pt; mso-themecolor: accent2; mso-themeshade: 128; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(5) <A href="http://sites.powercam.cc/site/ilms" target=_blank>線上觀看使用手冊</A></SPAN></DIV>
+<DIV>(6) <A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=230617">EverCam介紹及軟體下載</A></DIV></SPAN></SPAN></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_91' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>登入系統說明 </div>
+                    <div class=boxBody>
+<STYLE>
+<!--
+.active {
+ border: 1px solid #7D7D7D;
+ border-bottom: none;
+
+
+background:#ff7;
+padding-left:2px;
+ color:#000;
+ cursor:pointer;
+}
+.inactive {
+ border: none;
+padding-left:2px;
+ color:#777;
+ border-bottom: 1px solid #7D7D7D;
+ cursor:pointer;
+}
+.layer {
+ border: 1px solid #7D7D7D;
+
+
+background:#ff7;
+
+ border-top: none;
+ padding:2px;
+}
+-->
+</STYLE>
+
+<SCRIPT language=JavaScript>
+//<![CDATA[
+var currentLayer = "cell1";
+ var currentDiv = "d1";
+ function showLayer(obj,div){
+  if(currentLayer!=obj.id) {
+   showIt(currentLayer,currentDiv,false);
+   currentLayer = obj.id;
+   currentDiv = div;
+   showIt(currentLayer,currentDiv,true);
+  }
+ }
+ function showIt(o,d,mode){
+  var obj = document.getElementById(o);
+  var div = document.getElementById(d);
+  obj.className = mode?"active":"inactive";
+  div.style.display = mode?"block":"none";
+ }
+//]]>
+</SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR align=center>
+<TD onclick="showLayer(this,'d1');" id=cell1 class=active width="25%"><SPAN style="FONT-WEIGHT: bold">本校學生</SPAN></TD>
+<TD onclick="showLayer(this,'d2');" id=cell2 class=inactive width="25%"><SPAN style="FONT-WEIGHT: bold">外校學生</SPAN></TD>
+<TD onclick="showLayer(this,'d3');" id=cell3 class=inactive width="25%"><SPAN style="FONT-WEIGHT: bold">教師</SPAN></TD>
+<TD class=inactive>&nbsp;</TD>
+<TD style="BORDER-BOTTOM: rgb(125,125,125) 1px solid"></TD></TR>
+<TR width="80%">
+<TD colSpan=4>
+<DIV id=d1 class=layer style="DISPLAY: block">(1)一般生：帳號為學號<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">不含</SPAN>英文字母 (ex.<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">102000001</SPAN>)&nbsp;&nbsp;&nbsp;<BR>For General Students,username is your Student ID<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)"> without</SPAN> the first english letter. (ex.<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">102000001</SPAN>)<BR>(2)交換生：帳號為學號<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">含</SPAN>英文字母 (ex.<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">x1020001</SPAN>)<BR>For Exchange Students,username is your Student ID. (ex.<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">x1020001</SPAN>)<BR><BR><SPAN style="FONT-WEIGHT: bold">[預設密碼]<BR></SPAN>(1) 一般生為身分證字號末<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">四碼</SPAN>+出生日期<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">四碼</SPAN>(<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">月月日日</SPAN>)，ex. 身分證字號為A12345<SPAN style="COLOR: rgb(0,0,224)">6789 </SPAN>出生日期為68<SPAN style="COLOR: rgb(0,0,224)">0101</SPAN>，則預設密碼為<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">67890101</SPAN><BR>(2) 大陸交換生為個人身分證號碼<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">末四碼</SPAN>+出生日期<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">四碼</SPAN><BR>(3) For Foreign Students,default password will be<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)"> the last four digits of your Passport number and your birthday(MMDD). </SPAN>Ex: Your Passport number is 123456789, and your birthday is1990/01/01, then default password should be 67890101.</DIV>
+<DIV id=d2 class=layer style="DISPLAY: none">帳號為<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">身分證字號</SPAN>&nbsp;&nbsp;&nbsp;<BR>預設密碼為<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">身份證末四碼</SPAN> </DIV>
+<DIV id=d3 class=layer style="DISPLAY: none">帳號為<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">人事編號</SPAN> (ex.<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">b99999</SPAN>)&nbsp;&nbsp;&nbsp;<BR><BR>[預設密碼]<BR>(1) 一般教師為身分證字號末<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">四碼</SPAN>+出生日期<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">四碼</SPAN>(<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,0,0)">月月日日</SPAN>)，ex. 身分證字號為A12345<SPAN style="COLOR: rgb(0,0,224)">6789 </SPAN>出生日期為68<SPAN style="COLOR: rgb(0,0,224)">0101</SPAN>，則預設密碼為<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">67890101</SPAN><BR>(2) 非本國教師請輸入<SPAN style="FONT-WEIGHT: bold; COLOR: rgb(0,0,224)">生日八碼</SPAN> </DIV></TD></TR></TBODY></TABLE></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_154' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><div><span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><strong>聯絡資訊 Contact us</strong></span></div><div><span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">Email：<a href="mailto:ilms@my.nthu.edu.tw">ilms@my.nthu.edu.tw</a></span></div><div><span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">TEL：<span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">03-5715131 ext.31237 廖小姐</span></span></div><div><span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><span style="WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM: none; FLOAT: none; COLOR: rgb(99,36,35); FONT: 16px/24px 微軟正黑體, sans-serif; ORPHANS: 2; WIDOWS: 2; DISPLAY: inline !important; LETTER-SPACING: normal; TEXT-INDENT: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">如果您需要任何的協助，非常歡迎與我們聯絡。</span></span></div><div><img border="0" alt="" src="/blog/webhd_read_file.php?id=2919&amp;verifyCode=d34ff84510b1dccb1ae9cd21affdc495"></div> </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_92' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>申請社群 </div>
+                    <div class=boxBody><DIV>歡迎使用 iLMS 數位學習平台，本系統除了有完整的課程功能外，更整合了社群功能(目前提供班版、社團、實驗室、計畫等申請)，可滿足學生 / 老師 / 社團等資訊入口的需求。</DIV>
+<DIV>請按 <A href="javascript:openDialog('申請社群', '/home/board_apply.php', 700, 400)"><SPAN style="COLOR: #4444ff; FONT-WEIGHT: bold">這裡</SPAN></A>&nbsp;提出申請，約需&nbsp;1 個工作天審核。</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&gt;&gt;<A href="http://sites.powercam.cc/site/demo" target=_blank>社群的簡單介紹及使用手冊</A></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div>
+				</div>
+								<div id=mbox2>
+					<!-- CACHE DATA --><div class='box courseOpen' id=courseOpen_1>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>開放課程</div>
+                    <div class=boxBody>
+                        <div class=boxItem><a href='/course/43461' title='計算機程式設計一Introduction to Programming (I)'>計算機程式設計一Introduction to Programming (I)</a> <span class=hint>(1667)</span></div><div class=boxItem><a href='/course/34728' title='計算機程式設計Introduction to Programming'>計算機程式設計Introduction to Programming</a> <span class=hint>(1552)</span></div><div class=boxItem><a href='/course/21475' title='中國歷史的演變發展二Continuity and Change in Chinese History (II)'>中國歷史的演變發展二Continuity and Change in Chinese History (II)</a> <span class=hint>(1428)</span></div><div class=boxItem><a href='/course/19514' title='中國歷史的演變與發展Continuity and Change in the Chinese History'>中國歷史的演變與發展Continuity and Change in the Chinese History</a> <span class=hint>(1385)</span></div><div class=boxItem><a href='/course/26685' title='計算機程式設計一Introduction to Programming (I)'>計算機程式設計一Introduction to Programming (I)</a> <span class=hint>(1099)</span></div><div class=boxItem><a href='/course/16553' title='數理統計一Mathematical Statistics I'>數理統計一Mathematical Statistics I</a> <span class=hint>(1038)</span></div><div class=boxItem><a href='/course/35305' title='平行程式Parallel Programming'>平行程式Parallel Programming</a> <span class=hint>(998)</span></div><div class=boxItem><a href='/course/46274' title='平行程式Parallel Programming'>平行程式Parallel Programming</a> <span class=hint>(901)</span></div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=course&t=open"'>
+                                            <a href='/course/index.php?nav=course&t=open'>...更多</a>
+                                        </div></div>
+                </div>
+                </div>
+            </div>
+				</div>
+				            </div>
+			</div>
+			</div>
+            <div id=main>
+			<div id=main2>
+			<div id=main3>
+				
+				<div id=xbox1>
+					<div id='textArea_206' class='box textArea'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>【防疫不停學】 </div>
+                    <div class=boxBody><ul><li><span style="font-size:1.2em;"><a data-cke-saved-href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3419" href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3419" rel="noreferrer noopener" target="_blank">同步遠距／非同步遠距工具推薦</a></span></li><li><span style="font-size:1.2em;"><a data-cke-saved-href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3426" href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3426" rel="noreferrer noopener" target="_blank">遠距課程點名與評量建議</a></span></li><li><span style="font-size:1.2em;"><a data-cke-saved-href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3429" href="http://ctld.nthu.edu.tw/news/index.php?mode=data&amp;id=3429" rel="noreferrer noopener" target="_blank">彈性教學措施建議</a></span></li></ul> </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div class='box bulletinNews' id=bulletinNews_4>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>最新公告 </div>
+                    <div class=boxBody>
+                        
+            <div class=tableBox>
+                <table class=table>
+                    <tr class=header><td class=td width=55px align=center>編號</td><td class=td  align=center>標題</td><td class=td width=55px align=center>人氣</td><td class=td width=80px align=center>時間</td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >2537489</td><td class=td valign=top  align=left ><div class=hidden title='【教師版】自iLMS備份課程檔案'><a href='/index.php?nav=news_show&newsID=2537489'>【教師版】自iLMS備份課程檔案</a>  <img src='/sys/res/icon/hot.gif'></div></td><td class=td valign=top width=55px align=center >2945</td><td class=td valign=top width=80px align=center ><div class=hidden>09-01 11:08</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >2750077</td><td class=td valign=top  align=left ><div class=hidden title='歡迎試用iLMS升級版「清華大學eeclass數位學習平台」'><a href='/index.php?nav=news_show&newsID=2750077'>歡迎試用iLMS升級版「清華大學eeclass數位學習平台」</a>  <img src='/sys/res/icon/hot.gif'></div></td><td class=td valign=top width=55px align=center >4863</td><td class=td valign=top width=80px align=center ><div class=hidden>02-17 14:53</div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >2451095</td><td class=td valign=top  align=left ><div class=hidden title='校本部iLMS、 Moodle及南大校區Toplearn三套數位學習平台將自110學年度起停止匯入新學期課程及選課資料。'><a href='/index.php?nav=news_show&newsID=2451095'>校本部iLMS、 Moodle及南大校區Toplearn三套數位學習平台將自110學年度起停止匯入新學期課程及選課資料。</a>  <img src='/sys/res/icon/hot.gif'></div></td><td class=td valign=top width=55px align=center >2831</td><td class=td valign=top width=80px align=center ><div class=hidden>05-28 15:34</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >2886696</td><td class=td valign=top  align=left ><div class=hidden title='訊息分享: 「教學意見調查」進行中，非常期待你給予學習經驗回饋！'><a href='/index.php?nav=news_show&newsID=2886696'>訊息分享: 「教學意見調查」進行中，非常期待你給予學習經驗回饋！</a>  </div></td><td class=td valign=top width=55px align=center >43</td><td class=td valign=top width=80px align=center ><div class=hidden>06-02 16:43</div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >2749155</td><td class=td valign=top  align=left ><div class=hidden title='109學年度下學期的課程資料已匯入'><a href='/index.php?nav=news_show&newsID=2749155'>109學年度下學期的課程資料已匯入</a>  </div></td><td class=td valign=top width=55px align=center >264</td><td class=td valign=top width=80px align=center ><div class=hidden>02-01 10:58</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >2727276</td><td class=td valign=top  align=left ><div class=hidden title='【已完成更新】iLMS將於2/3(星期三) 10-14點進行系統更新作業，請老師、同學留意。'><a href='/index.php?nav=news_show&newsID=2727276'>【已完成更新】iLMS將於2/3(星期三) 10-14點進行系統更新作業，請老師、同學留意。</a>  </div></td><td class=td valign=top width=55px align=center >422</td><td class=td valign=top width=80px align=center ><div class=hidden>01-08 10:55</div></td></tr>
+                    </table>
+                </div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=bulletin&folderID=1"'><a href='/course/index.php?nav=bulletin&folderID=1'>...更多</a></div></div>
+                </div>
+                </div>
+                </div><div class=tabBox id=tabBox>
+                <div class=tabBox2>
+                <div class=tabBox3>
+                    <div class=tabHeader>
+                        <div class=title>
+                            校園行事曆 <span class=tool></span>
+                        </div>
+                        <div class=tab>
+                            <div onclick='window.location.href="?tab=6"' class='curr'>
+                        <div class='page1'>
+                        <span>校園行事曆</span>
+                        </div>
+                      </div><div onclick='window.location.href="?tab=8"' class='item'>
+                        <div class='page2'>
+                        <span>課程目錄</span>
+                        </div>
+                      </div>
+                        </div>
+                        <div class=clear></div>
+                    </div>
+                    <div class=tabBody>
+                        <div class=tabBody2>
+                            <div class=tabBody3>
+                                <div class='box calendar' id=calendar>
+                <div class=box2>
+                <div class=box3>
+                    
+                    <div class=boxBody>
+                        <div id=s_calendar><div class=s_mcal><div class='center'>
+                    <span class=em>2021 / 07</span>
+                      <table width=100% class=border>
+                        <tr><td class='center weekres borderLight'>日</td><td class='center weekres borderLight'>一</td><td class='center weekres borderLight'>二</td><td class='center weekres borderLight'>三</td><td class='center weekres borderLight'>四</td><td class='center weekres borderLight'>五</td><td class='center weekres borderLight'>六</td></tr><tr><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td id=2021-07-01 class='borderLight weekM center ' >1</td><td id=2021-07-02 class='borderLight weekM center ' >2</td><td id=2021-07-03 class='borderLight weekM center ' >3</td></tr><tr><td id=2021-07-04 class='borderLight weekM center ' >4</td><td id=2021-07-05 class='borderLight weekM center ' >5</td><td id=2021-07-06 class='borderLight weekM center ' >6</td><td id=2021-07-07 class='borderLight weekM center ' >7</td><td id=2021-07-08 class='borderLight weekM center ' >8</td><td id=2021-07-09 class='borderLight weekM center ' >9</td><td id=2021-07-10 class='borderLight weekM center ' >10</td></tr><tr><td id=2021-07-11 class='borderLight weekM center ' >11</td><td id=2021-07-12 class='borderLight weekM center ' >12</td><td id=2021-07-13 class='borderLight weekM center ' >13</td><td id=2021-07-14 class='borderLight weekM center ' >14</td><td id=2021-07-15 class='borderLight weekM center ' >15</td><td id=2021-07-16 class='borderLight weekM center ' >16</td><td id=2021-07-17 class='borderLight weekM center ' >17</td></tr><tr><td id=2021-07-18 class='borderLight weekM center ' >18</td><td id=2021-07-19 class='borderLight weekM center ' >19</td><td id=2021-07-20 class='borderLight weekM center ' >20</td><td id=2021-07-21 class='borderLight weekM center ' >21</td><td id=2021-07-22 class='borderLight weekM center ' >22</td><td id=2021-07-23 class='borderLight weekM center ' >23</td><td id=2021-07-24 class='borderLight weekM center ' >24</td></tr><tr><td id=2021-07-25 class='borderLight weekM center  focus' >25</td><td id=2021-07-26 class='borderLight weekM center ' >26</td><td id=2021-07-27 class='borderLight weekM center ' >27</td><td id=2021-07-28 class='borderLight weekM center ' >28</td><td id=2021-07-29 class='borderLight weekM center ' >29</td><td id=2021-07-30 class='borderLight weekM center ' >30</td><td id=2021-07-31 class='borderLight weekM center ' >31</td></tr>
+            </table></div><p></div><div class=s_info id=info></div><div class=clear></div></div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=calendar"'>
+                    <a href='/course/index.php?nav=calendar'>...更多</a>
+                 </div></div>
+                </div>
+                </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=tabFooter></div>
+                </div>
+                </div>
+                </div>
+               <div class='box favorite' id=favorite_130>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>校內常用連結 </div>
+                    <div class=boxBody>
+                    <div class='boxItem odd'><a href='https://www.nthu.edu.tw/' target='_blank'>國立清華大學首頁</a></div><div class='boxItem even'><a href='http://www.lib.nthu.edu.tw/' target='_blank'>圖書館 NTHU Library</a></div><div class='boxItem odd'><a href='http://www.cc.nthu.edu.tw/' target='_self'>計算機與通訊中心 Computer and Communication Center</a></div><div class='boxItem even'><a href='https://www.ccxp.nthu.edu.tw/ccxp/INQUIRE/' target='_blank'>校務資訊系統 Academic Information Systems</a></div><div class='boxItem odd'><a href='http://ocw.nthu.edu.tw/' target='_blank'>開放式課程OpenCourseWare(NTHU, OCW)</a></div><div class='boxItem even'><a href='http://mooc.nthu.edu.tw/' target='_blank'>清華大學磨課師課程</a></div><div class='boxItem odd'><a href='http://www.media.nthu.edu.tw/' target='_blank'>清華影音網</a></div><div class='boxItem even'><a href='http://net.nthu.edu.tw/2009/netip' target='_blank'>網路智慧財產權</a></div><div class='boxItem odd'><a href='http://ipr.web.nthu.edu.tw' target='_self'>智慧財產權宣導網站</a></div><div class='boxItem even'><a href='http://bulletin.web.nthu.edu.tw' target='_blank'>清華公佈欄</a></div>
+                    </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div>
+				</div>
+							</div>
+			</div>
+            </div>
+            <div class=clear></div>
+        </div>
+		</div>
+		</div>
+    </div>
+	</div>
+	</div>
+	<div id=copyright >
+	<div id=copyright2>
+	<div id=copyright3>
+		<div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>     
+	</div>
+	</div>
+	</div>	
+</div>
+</div>
+</div>
+</body>
+</html>

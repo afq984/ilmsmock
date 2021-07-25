@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>敦煌學Dunhuang Studies - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>257</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 359;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=359&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/359'">敦煌學Dunhuang Studies</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"359", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=359&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=359", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=359", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=359", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=359", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:981 時間:2009-08-01 ~ 2010-01-31'>981 <span class=hint>(2009-08-01~2010-01-31)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=359&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=359&f=doclist'>上課教材</a> </div>
+                <div class=Ewiki><a href='/course.php?courseID=359&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=359&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=359&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=359&f=forumlist'>討論區</a> <span class=hint>(2)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=359&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=359&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=359&f=hwlist'>作業</a> <span class=hint></span></div>
+                <div class=Epoll><a href='/course.php?courseID=359&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=359&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='敦煌研究院及大事記 (09-27)' href='/course.php?courseID=359&f=forum&tid=748'>re: 敦煌研究院及大事記</a> <span class=hint>(09-27)</span></div><div class=boxItem><a title='敦煌學電子擋 (09-18)' href='/course.php?courseID=359&f=forum&tid=511'>re: 敦煌學電子擋</a> <span class=hint>(09-18)</span></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 6996</div>
+                <div>文章: 0</div>
+                <div>討論: 2</div>
+                <div>容量: 剩餘 <b>2.8 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 黃桂雲</div>
+                
+                <div style='white-space:normal'>助教: 無</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                <div style='width:100%'>
+                <div style='float:left' class=infoPath>
+                    位置: <a href='/course/359'>敦煌學Dunhuang Studies</a> &gt;
+                    <span class=curr>上課教材</span><a href='/course/rssfeed.php?courseID=359&resType=doc' title='RSS 資訊服務' target='_blank'><img src='/sys/res/icon/rss.gif' align=absmiddle border='0'></a>
+                    <span class=tool></span>
+                </div>
+                <div style='float:right'></div>
+                <div class=clear></div>
+              </div><script>
+    function addNews()
+    {
+        $showModal('新增公告', '/course/doc_insert.php?resType=10&folderID=1190', 800, 510, onFinish);
+    }
+    function editNews(id)
+    {
+        $showModal('編輯公告', '/course/doc_edit.php?resType=10&id=' + id, 800, 510, onFinish);
+    }
+    function delNews(id)
+    {
+        if (!confirm('確定要刪除嗎?')) return;
+        $load('/course/http_doc_delete.php', {id:id}, onFinish);
+    }
+
+    function newsLink(id)
+    {
+        window.location.href = "/course.php?courseID=359&f=news_show&newsID=" + id;
+    }
+
+    function newsBox(id, edit)
+    {
+        if ($("newsDetail" + id).style.display == "block")
+        {
+            $("newsDetail" + id).style.display = "none";
+            return ;
+        }
+
+        $("newsDetail" + id).style.display = "block";
+        $load("/home/http_event_select.php", _param = {id:id, type:"n", edit:edit}, newscb);
+    }
+
+    function newscb(obj)
+    {
+        var n = obj.news;
+
+        var _html  = "<div>" + n.note + "</div>";
+            _html += (n.attach) ? "<div>" + n.attach + "</div>" : "";
+            _html += (n.admin) ? "<div style='padding-top:5px'>" + n.admin + "</div>" : "";
+        $("newsDetail" + n.id).innerHTML = _html;
+    }
+    function addDoc()
+    {
+        $showModal('新增', '/course/doc_insert.php?folderID=1191', 800, 510, onFinish);
+    }
+</script>
+        <script>
+        var _lstLastClick = "";
+        var tid = "t1";
+        tid = tid.substr(1);
+        var tblChk = new Array();
+        
+function _lstMouseOver(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = "rowOver";
+}
+
+function _lstMouseOut(tblID, id)
+{
+    document.getElementById(tblID + "_tr" + id).className = (id % 2) ? 'row': 'row2' ;
+
+    var ctrl = document.getElementById(tblID + "_item" + id);
+    if (ctrl && ctrl.checked)
+    {
+        document.getElementById(tblID + "_tr" + id).className = "selected";
+        return;
+    }
+}
+
+function _lstSetItem(tblID, id, bChecked)
+{
+    var ctrl;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.value == id)
+        {
+            ctrl.checked = bChecked;
+            break;
+        }
+    }
+    _lstItemOnClick(event, tblID);
+}
+
+function _lstGetItem(tblID, delim)
+{
+    var ret = "";
+    var tid = tblID.substr(1);
+    var ctrl;
+    delim = delim || "#";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (tblChk[tid][i] == 1) ret = (ret == "") ? ctrl.value : ret + delim + ctrl.value;
+    }
+    return ret;
+}
+
+function _lstItemOnClick(aEvent, tblID)
+{
+    // process shift multi-selection control, follows Gmail behavior
+    var e = (aEvent) ? aEvent : window.event;
+
+    //var e = window.event;
+    if (navigator.userAgent.indexOf("MSIE") != -1)
+        var currClick = e.srcElement.id;
+    else
+        var currClick = e.target.id;
+
+    var end = parseInt(currClick.substr(currClick.lastIndexOf("item") + 4), 10);
+    var bChecked = document.getElementById(currClick).checked;
+    var tid = tblID.substr(1);
+    if (bChecked)
+    {
+            tblChk[tid][end] = 1;
+            document.getElementById(tblID + "_tr" + end).className = "selected";
+    }
+    else
+    {
+            tblChk[tid][end] = 0;
+            document.getElementById(tblID + "_tr" + end).className = (end % 2) ? "row" : "row2";
+    }
+
+
+    tblChk[tid][end] = (bChecked) ? 1 : 0;
+
+    if (e.shiftKey && _lstLastClick)
+    {
+        var start = parseInt(_lstLastClick.substr(_lstLastClick.lastIndexOf("item") + 4), 10);
+
+        if (start > end)
+        {
+            var tmp = end;
+            end = start;
+            start = tmp;
+        }
+
+        for (i=start; i<=end; i++)
+        {
+                    if (document.getElementById(tblID + "_item" + i).disabled) continue;
+
+                    document.getElementById(tblID + "_item" + i).checked = bChecked;
+
+                    if (bChecked)
+                    {
+                            tblChk[tid][i] = 1;
+                            document.getElementById(tblID + "_tr" + i).className = "selected";
+                    }
+                    else
+                    {
+                            tblChk[tid][i] = 0;
+                            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+                    }
+        }
+    }
+
+    _lstLastClick = currClick;
+
+    var val = true;
+    for (i=0; i< tblChk[tid].length ; i++)
+    {
+            if (tblChk[tid][i] == 0)
+            {
+                val = false;
+                break;
+            }
+    }
+
+    ctrl = document.getElementById(tblID + "_itemall");
+    if (ctrl) ctrl.checked = val;
+}
+
+function _lstCheckAllOnClick(tblID)
+{
+    var val = document.getElementById(tblID + "_itemall").checked;
+    var tid = tblID.substr(1);
+    var ctrl;
+    var tblChkVal = (val) ? 1 : 0;
+    var rowClass = "";
+
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (ctrl.disabled) continue;
+        ctrl.checked = val;
+        tblChk[tid][i] = tblChkVal;
+        rowClass = (i % 2) ? "row" : "row2";
+        document.getElementById(tblID + "_tr" + i).className = (val) ? "selected" : rowClass;
+    }
+}
+function _lstCheckClearAll(tblID)
+{
+    var tid = tblID.substr(1);
+    var ctrl;
+    document.getElementById(tblID + "_itemall").checked = 0 ;
+    for (i=0; ; i++)
+    {
+        ctrl = document.getElementById(tblID + "_item" + i);
+        if (!ctrl) break;
+        if (!tblChk[tid][i])
+        {
+            ctrl.checked = 0;
+            document.getElementById(tblID + "_tr" + i).className = (i % 2) ? "row" : "row2";
+        }
+        else
+        {
+            ctrl.checked = "checked";
+            document.getElementById(tblID + "_tr" + i).className = "selected";
+        }
+    }
+}
+</script><div class=tableBox><table class=table id=t1>
+<tr class=header>
+	<td width=50 class=td align=center><a href='/course.php?courseID=359&f=doclist&order=id&precedence=DESC' title='排序方式:  編號'>編號</a></td>
+	<td  class=td align=center><a href='/course.php?courseID=359&f=doclist&order=title&precedence=ASC' title='排序方式:  標題'>標題</a></td>
+	<td width=80 class=td align=center><a href='/course.php?courseID=359&f=doclist&order=author&precedence=ASC' title='排序方式:  發表人'>發表人</a></td>
+	<td width=37 class=td align=center><a href='/course.php?courseID=359&f=doclist&order=views&precedence=DESC' title='排序方式:  人氣'>人氣</a></td>
+	<td width=37 class=td align=center><a href='/course.php?courseID=359&f=doclist&order=comments&precedence=DESC' title='排序方式:  討論'>討論</a></td>
+	<td width=80 class=td align=center><a href='/course.php?courseID=359&f=doclist&order=postTime&precedence=DESC' title='排序方式:  更新時間'>更新時間</a></td>
+</tr>
+
+            <script>
+            tid = "t1";
+            tid = tid.substr(1);
+            tblChk[tid] = new Array();
+            </script><tr class=row2>
+	<td class=td colspan=6 align=center>目前尚無資料</td>
+</tr>
+</table></div>
+<script>
+var gReadedContentIDs = '';    window.onload = function()
+    {  
+        if (gReadedContentIDs)
+        {           
+            var contentCtrlID;
+            var cidArr = gReadedContentIDs.split(",");
+            for(var i=0, max=cidArr.length; i<max; i++)
+            {
+                contentCtrlID = "_content" + cidArr[i];
+                $(contentCtrlID).style.visibility = "visible";
+            }            
+        }        
+    };
+    
+    
+    function linkDoc()
+    {
+        $showModal('連結', '/course/doc_link.php?courseID=359', 770, 550, onFinish);
+    }
+
+    function onFinish()
+    {
+        window.location.reload();
+    }
+
+    function changeFunc()
+    {
+        var url = "/course.php?courseID=359&f=wiki";
+        window.location.href = url;
+    }
+
+    function changeVisible(option)
+    {
+        var obj = $syncload("/course/http_news_visible.php", {courseID: 359, option:option});
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+
+        window.location.reload();
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

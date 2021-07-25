@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>作業系統Operating Systems - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>300</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 7636;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=7636&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/7636'">作業系統Operating Systems</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"7636", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=7636&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=7636", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=7636", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=7636", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=7636", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:1001 時間:2011-08-01 ~ 2012-01-31'>1001 <span class=hint>(2011-08-01~2012-01-31)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=7636&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=7636&f=doclist'>上課教材</a> <span class=hint>(15)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=7636&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=7636&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=7636&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=7636&f=forumlist'>討論區</a> <span class=hint>(28)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=7636&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=7636&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=7636&f=hwlist'>作業</a> <span class=hint><span class=hint>(6)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=7636&f=polllist'>問卷</a> <span class=hint><span class=hint>(1)</span></span></div>
+                <div class=Equiz><a href='/course.php?courseID=7636&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='有關作業 (01-03)' href='/course.php?courseID=7636&f=forum&tid=32007'>re: 有關作業</a> <span class=hint>(01-03)</span></div><div class=boxItem><a title='readme version2 (12-22)' href='/course.php?courseID=7636&f=forum&tid=31387'>re: readme version2</a> <span class=hint>(12-22)</span></div><div class=boxItem><a title='version2 (12-22)' href='/course.php?courseID=7636&f=forum&tid=31386'>re: version2</a> <span class=hint>(12-22)</span></div><div class=boxItem><a title='新版本 (12-22)' href='/course.php?courseID=7636&f=forum&tid=31384'>re: 新版本</a> <span class=hint>(12-22)</span></div><div class=boxItem><a title='關於test1, 2, 3 (12-19)' href='/course.php?courseID=7636&f=forum&tid=31109'>re: 關於test1, 2, 3</a> <span class=hint>(12-19)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=7636&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 21377</div>
+                <div>文章: 275</div>
+                <div>討論: 50</div>
+                <div>容量: 剩餘 <b>2.9 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 王家祥</div>
+                
+                <div style='white-space:normal'>助教: 張書瑜 , &nbsp;王楚茗 , &nbsp;邱仙姿</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                
+            <div class=infoPath>
+                位置: <a href='/course/7636'>作業系統Operating Systems</a> &gt;
+                <a href='/course.php?courseID=7636&f=hwlist'>作業</a> &gt;
+                <span class=curr>HW3_ch8,ch9  </span>
+                <span class=tool></span>
+            </div>
+            <span class=toolWrapper><span style='font-weight:bold; color:red'>作業資訊</span>&nbsp; | &nbsp;<a href='/course.php?courseID=7636&f=hw_doclist&hw=32460'>已交名單</a><span class=hint>(50)</span></span>
+        
+<div style='padding-bottom:25px'>
+    <div class=infoTable>
+        <table cellspacing=1 cellpadding=0 width=100%>
+            <tr>
+                <td class='cell header1'>項目</td>
+                <td class='cell header2' style='border-right:0px'>內容</td>
+            </tr>
+            <tr>
+                             <td class='cell col1 '>允許遲交</td>
+                             <td class='cell col2 '>否</td>
+                          </tr><tr>
+                             <td class='cell col1 bg'>開放觀摩</td>
+                             <td class='cell col2 bg'>否</td>
+                          </tr><tr>
+                             <td class='cell col1 '>屬性</td>
+                             <td class='cell col2 '>個人作業</td>
+                          </tr><tr>
+                             <td class='cell col1 bg'>成績比重</td>
+                             <td class='cell col2 bg'>4%</td>
+                          </tr><tr>
+                             <td class='cell col1 '>期限</td>
+                             <td class='cell col2 '><div class='redfont bold'>2011-12-28 23:59</div></td>
+                          </tr><tr>
+                             <td class='cell col1 bg'>附件</td>
+                             <td class='cell col2 bg'><a href='/sys/read_attach.php?id=133807' target='_blank'>HW3.pdf</a> <span class=hint>(486 KB)</span><br></td>
+                          </tr><tr>
+                             <td class='cell col1 '>描述</td>
+                             <td class='cell col2 '><span style="font-family: arial; letter-spacing: normal; line-height: 18px; text-align: left; color: rgb(30, 144, 255); ">題號：</span><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><div style="color: rgb(0, 0, 0); font-family: arial, sans-serif; font-size: 13px; line-height: normal; text-align: -webkit-auto; background-color: rgb(255, 255, 255); "><span style="font-family: 標楷體; ">Chapter 8: 7, 10, 14, 19.</span></div><div style="color: rgb(0, 0, 0); font-family: arial, sans-serif; font-size: 13px; line-height: normal; text-align: -webkit-auto; background-color: rgb(255, 255, 255); "><span style="font-family: 標楷體; "><div><span style="font-family: 標楷體; ">Chapter 9: 3, 6,&nbsp;14, 24, 25, 31.</span></div></span></div></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><a href="/sys/read_attach.php?id=109077" target="_blank" style="color: rgb(68, 68, 255); text-decoration: none; "></a><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><span style="color: rgb(30, 144, 255); ">注意：</span></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; ">1. 請用大小為<span style="color: rgb(255, 0, 0); ">A4</span>的紙作答(不必抄題)</div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; ">2. 繳交期限為<span style="color: rgb(255, 0, 0); ">12/28(三)</span>。</div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; ">&nbsp; &nbsp; 助教會在上課前到教室收作業。</div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; "><br></div><div style="font-family: arial; color: rgb(102, 102, 102); letter-spacing: normal; line-height: 18px; text-align: left; ">3. 作業遲交的話，成績會依延遲的天數打折</div></td>
+                          </tr>        </table>
+    </div>
+</div>
+
+<script>
+    function addDoc()
+    {
+        // teacher at [student mode]
+        if ("0" == 1)
+        {
+            alert("您現在處於學生的瀏覽模式，並非正式學生，所以無法交作業");
+            return;
+        }
+
+        if (0)
+        {
+            if (confirm('該作業已有繳交記錄，是否要編輯作業內容?')) $showModal('修改作業', '/course/doc_edit.php?id=', 800, 510, onFinish);
+        }
+        else
+            $showModal('交作業', '/course/doc_insert.php?folderID=32460', 800, 510, onFinish);
+    }
+
+    function onFinish()
+    {
+        window.location.reload();
+    }
+
+    function edit(id)
+    {
+        $showModal('編輯', '/course/hw_edit.php?id=' + id, 785, 500, onFinish);
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

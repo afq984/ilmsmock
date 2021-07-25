@@ -1,0 +1,8 @@
+{
+    "C": "Correctness",
+    "P": "Performance",
+    "T": "Testcase",
+    "D": "Demo",
+    "R": "Report",
+    "L": "LinearAdjustment"
+}

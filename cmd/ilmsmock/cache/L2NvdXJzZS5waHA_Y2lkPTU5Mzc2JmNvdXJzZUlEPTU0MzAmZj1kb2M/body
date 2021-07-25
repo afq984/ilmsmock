@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>管理學Management - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>309</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 5430;
+    var gLogID = 17794827;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=5430&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/5430'">管理學Management</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"5430", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=5430&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=5430", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=5430", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=5430", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=5430", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:991 時間:2010-08-01 ~ 2011-01-15'>991 <span class=hint>(2010-08-01~2011-01-15)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=5430&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=5430&f=doclist'>上課教材</a> </div>
+                <div class=Ewiki><a href='/course.php?courseID=5430&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=5430&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=5430&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=5430&f=forumlist'>討論區</a> </div>
+                <div class=Egroup><a href='/course.php?courseID=5430&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=5430&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=5430&f=hwlist'>作業</a> <span class=hint><span class=hint>(15)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=5430&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=5430&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 17497</div>
+                <div>文章: 16</div>
+                <div>討論: 2</div>
+                <div>容量: 剩餘 <b>2.9 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 黎正中</div>
+                
+                <div style='white-space:normal'>助教: 曹蘋文</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                <script>
+    function m_dateYMD(date)  { return date.substring(0, date.lastIndexOf(" ")); } // Y-M-D
+    function m_dateYMDT(date) { return date.substring(0, date.lastIndexOf(":")); } // Y-M-D H:M
+    function m_dateMDT(date)  { return m_dateYMDT(date).substring(5); } //M-D H:M
+
+    function getPost(id, enPost)
+    {
+        var e = $("post_" + id);
+        if (e.style.display == "block") {e.style.display = "none"; return;}
+
+        e.innerHTML = "<p style='text-align:center'>loading ...</span>";
+        e.style.display = "block";
+
+        var obj = $syncload("/sys/lib/ajax/post.php", {id:id});
+        if (obj == "")
+        {
+            alert("loading data error!");
+            e.style.display = "none";
+            return;
+        }
+
+        if (obj.posts.status == "false")
+        {
+            alert(obj.posts.msg);
+            e.style.display = "none";
+            return;
+        }
+
+        var p = obj.posts;
+        var h = "";
+        for (var i=0; i<p.items.length; i++)
+        {
+            h += postHtml(p.items[i], "");
+        }
+
+        var display = (!p.commentDisabled && !p.replyDisabled) ? "inline" : "none";
+
+        h  = "<div id=thread" + p.id + ">" + h + "</div>";
+        h += "<div id=btnReply" + p.id + " class=btnWrapper>&nbsp;";
+        h +=    "<span id='replyButton" + p.id + "' style='display:" + display + "'>";
+        if (enPost == 1)
+            h +=        btnHtml('回應', 'postAddReply("reply", ' + p.id + ',' + p.res.type + ')');
+        h +=    "</span>";
+        h +=    btnHtml('關閉', 'getPost(' + id + ')');
+        h += "</div>";
+        h += "<div id=replyEditor" + p.id + "></div>";
+        $("post_" + p.id).innerHTML = h;
+    }
+
+    function postHtml(p, inner)
+    {
+        if (p.account != "" && p.anonymous != "1") p.name = "<a href='/" + p.account + "'>" + p.name + "</a>";
+        if (p.email != "") p.email = ", <a href='mailto:" + p.email + "'>" + p.email + "</a>";
+
+        var priv     = (0);
+        var isPoster = ((p.account != "") && (p.account == ""));
+        var isShowTop = (1);
+        var a = p.date.split(" ");
+        var d1 = a[0].split("-");
+        var d2 = a[1].split(":");
+        var today =  new Date();
+        var postTime = new Date(d1[0], d1[1]-1, d1[2], d2[0], d2[1], d2[2]);
+        var privTime = ((today.getTime() - postTime.getTime()) / (24 * 60 * 60 * 1000) < 1);
+
+        var tool = "";
+        if ( ((p.isLast  && privTime && isPoster) || priv) && isShowTop)
+        {
+            tool  = "<a title='編輯' href='javascript:editPost(" + p.id + ")'><img border=0 class=vmiddle src='/sys/res/icon/edit2.gif'></a>";
+            tool += "<a title='刪除' href='javascript:delPost(" + p.id + "," + p.rootID + "," + p.resType + ")'><img border=0 class=vmiddle src='/sys/res/icon/delete2.gif'></a>";
+            if (priv && p.rootID == 0)
+            {
+                tool += (!p.topFlag) ? "<a title='置頂' href='javascript:setTop(" + p.id + ", 1)'><img border=0 class=vmiddle src='/sys/res/icon/hot.gif'></a>"
+                                     : "<a title='取消置頂' href='javascript:setTop(" + p.id + ", 0)'><img border=0 class=vmiddle src='/sys/res/icon/hot-.gif'></a>";
+            }
+        }
+        var like = "";
+        if ("0" == 1)
+        {
+            var like_status = (p.likeCount > 0) ? "&nbsp;<a href='javascript:show_like_giver(2, "+ p.id +")' id=likeCount_"+ p.id +" title='看哪些人給讚'>"+ p.likeCount +"</a> &nbsp;人"
+                                                : "";
+            var onmouseover = "";
+            var onmouseout = "";
+            if (p.offered !== false)
+            {
+                onmouseover = "onmouseover='showDel(1, "+ p.id +")'";
+                onmouseout = "onmouseout='showDel(0, "+ p.id +")'";
+            }
+            like  = "<span style='position:relative; bottom:-1px'>";
+
+            like += " <span class=likeImg style='display:inline-block; width:12px; height:12px' "+ onmouseover +" "+ onmouseout +">";
+            if ("0" == 1)
+            {
+                like += "<img class=pointer src='/sys/res/icon/like.gif' id=like_img_"+ p.id +" title='給予讚' onclick='GiveLike(2, "+ p.id +")'>";
+                like += "<img class=pointer src='/sys/res/icon/remove.png' id=unlike_img_"+ p.id +" title='取消讚' style='display:none' onclick='removeLike(2, "+ p.id +")'>";
+            }
+            else if ("0" == 0 && p.likeCount > 0)
+            {
+                like += "<img class=img src='/sys/res/icon/like.gif'>";
+            }
+            like += "</span>";
+
+            like += " <span id=like_status_"+ p.id +">"+ like_status +"</span></span>";
+        }
+
+        var attach = "";
+        if (p.attach.length)
+        {
+            attach =  "<div class=blockTitle2><img class=vmiddle src='/sys/res/icon/item2.gif'> 附件</div><div class=block>";
+
+            for (var i=0; i<p.attach.length; i++)
+            {
+                var att_obj = p.attach[i];
+                var filesize = attachSize(att_obj.fileSize);
+                attach += "<div>" + (i+1) + ". <a href='/sys/read_attach.php?id=" + att_obj.id + "' target='_blank'>" + att_obj.srcName + "</a> <span class=hint>(" + filesize + ")</span></div>";
+            }
+            attach += "</div>";
+        }
+
+        var h = "";
+        if (!inner)
+        {
+            h  = "<div id=re" + p.id + " class=postBody>";
+        }
+            h +=    "<div style='float:left' class=postAuthor>(" + p.name + p.email + ", " + m_dateYMDT(p.date) + ") " + tool + like +"</div>";
+            h +=    "<div style='float:right' class=hint>" + p.floor + "樓</div>";
+            h +=    "<div class=clear></div>";
+            h +=    "<div class=postNote>";
+            h +=        $filter(p.note);
+            h +=        attach;
+            h +=    "</div>";
+        if (!inner)
+        {
+            h += "</div>";
+        }
+        return h;
+    }
+
+    function attachSize(val)
+    {
+
+        var k = $int((val - 0 + 1024) / 1024);
+        if (k > 1024 * 1024) return $int(k / (1024 * 1024)) + " GB";
+        if (k > 1024) return ($int(k / 1024)) + " MB";
+        return k + " KB";
+    }
+
+    function editPost(id)
+    {
+        $modalarg = "";
+        $showModal("編輯", "/post_edit.php?id=" + id, 750, 500, onEditPostFinish);
+    }
+
+    function onEditPostFinish()
+    {
+        if ($modalarg)
+        {
+            $('re' + $modalarg.id).innerHTML = postHtml($modalarg, 'inner');
+            if ($modalarg.rootID == 0)
+            {
+                $('title' + $modalarg.id).innerHTML = $modalarg.title;
+                var display = (!$modalarg.commentDisabled && !$modalarg.replyDisabled) ? "inline" : "none";
+                $('replyButton' + $modalarg.id).style.display = display;
+            }
+        }
+        $closeModal();
+    }
+
+    function delPost(id, _rootID, _type)
+    {
+        var _msg = "確定要刪除此篇回應嗎?";
+        if (_rootID==0) _msg = "確定要刪除此篇討論嗎? (含相關回應)";
+        var _arg = {id:id, rootID:_rootID, resType:_type}
+        if (confirm(_msg)) $sload("/sys/http_delete_post.php", _arg, onDelPost);
+    }
+    function onDelPost(obj)
+    {
+        var r = obj.ret;
+        if (r.status == "false")
+        {
+            alert(r.msg);
+            return;
+        }
+        if (r.delAll == 1)
+        {
+            $reload();
+            return;
+        }
+
+        $("re" + r.id).style.display = "none";
+
+        var _info = r.threadInfo;
+        if ($("rn" + r.rootID)) $("rn" + r.rootID).innerHTML = _info.reply;
+        if ($("rn")) $("rn").innerHTML = $int(_info.reply) + 1;  // photo
+        if ($("dt" + r.rootID)) $("dt" + r.rootID).innerHTML = m_dateMDT(_info.date) + ", " + _info.name;
+
+        /* reload posts */
+        var postObj = $syncload("/sys/lib/ajax/post.php", {id:obj.ret.rootID});
+        var h = "";
+        for (var i=0; i<postObj.posts.items.length; i++)
+        {
+            h += postHtml(postObj.posts.items[i]);
+        }
+        $("thread" + obj.ret.rootID).innerHTML = h;
+    }
+
+    function setTop(id, top)
+    {
+        var _msg = (top) ?  "確定要置頂嗎?" : "確定要取消置頂嗎?";
+        if (confirm(_msg))
+            $sload("/sys/http_top_post.php", {id:id}, onSetTop);
+    }
+
+    function onSetTop(obj)
+    {
+        var r = obj.ret;
+        if (r.status == "false")
+        {
+            alert(r.msg);
+            return;
+        }
+
+        $reload();
+    }
+    
+    function postAddReply(_act, id, _type)
+    {
+        var postUrl;
+        
+        var is_surfview = '0';
+        if (is_surfview && _act != "reply")
+        {
+            postUrl = "/post_insert.php?courseID=5430&modal=1&action=" + _act + "&resType=" + _type + "&id=" + id + "&hint=0" + "&view="; // add hint for ajax upload in post_insert.php
+            $showModal('發表討論', postUrl , 800, 520, onFinish);
+        }
+        else
+        {    
+            postUrl = "/post_insert.php?courseID=5430&modal=1&action=" + _act + "&resType=" + _type + "&id=" + id;
+            $showModal('回應', postUrl , 800, 520, onFinish);
+        }
+    }
+    
+
+    function onPostFinish(obj)
+    {
+        if(obj.action == "post"){$reload(); return;}
+
+        var id = obj.rootID;
+        var obj = $syncload("/sys/lib/ajax/post.php", {id:id});
+
+        var p = obj.posts;
+        var h = "";
+        for (var i=0; i<p.items.length; i++)
+        {
+            h += postHtml(p.items[i]);
+        }
+
+        $("replyEditor" + id).innerHTML  = "";
+        $("thread"   + id).innerHTML     = h;
+        $("btnReply" + id).style.display = "block";
+
+        if ($("rn" + id)) $("rn" + id).innerHTML = p.replies;
+        if ($("run" + id)) $("run" + id).innerHTML = p.replyUsers;
+        if ($("dt" + id)) $("dt" + id).innerHTML = m_dateMDT(p.lastPostTime) + ", by " + p.lastName;
+    }
+
+    function btnHtml(value, cb)
+    {
+        return "<span class=btn onclick='javascript:" + cb + "' onmouseover='this.className=\"btnOver\"' onmouseout='this.className=\"btn\"'>" + value + "</span>";
+    }
+
+    function GiveLike(resType, resID)
+    {
+        var obj = $syncload("/board/http_like.php", {courseID:5430, resType:resType, resID:resID});
+
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+
+        $("like_img_"+resID).style.display = "none";
+        $("unlike_img_"+resID).style.display = "inline";
+        $("like_img_"+resID).parentNode.onmouseover = function() {showDel(1, resID);}
+        $("like_img_"+resID).parentNode.onmouseout = function() {showDel(0, resID);}
+
+        var likeCount = obj.ret.likeCount;
+        if ($("like_status_"+resID).innerHTML != "")
+        {
+            $("likeCount_"+resID).innerHTML = likeCount;
+        }
+        else
+        {
+            var like_status = " &nbsp;<a href='javascript:show_like_giver("+ resType +", "+ resID +")' id=likeCount_"+ resID +" title='看哪些人給讚'>"+ likeCount +"</a>&nbsp; 人";
+            $("like_status_"+resID).innerHTML = like_status;
+        }
+
+        if ($("lc"+resID))
+        {
+            if ($("lc"+resID).innerHTML != 0)
+            {
+                $("t_likeCount_"+resID).innerHTML = likeCount;
+            }
+            else
+            {
+                var like_status = "<a href='javascript:show_like_giver("+ resType +", "+ resID +")' id=t_likeCount_"+ resID +" title='看哪些人給讚'>"+ likeCount +"</a>";
+                $("lc"+resID).innerHTML = like_status;
+            }
+        }
+    }
+
+    function removeLike(resType, resID)
+    {
+        var obj = $syncload("/board/http_remove_like.php", {courseID:5430, resType:resType, resID:resID});
+
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+
+        $("like_img_"+resID).style.display = "inline";
+        $("unlike_img_"+resID).style.display = "none";
+        $("like_img_"+resID).parentNode.onmouseover = "";
+        $("like_img_"+resID).parentNode.onmouseout = "";
+
+        var likeCount = obj.ret.likeCount;
+        if (likeCount == 0)
+        {
+            $("like_status_"+resID).innerHTML = "";
+            ($("lc"+resID)) ? $("lc"+resID).innerHTML = 0 : "";
+        }
+        else
+        {
+            $("likeCount_"+resID).innerHTML = likeCount;
+            ($("lc"+resID)) ? $("t_likeCount_"+resID).innerHTML = likeCount : "";
+        }
+    }
+
+    function showDel(mode, resID)
+    {
+        if (mode == 0)
+        {
+            $("like_img_"+resID).style.display = "inline";
+            $("unlike_img_"+resID).style.display = "none";
+        }
+        else
+        {
+            $("like_img_"+resID).style.display = "none";
+            $("unlike_img_"+resID).style.display = "inline";
+        }
+    }
+</script>
+<div class=infoPath>位置:
+                    <a href='/course/5430'>管理學Management</a> &gt;
+                    <a href='/course.php?courseID=5430&f=hwlist'>作業</a> &gt;
+                 <a href='/course.php?courseID=5430&f=hw&hw=18264'>第五章(G1)</a>  <img src='/sys/res/icon/printer.gif' border='0' class='vmiddle' style='cursor:pointer' title='友善列印' onclick='window.open("/course/doc_print.php?courseID=5430&cid=59376");'>
+                  </div>
+                <div id=doc class=doc>
+                    <div class=title>管理學報告ppt_ch5   <span class=hint>(遲交)</span> </div>
+                    <div class=toolarea>
+                        <div class=poster>by 呂惠文, 2010-11-02 23:59, 人氣(1187)</div>
+                        <div id=tools class=tool>
+                            上一份 | 下一份
+                            
+                        </div>
+                        <div class=clear></div>
+                    </div>
+                    <div class=article>
+                         
+                        
+                        
+                        
+                    </div>
+                    <div class=attach><div class=blockTitle2><img align=absmiddle src='/sys/res/icon/item2.gif'>
+                            附件 
+                        </div>
+                        <div class=block><div><a href='/sys/read_attach.php?id=49113' title="管理學報告.pptx" target='_blank'>1.</a> <a href='/sys/read_attach.php?id=49113' title="管理學報告.pptx" target='_blank'>管理學報告.pptx</a> <span class=hint>(92 KB)</span></div></div></div>
+                    
+                    <div class=forum></div>
+                </div>
+            <script src='/sys/lib/js/lib.js'></script>
+<script>
+    // save log
+    var logID = 17794827;
+
+    var isIOS = is_ios_device();    
+    
+    var withBeforeUnload = false;
+    
+    if (isIOS && ("onpagehide" in window)) window.addEventListener("pagehide", pagehideHandler, false);
+    
+    function pagehideHandler(evt)
+    {       
+        withBeforeUnload = true;
+        saveLog();        
+    }  
+    
+    window.onbeforeunload = function(evt)
+    {   
+        withBeforeUnload = true;
+        saveLog();
+    }
+    
+    window.onunload = function(evt)
+    {        
+        if(!withBeforeUnload) saveLog();
+    }
+    
+   
+    function saveLog()
+    {
+        if (logID != 0)
+        {
+            var ff = Math.random();
+            if ("undefined" != typeof navigator && navigator && navigator.sendBeacon)
+            {               
+                var data = new FormData();
+                data.append('courseID', 5430);
+                data.append('logID', logID);
+                navigator.sendBeacon("/course/http_doc_log.php?fresh=" + ff, data);
+            }
+            else
+            {
+                $syncload("/course/http_doc_log.php?fresh=" + ff, {courseID:5430, logID:logID});
+            }
+        }
+    }
+
+    // iOS 5 Not support window.onunload
+    if ((/iPhone|iPad|iPod/gi).test(navigator.appVersion))
+    {
+        setTimeout("updateDocLog()", 60000);
+    }
+    function updateDocLog()
+    {
+        if (logID == 0) return;
+        var ff = Math.random();
+        try {
+            var obj = $syncload("/course/http_doc_log.php?fresh=" + ff, {courseID:5430, logID:logID});
+        }
+        catch (e) {}
+
+        setTimeout("updateDocLog()", 60000);
+    }
+
+    function download(id)
+    {
+        var sbody  = "<div style='height: 150px'><iframe id=if frameborder=0 width=100% height=100%></iframe></div>";
+        var a = $area($("tools"));
+        $showPopup("下載 EverCam", sbody, a.left-135, a.top+22, 220);
+        $("if").src = "/sys/download.php?id=" + id;
+    }
+    
+    function downloadHTML(id)
+    {
+        var sbody  = "<div style='height: 150px'><iframe id=if frameborder=0 width=100% height=100%></iframe></div>";
+        var a = $area($("tools"));
+        $showPopup("下載", sbody, a.left-135, a.top+22, 220);
+        $("if").src = "/sys/download_html.php?id=" + id;
+    }
+
+    function downloadppt(id)
+    {
+        var  _url = "/sys/download_ppt.php?id=" + id;
+        window.open(_url);
+    }
+
+    function downloadVideo(id)
+	{
+	    var sbody  = "<div style='height: 150px'><iframe id=if frameborder=0 width=100% height=100%></iframe></div>";
+        var a = $area($("tools"));
+        $showPopup("下載影片", sbody, a.left-135, a.top+22, 250);
+        $("if").src = "/sys/download_video.php?id=" + id;         
+	}
+
+    function readHtml(url)
+    {
+        window.location.href = url;
+    }
+
+    function newNote(issurf)
+    {
+        var finishFunc = onFinish;
+        if (issurf) finishFunc = onFinish2;
+
+        $showModal('寫筆記', '/blog/blog_doc_add.php?courseID=5430&refResID=59376&refResType=1', 800, 510, finishFunc);
+    }
+    function listMyNote(issurf)
+    {
+        if (issurf)
+            window.open("/course.php?courseID=5430&f=note&refResID=59376&refResType=1");
+        else
+            window.location.href = "/course.php?courseID=5430&f=note&refResID=59376&refResType=1";
+    }
+    function listOpenNote(issurf)
+    {
+        if (issurf)
+            window.open("/course.php?courseID=5430&f=note_other&refResID=59376&refResType=1");
+        else
+            window.location.href = "/course.php?courseID=5430&f=note_other&refResID=59376&refResType=1";
+    }
+    function getNote(id)
+    {
+        var e = $("note_" + id);
+        if (e.style.display == "block") {e.style.display = "none"; return;}
+
+        e.innerHTML = "<p style='text-align:center'>loading ...</span>";
+        e.style.display = "block";
+
+        var obj = $syncload("/sys/lib/ajax/note.php", {id:id});
+        if (obj == "")
+        {
+            alert("loading data error!");
+            e.style.display = "none";
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            e.style.display = "none";
+            return;
+        }
+
+        var h = obj.ret.note;
+        $("note_" + id).innerHTML = h;
+    }
+
+    function edit()
+    {
+        $showModal('編輯', '/course/doc_edit.php?id=59376', 800, 510, onFinish);
+    }
+
+    function del()
+    {
+        $showModal('確定要刪除嗎?', '/course/doc_delete.php?id=59376', 380, 200, goHome);
+    }
+    
+    function showLinks()
+    {
+        $showModal('連結', '/course/doc_links.php?id=59376', 650, 520, onFinish);
+    }
+    
+    function goHome()
+    {
+        if (!$modalarg){ $closeModal(); return; }
+
+        if ($modalarg.resType == 2)  //material
+            window.location.href = '/course.php?courseID=5430&f=doclist';
+        else if ($modalarg.resType == 3)  //wiki
+            window.location.href = '/course.php?courseID=5430&f=doclist&&view=wiki';
+        else if ($modalarg.resType == 4)  //homework
+            window.location.href = '/course.php?courseID=5430&f=hw&hw=18264';
+        else
+            window.location.href = '/course/5430';
+    }
+
+    function editSlideTitle()
+    {
+        $showModal('編輯講解標題', '/course/slide_edit.php?id=59376', 800, 500, onFinish);
+    }
+
+    function setScore(id, next)
+    {
+        $modalarg = "";
+        $showModal("評分", '/course/hw_score.php?id=' + id + "&next=" +  next, 510, 300, setScoreFinish);
+    }
+    function setScoreFinish()
+    {
+        var next = 0
+        if ($modalarg && $modalarg.status == "true")
+        {
+            $("score" + $modalarg.id).innerHTML = "(" + $modalarg.score + ")";
+            next = $modalarg.next;
+        }
+        $closeModal();
+        
+        if (next)
+        {
+            window.location.href = "/course.php?courseID=5430&f=doc&cid=";
+        }
+    }
+    function editGroupScore(folderID, teamID, next)
+    {
+        $showModal('評分', '/course/hw_group_score.php?courseID=5430&folderID=' + folderID + '&teamID=' + teamID + "&next=" + next + "&next_docID=", 500, 500, onFinish);
+    }
+    function attachDisplay(docID, display)
+    {
+        if (display == 0 && !confirm("其他使用者將無法看到附件列表，是否確定要隱藏?"))
+            return;
+
+        $load("/course/http_attach_display.php", {courseID:"5430", docID:docID, display:display}, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+
+    function showScore(id)
+    {
+                var _body  = "<div style='width:100%; white-space:normal;'> </div>";
+            _body += "<div style='padding:10px 0px 0px 0px'><input onclick='$hidePopup()' type=button value='確定'>";
+
+        var a = $area($("tScore"));
+        $showPopup("評語 <span class=hint></span>", _body, a.left-500+a.width, a.top+a.height, 500);
+    }
+    function getCurrSlide(id)
+    {
+        var swfCtrl = eval('swfslide' + id);
+        swfCtrl.getCurrSlide();
+    }
+    function subscribe(id, playType, url)
+    {
+        if (0)
+        {
+            var _body  = "<div>";
+                _body += "<div class=em>此文件為連結的教材，所以無法訂閱。</div>";
+                _body += "</div>";
+        }
+        else if (playType == "mp4" || playType == "fs2mp4")
+        {
+            var _body  = "<div>";
+                _body += "<div class=em>URL: <input type=text onclick='this.select()' class=Text style='width:250px; color:#333' value='" + url + "' readonly autocomplete=off></div>";
+                _body += "</div>";
+        }
+        else
+        {
+            var _body  = "<div>";
+                _body += "<div class=em>此文件尚未支援跨平台閱讀，所以無法訂閱。</div>";
+                _body += "</div>";
+        }
+
+        var a = $area($("pMedia_" + id));
+        $showPopup("訂閱", _body, a.left+a.width-300, a.top+a.height, 300);
+    }
+    function convert_log()
+    {
+        var obj = $j("#mediaInfo").position();
+        obj.height = $j("#mediaInfo").height() + 10;
+        var _body = "<div id=_popupbody style='height:110px'><iframe id=if name=if frameborder=0 width=100% height=100% src='/sys/convert_log.php?id=59376&tableName=content' ></iframe></div>";
+        $showPopup("轉檔資訊", _body, obj.left - 300, obj.top, 280);
+    }   
+    
+   
+</script>
+                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

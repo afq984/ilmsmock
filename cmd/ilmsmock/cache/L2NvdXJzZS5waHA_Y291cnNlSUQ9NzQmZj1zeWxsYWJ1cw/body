@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>iLMS平台線上客服專區 - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>234</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 74;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=74&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/74'">iLMS平台線上客服專區</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"74", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=74&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=74", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=74", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=74", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=74", 800, 520, onFinish); }
+</script>
+<div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=74&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=74&f=doclist'>上課教材</a> <span class=hint>(21)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=74&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=74&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=74&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=74&f=forumlist'>討論區</a> <span class=hint>(253)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=74&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=74&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=74&f=hwlist'>作業</a> <span class=hint></span></div>
+                <div class=Epoll><a href='/course.php?courseID=74&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=74&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='如何更換組別 (06-02)' href='/course.php?courseID=74&f=forum&tid=324375'>re: 如何更換組別</a> <span class=hint>(06-02)</span></div><div class=boxItem><a title='如何寄信給同學 (05-18)' href='/course.php?courseID=74&f=forum&tid=320694'>re: 如何寄信給同學</a> <span class=hint>(05-18)</span></div><div class=boxItem><a title='無法顯示課程公告資訊 (10-04)' href='/course.php?courseID=74&f=forum&tid=296677'>無法顯示課程公告資訊</a> <span class=hint>(10-04)</span></div><div class=boxItem><a title='如何刪除討論區的發文和檔案 (09-21)' href='/course.php?courseID=74&f=forum&tid=295309'>如何刪除討論區的發文和檔案</a> <span class=hint>(09-21)</span></div><div class=boxItem><a title='無法新增公告 (04-09)' href='/course.php?courseID=74&f=forum&tid=270775'>re: 無法新增公告</a> <span class=hint>(04-09)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=74&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 182309</div>
+                <div>文章: 29</div>
+                <div>討論: 253</div>
+                <div>容量: 剩餘 <b>2.8 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 系統管理者</div>
+                
+                <div style='white-space:normal'>助教: 無</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                <div class=infoPath>
+            位置: <a href='/course/74'>iLMS平台線上客服專區</a> &gt;
+            <span class=curr>課程說明</span>
+          </div><script>
+    function editDoc(type)
+    {
+        switch (type)
+        {
+            case 1:
+                m_mgrProfile();
+                break;
+            case 2:
+                window.location.href = '/course.php?courseID=74&f=syllabus_edit';
+                break;
+            case 3:
+                $showModal('成績欄位管理', '/course/score/mgr.php?courseID=74', 600, 450, reload);
+                break;
+        }
+    }
+
+    function addAnchor(txt)
+    {
+        var s = 0;
+        while (1)
+        {
+            var p = txt.indexOf("http://", s);
+            if (p == -1) break;
+
+            var url = addAnchorToken(txt, p);
+            var url2 = "<a href='" + url + "'>" + url + "</a>";
+            txt = txt.substr(0, p) + url2 + txt.substr(p + url.length);
+            s = p + url2.length - 1;
+        }
+        return txt;
+    }
+
+    function addAnchorToken(str, pos)
+    {
+        var p1, p2;
+        var p1 = str.indexOf(" ", pos);
+        if (p1 > 0)
+        {
+            p2 = str.indexOf("<br>", pos);
+            if (p2 != -1 && p2 < p1) return str.substr(pos, p2 - pos);
+            else return str.substr(pos, p1 - pos);
+        }
+
+        p1 = str.indexOf("\n", pos);
+        if (p1 != -1) return str.substr(pos, p1 - pos);
+
+        return str.substr(pos);
+    }
+
+    function reload()
+    {
+        window.location.reload();
+    }
+</script>
+<div>
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>課程資訊 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>項目</td>
+                            <td class='cell header2' style='border-right:0px'>內容</td>
+                        </tr>
+                        <tr>
+                            <td class='cell col1 bg'>課程名稱</td>
+                            <td class='cell col2 bg'>iLMS平台線上客服專區 <span class=hint>(不分學期的課程, 0001, 學術單位, lms01)</span></td>
+                          </tr><tr>
+                            <td class='cell col1 '>閱讀權限</td>
+                            <td class='cell col2 '>開放旁聽</td>
+                          </tr><tr>
+                            <td class='cell col1 bg'>課堂整理權限</td>
+                            <td class='cell col2 bg'>不開放</td>
+                          </tr><tr>
+                            <td class='cell col1 '>老師</td>
+                            <td class='cell col2 '>系統管理者</td>
+                          </tr><tr>
+                            <td class='cell col1 bg'>助教</td>
+                            <td class='cell col2 bg'>無</td>
+                          </tr><tr>
+                            <td class='cell col1 '>學分</td>
+                            <td class='cell col2 '>0</td>
+                          </tr>
+                    </table>
+                </div>
+            </div>
+        
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>教學進度 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>進度</td>
+                            <td class='cell header2' style='border-right:0px'>內容</td>
+                        </tr>
+                        <tr>
+                        <td class='cell col1 bg'>1</td>
+                        <td class='cell col2 bg'></td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        
+            <div style='padding-bottom:25px'>
+                <div class='blockTitle' style='padding-bottom:0px'>成績計算 &nbsp; <span class=hint></span></div>
+                <div class=infoTable>
+                    <table cellspacing=1 cellpadding=0 width=100%>
+                        <tr>
+                            <td class='cell header1'>項目</td>
+                            <td class='cell header2' style='border-right:0px'>權重</td>
+                        </tr>
+                        <tr>
+                        <td class='cell col1 bg'>AA</td>
+                        <td class='cell col2 bg'>5%</td>
+                      </tr><tr>
+                        <td class='cell col1 '>final</td>
+                        <td class='cell col2 '>70%</td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+                     </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>平行程式Parallel Programming - 國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/res/themes/0/style.css");</style>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sys/style/cbutton.css");</style>
+<style>@import URL("/sys/style/ctoc.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script type="text/javascript" src='/sys/lib/js/dom.js'></script>
+<script type="text/javascript" src='/sys/lib/js/lib.js'></script>
+<script type="text/javascript" src='/sys/lib/js/jquery.js'></script>
+<script type="text/javascript" src='/sys/lib/js/fsmedia.js'></script>
+<script type="text/javascript" src='/sys/lib/js/highslide-with-html.js'></script>
+</head>
+<body align='center'>
+<script>
+            var currUrl = window.location.href.split('&iframe=1');
+            var docLocation = currUrl[0];
+            if ('' && top === self) window.location.href = docLocation;
+          </script>    <div id=base>
+        <div id=sysbar>            
+                <div id=logo style="float:left;" onclick="window.location.href='/'"></div>
+    <div id=sign style='float:right'>
+        <div id=login style='text-align:right'>
+            <script type="text/javascript">var gRedirectHome = false;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>        </div>
+        <div class=clear></div>
+        <div id=search style='text-align:right;'>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數:<span id='counter'>263</span>&nbsp;&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'>&nbsp;<img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>        </div>
+    </div>
+
+    <div class=clear></div>
+
+<script>
+    var gCourseID = 40596;
+    var gLogID = 0;
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim, courseID:gCourseID, logID:gLogID});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=0&courseID=40596&area=59&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onFinish); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }    
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+</script>
+              
+        </div>
+
+        <div id=mainBody>
+            <div id=banner>                
+                    <div class=title><span class=pointer onclick="window.location.href='/course/40596'">平行程式Parallel Programming</span></div>
+            <div class=info>&nbsp;</div>
+            <div id=tool>&nbsp;</div>
+            <div style='clear:both'></div>
+                        
+            </div>
+            <div id=content>
+                <div id=menu>
+                    <script>
+    function setMode(selectedMode)
+    {
+        var obj = $syncload("/course/http_switch_view_mode.php", {courseID:"40596", mode:selectedMode});
+        if (!obj)
+        {
+            alert("ajax load error!");
+            return;
+        }
+
+        if (obj.ret.status == "false")
+        {
+            alert(obj.ret.msg);
+            return;
+        }
+        
+        window.location.reload();
+    }
+
+    function asstemail(id)
+    {
+        $showModal("寄信", '/course/member/email.php?asst=1&courseID=40596&ids=' + id, 800, 470, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function cb() {$closeModal();}
+    function changeCourse(obj)
+    {
+        var v = obj.options[obj.selectedIndex].value;
+        var arr = v.split(":");
+        var url = (arr[0] == 1) ? "/course" : "/board.php";
+        var courseID = arr[1];
+        window.location.href = (arr[0] == 1) ? "/course/" + courseID
+                                             : "/board.php?courseID=" + courseID;
+    }
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+    function m_mgrMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("eMenuMgr", m_onMenuMgrMenuClick2);
+
+        var _arg = {};
+        $mnu.m_append("設定", "profile", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+        
+        var a = $area($("emgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onMenuMgrMenuClick2(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":       m_mgrProfile(); break;
+            case "theme":         m_mgrTheme(); break;
+            case "css":           m_mgrCss(); break;
+            case "cssupload":       m_mgrCssUpload(); break;
+        }
+    }
+
+    function m_mgrProfile()      { $showModal("首頁設定", "/course/info_edit.php?courseID=40596", 800, 550, onFinish); }
+    function m_mgrTheme()        { $showModal("套用版面樣式", "/board/theme.php?courseID=40596", 800, 500, onFinish); }
+    function m_mgrCss()          { $showModal("編輯樣式",   "/board/theme_edit.php?courseID=40596", 800, 550, onFinish); }
+    function m_mgrCssUpload()     { $showModal("貢獻樣式", "/board/theme_upload.php?courseID=40596", 800, 520, onFinish); }
+</script>
+<div style='width:100%; padding-bottom:5px;' class='hidden em' title='學期:1081 時間:2019-09-01 ~ 2020-01-19'>1081 <span class=hint>(2019-09-01~2020-01-19)</span></div><div class=box>
+            <div class=boxHeader>課程功能</div>
+            <div class=boxBody>
+
+                <div class=Eactivity><a href='/course.php?courseID=40596&f=activity'>課程活動(公告)</a></div>
+                <div class=Edoc><a href='/course.php?courseID=40596&f=doclist'>上課教材</a> <span class=hint>(13)</span></div>
+                <div class=Ewiki><a href='/course.php?courseID=40596&f=wiki'>課堂整理</a></div>
+
+                <div class=hr></div>
+                <div class=Einfo><a href='/course.php?courseID=40596&f=syllabus'>課程說明</a></div>
+                <div class=Enormal><a href='/course.php?courseID=40596&f=calendar'>課程行事曆</a></div>
+                <div class=Ecomment><a href='/course.php?courseID=40596&f=forumlist'>討論區</a> <span class=hint>(55)</span></div>
+                <div class=Egroup><a href='/course.php?courseID=40596&f=grouplist'>小組專區</a></div>
+
+                <div class=hr></div>
+                <div class=Enote><a href='/course.php?courseID=40596&f=note_other'>共享的筆記</a></div>
+                <div class=Ehomework><a href='/course.php?courseID=40596&f=hwlist'>作業</a> <span class=hint><span class=hint>(12)</span></span></div>
+                <div class=Epoll><a href='/course.php?courseID=40596&f=polllist'>問卷</a> <span class=hint></span></div>
+                <div class=Equiz><a href='/course.php?courseID=40596&f=quizlist&cquizID=0'>線上測驗</a> <span class=hint></span></div>
+                
+                
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>最新討論</div>
+            <div class=boxBody>
+                <div class=boxItem><a title='HW3 (01-16)' href='/course.php?courseID=40596&f=forum&tid=261927'>re: HW3</a> <span class=hint>(01-16)</span></div><div class=boxItem><a title='HW3 (01-16)' href='/course.php?courseID=40596&f=forum&tid=261926'>HW3</a> <span class=hint>(01-16)</span></div><div class=boxItem><a title='不能 srun - QOSMaxGRESMinutesPerJob (12-29)' href='/course.php?courseID=40596&f=forum&tid=258543'>re: 不能 srun - QOSMaxGRESMinutesPerJob</a> <span class=hint>(12-29)</span></div><div class=boxItem><a title='無法srun (12-28)' href='/course.php?courseID=40596&f=forum&tid=258409'>re: 無法srun</a> <span class=hint>(12-28)</span></div><div class=boxItem><a title='工作站問題 (12-28)' href='/course.php?courseID=40596&f=forum&tid=258403'>re: 工作站問題</a> <span class=hint>(12-28)</span></div><div class=hint style='text-align:right'><a href='/course.php?courseID=40596&f=forumlist'>...更多</a></div>
+                
+            </div>
+            <div class=boxFooter></div>
+          </div><div class=box>
+            <div class=boxHeader>課程資訊</div>
+            <div class=boxBody>
+                                
+                <div>訪客: 19988</div>
+                <div>文章: 663</div>
+                <div>討論: 55</div>
+                <div>容量: 剩餘 <b>2.6 GB</b> <span class=hint>(2.9 GB)</span></div>
+                <div style='white-space:normal'>老師: 周志遠</div>
+                
+                <div style='white-space:normal'>助教: 王宇正 , &nbsp;尤立宇 , &nbsp;許耿瑞</div>
+                <div>閱讀權限: 開放旁聽</div>
+            </div>
+            <div class=boxFooter></div>
+          </div>                </div>
+
+                <div id=main>                    
+                <div class=infoPath>
+                位置:
+                <a href='/course/40596'>平行程式Parallel Programming</a> &gt;
+                <span class=curr>課程公告</span><a href='/course/rssfeed.php?courseID=40596&resType=news' title='RSS 資訊服務' target='_blank'><img src='/sys/res/icon/rss.gif' align=absmiddle border='0'></a>
+                <span class=tool></span>
+          </div>
+            <div class=tableBox>
+                <table class=table>
+                    <tr class=header><td class=td width=60px align=center>編號</td><td class=td  align=center>標題</td><td class=td width=40px align=center>人氣</td><td class=td width=80px align=center>日期</td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2231155'>2231155</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2231155, "")'>Lab4, Lab5, HW4-1, HW4-2 成績公佈</a> <img src='/sys/res/icon/hot.gif'></td><td class=td valign=top width=40px align=center >144</td><td class=td valign=top width=80px align=center ><span title='2020-01-17 02:27:57'>01-17 02:27</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2231155 class=thread style='margin-left:40px; display:none; padding:5px'>請同學確認成績, hw 評語內有分數細項若有問題請盡快與助教聯繫   </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2217303'>2217303</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2217303, "")'>Final & HW4-2 Demo</a> <img src='/sys/res/icon/hot.gif'></td><td class=td valign=top width=40px align=center >246</td><td class=td valign=top width=80px align=center ><span title='2020-01-07 19:08:06'>01-07 19:08</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2217303 class=thread style='margin-left:40px; display:none; padding:5px'>請同學以組為單位到此連結填寫 Final &amp; HW4-2 Demo 表單我們開放本週四以及下週二晚上兩個時段請同學在填寫表單的時候盡量先填較早的時段Final Demo 請證明自己的實作有完成, 並解釋技術的難度有 7 分鐘做 Demo, 3 分鐘時間問問題     </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2218728'>2218728</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2218728, "")'>HW3 成績公佈</a> </td><td class=td valign=top width=40px align=center >1385</td><td class=td valign=top width=80px align=center ><span title='2020-01-08 16:07:02'>01-08 16:07</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2218728 class=thread style='margin-left:40px; display:none; padding:5px'>2020/1/8 16:46 更新：Correctness 部份錯一個測資改為扣 0.5 分，原 spec 上為錯一個扣 2 分LinearAdjustment 改為 +7，原為 +7.04---HW3 成績已公佈請到 iLMS 查看各項得分在 iLMS 的評語內說明：[C]orrectness, w: 錯的測資數量[P]erformance, t: 執行總時間[T]estcase, t: 除了自己以外的執行總時間[D]emo[R]eport[L]inearAdjustment如有疑問請與助教聯絡         </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2212419'>2212419</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2212419, "")'>HW3 correctness & performance</a> </td><td class=td valign=top width=40px align=center >110</td><td class=td valign=top width=80px align=center ><span title='2020-01-04 17:04:28'>01-04 17:04</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2212419 class=thread style='margin-left:40px; display:none; padding:5px'>HW3 correctness &amp; performance 的測試結果如下：http://apollo.cs.nthu.edu.tw/scoreboard/hw3-ta/如有任何問題請與助教聯絡，謝謝 </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2198796'>2198796</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2198796, "")'>hades 修復</a> </td><td class=td valign=top width=40px align=center >136</td><td class=td valign=top width=80px align=center ><span title='2019-12-28 03:01:26'>12-28 03:01</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2198796 class=thread style='margin-left:40px; display:none; padding:5px'>我們換了一顆新的硬碟到 hades01 上面現在已經可以正常登入應該不會再有之前上線沒多久就壞掉的情況     </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2198196'>2198196</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2198196, "")'>HW4-2 TA Time</a> </td><td class=td valign=top width=40px align=center >148</td><td class=td valign=top width=80px align=center ><span title='2019-12-27 16:39:18'>12-27 16:39</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2198196 class=thread style='margin-left:40px; display:none; padding:5px'>昨天 Demo 有一些同學對 HW4-2 有些疑問今天晚上 8:00 - 9:00 開放同學到資電館836問問題如果有相關問題不管是優化技巧或平行後變慢的問題都可以來問作業 HW4-2 會要求同學使用多卡做計算並且 performance 要比 4-1 好另外提醒隱藏測資的部份會有整張圖放不下在一張卡的情況 (會給比較大的 Time limit, not 30s)所以資料的部份也要分散在2張卡上 (同學可以自己用 V = 45K - 60K 的 data 做 validation)     </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2197477'>2197477</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2197477, "")'>Lab7 - Distributed Deep Learning</a> </td><td class=td valign=top width=40px align=center >112</td><td class=td valign=top width=80px align=center ><span title='2019-12-27 00:30:35'>12-27 00:30</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2197477 class=thread style='margin-left:40px; display:none; padding:5px'>時間: 平日上課時間 下周一 12/30 3:30~5:20pm地點: 上課教室實驗的操作必須當場完整才能取得分數所以請務必準時到教室     </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2187727'>2187727</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2187727, "")'>HW4-1 Demo</a> </td><td class=td valign=top width=40px align=center >159</td><td class=td valign=top width=80px align=center ><span title='2019-12-21 23:55:13'>12-21 23:55</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2187727 class=thread style='margin-left:40px; display:none; padding:5px'>下星期四/五(12/26, 12/27)晚上 HW4-1 Demo請同學到表單填寫 demo 時段有問題請在 demo 以前與助教聯絡https://docs.google.com/spreadsheets/d/1zyj1oTvhLm_OilWhaehXgGpKYN96eo7DuqPO1-j6n1U/edit?usp=sharing </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2164445'>2164445</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2164445, "")'>HW2 作業成績</a> </td><td class=td valign=top width=40px align=center >132</td><td class=td valign=top width=80px align=center ><span title='2019-12-09 12:39:38'>12-09 12:39</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2164445 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：下方連結為第二次作業成績連結：點我如果同學對成績有疑慮，請寄信到 pp@lsalab.cs.nthu.edu.tw 聯絡助教TA. </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2156809'>2156809</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2156809, "")'>HW2 & HW3 補 demo</a> </td><td class=td valign=top width=40px align=center >83</td><td class=td valign=top width=80px align=center ><span title='2019-12-04 09:10:45'>12-04 09:10</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2156809 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：12/5 下午第六節課(原上課時間)開放同學到資電館 836 補 demo HW2 &amp; HW3之後不會再有補 demo 的時間TA. </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2139601'>2139601</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2139601, "")'>HW2&3 Demo</a> </td><td class=td valign=top width=40px align=center >177</td><td class=td valign=top width=80px align=center ><span title='2019-11-25 07:56:37'>11-25 07:56</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2139601 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：請同學到下面的表單填寫 HW2 &amp; HW3 的 demo 時間兩個作業會一起 demoDemo 地點在資電館 836表單：點我注意事項：我們在 demo 的時候會問同學關於 report 的問題，請同學務必記得自己 report 裡的內容 </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2116191'>2116191</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2116191, "")'>Lab5 - CUDA Advance</a> </td><td class=td valign=top width=40px align=center >310</td><td class=td valign=top width=80px align=center ><span title='2019-11-11 22:50:24'>11-11 22:50</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2116191 class=thread style='margin-left:40px; display:none; padding:5px'>Lab5 - CUDA Advance時間: 下週四(11/21)晚上, 19:00地點: 資電館 323   </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2104554'>2104554</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2104554, "")'>Lab3 成績已上傳</a> </td><td class=td valign=top width=40px align=center >151</td><td class=td valign=top width=80px align=center ><span title='2019-11-05 00:23:41'>11-05 00:23</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2104554 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：Lab3 的成績部分已經上傳下面連結為成績登記表連結空白部分為 lab 時沒有 demo，且事後也沒有使用 lab3-judge 指令繳交程式碼同學可參考助教給同學程式碼的建議另外請同學對照 iLMS 上的成績登記是否與連結中的成績相同有問題請來信給助教TA. </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2103244'>2103244</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2103244, "")'>Lab4</a> </td><td class=td valign=top width=40px align=center >272</td><td class=td valign=top width=80px align=center ><span title='2019-11-04 15:09:00'>11-04 15:09</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2103244 class=thread style='margin-left:40px; display:none; padding:5px'>Lab4 - CUDA Basic時間: 本週四晚上 (11/07), 19:00地點: 資電館 323&nbsp;   </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2075501'>2075501</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2075501, "")'>HW1 繳交</a> </td><td class=td valign=top width=40px align=center >154</td><td class=td valign=top width=80px align=center ><span title='2019-10-21 14:19:13'>10-21 14:19</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2075501 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：因為不少同學看錯時間第一次作業的截止時間由 10/21 11:59 (中午) 修改為 10/21 23:59 (晚上)   </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2071442'>2071442</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2071442, "")'>HW1 Demo</a> </td><td class=td valign=top width=40px align=center >279</td><td class=td valign=top width=80px align=center ><span title='2019-10-19 13:33:40'>10-19 13:33</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2071442 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：請同學到下面的表單填寫第一次作業的 demo 時間Demo 地點在資電館 836表單：點我注意事項：我們在 demo 的時候會問同學關於 report 的問題，特別是實驗的部份，請同學務必記得自己 report 裡的內容 </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2071193'>2071193</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2071193, "")'>Using clang static analyzer with MPI</a> </td><td class=td valign=top width=40px align=center >119</td><td class=td valign=top width=80px align=center ><span title='2019-10-19 07:02:46'>10-19 07:02</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2071193 class=thread style='margin-left:40px; display:none; padding:5px'>The clang static analyzer introduced in Lab2 includes optional MPI checkers that are not enabled by default. Here's one of the may ways to enable it: 1. scan-build works by setting the CC and CXX environment variable. To use the compilers specified by scan-build, use MPICC = mpicc -cc=$(CC) and MPIXX = mpicxx -cxx=$(CXX)&nbsp;in your Makefile.2. The MPI checkers are not enabled by default. To enable them in scan-build, add -enable-checker option.mpi in to the list of scan-build's flags.Here's an example:https://gist.github.com/afq984/bb561b0d3f5bd8450d0950ed27444e92        </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2071115'>2071115</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2071115, "")'>Lab3 Demo 結果</a> </td><td class=td valign=top width=40px align=center >148</td><td class=td valign=top width=80px align=center ><span title='2019-10-19 00:57:53'>10-19 00:57</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2071115 class=thread style='margin-left:40px; display:none; padding:5px'>同學們好：以下連結為我 lab3 的 demo 結果，請沒有在 lab 中完成所有 demo 的同學記得在 10/24 23:59 之前繳交程式碼Lab3 Demo另外如果同學發現成績登記有誤，請再寄信通知助教修正 </div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2030241'>2030241</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2030241, "")'>TA 時間</a> </td><td class=td valign=top width=40px align=center >185</td><td class=td valign=top width=80px align=center ><span title='2019-09-27 02:38:23'>09-27 02:38</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2030241 class=thread style='margin-left:40px; display:none; padding:5px'>Hi,關於 TA 時間的問題請同學事先寄信到 pp@lsalab.cs.nthu.edu.tw 跟助教約好時間後再到資電館 836 跟助教討論喔至於 lab1，這邊有兩個要注意的點1. 同學的程式必須要可以 handle 任意數量的 MPI process2. 程式的輸出精度至少要達到小數點下 10 位如果同學有任何作業上的問題，可以再跟助教約時間討論，或是在 ilms 討論區上發文 </div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=60px align=center ><a href='/course.php?courseID=40596&f=news_show&newsID=2016501'>2016501</a></td><td class=td valign=top  align=left ><a href='javascript:javascript:newsBox(2016501, "")'>Lab1</a> </td><td class=td valign=top width=40px align=center >352</td><td class=td valign=top width=80px align=center ><span title='2019-09-19 18:29:32'>09-19 18:29</span></td></tr><tr><td valign=top colspan=4><div id=newsDetail2016501 class=thread style='margin-left:40px; display:none; padding:5px'>Hi,下週四晚上(9/26) 會有第一次的實驗課，時間是晚上七點開始，地點在資電館 323 教室如果同學無法參加的話也不需要請假，但是要在 10/3 以前完成實驗課的實作內容補交辦法屆時會公告在投影片上 </div></td></tr>
+                    </table>
+                </div><script>
+    function pageComboEnter(e)
+    {
+        var e = (!e) ? window.event : e;
+        var key = e.keyCode;
+        switch(key)
+        {
+            // enter
+            case 13:
+                    goPage('PageCombo', $V('PageCombo'));
+                    e.returnValue = false;
+                    e.cancelBubble = true;
+                    return true;
+                    break;
+            default:
+                return true;
+        }
+    }
+    function showPageCombo(total)
+    {
+        var comboList = new Array(comboTotal);
+        var i=0;
+        for(var j=1; j<=comboTotal; j++)
+        {
+            comboList[i++] = j;
+        }
+        showCombo('PageCombo', comboList, 'goPage', 'top')
+    }
+    function goPage(comboName, val)
+    {
+        if (!$isInt(val) || val < 1 || val > comboTotal)
+        {
+            alert('頁數錯誤，請重新輸入！');
+            $(comboName).focus();
+            $(comboName).select();
+            return;
+        }
+        window.location.href = comboUrl + val;
+    }
+    function changePageSize()
+    {
+        var ps = $V("pageSize");
+        window.location.href = comboUrl + "1&psize=" + ps;
+    }
+
+    function showPercentCombo()
+    {
+        var comboList = new Array(11);
+        var i=0;
+        for(var j=100; j>=0; j-=10)
+        {
+            comboList[i++] = j;
+        }
+        showCombo("fmScorePercent", comboList, "comboReturn", "top")
+    }
+
+    //combo
+    function showCombo(comboName, values, cb, align)
+    {
+        $hidePopup();
+        $(comboName).setAttribute("autocomplete","off");
+
+        $EvtListener(document, "mouseup", comboEventHide);
+        $EvtListener(document, "keyup"  , comboEventHide);
+
+        align = (align) ? align : "bottom";
+        var maxHeight = 200;
+        var a = $area($(comboName));
+        var curr = -1;
+        comboValue = $V(comboName);
+
+        //drop list.
+        var _body = "<div id=combo class=combo style='width:" + (a.width-2) + "px; overflow:auto' onmouseup='$EvtCancelBubble(event)'>";
+        for (var i=0; i<values.length; i++)
+        {
+            if (values[i].toString() == comboValue)
+            {
+                curr = i;
+                _body += "<div id=comboItem" + i + " class=curr onclick='" + cb + "(\"" + comboName + "\", " + values[i] + ")' >" + values[i] + "</div>";
+            }
+            else
+                _body += "<div id=comboItem" + i + " class=combo onclick='" + cb + "(\"" + comboName + "\", " + values[i] + ")' onmouseover='this.className=\"over\"' onmouseOut='this.className=\"combo\"'>" + values[i] + "</div>";
+        }
+        _body += "</div>";
+
+        var browserScreenHeight = $getBrowserSize().height;
+        if (document.body.scrollHeight > browserScreenHeight)
+            var bodyHeight = document.body.scrollHeight;
+        else
+            var bodyHeight = browserScreenHeight;
+        $showPopup2(_body, a.left, a.top+a.height, a.width-2, 50);
+
+        //limit height.
+        var combo_ctrl = $("combo");
+        if (combo_ctrl.offsetHeight > maxHeight)
+        {
+            combo_ctrl.style.height = maxHeight + "px";
+            combo_ctrl.style.width = a.width + 15;
+        }
+
+        //overflow.
+        var a2 = $area(combo_ctrl);
+        var newTop = a2.top - a2.height - a.height - 4;
+        if ( (align == "top") || ((a2.top + a2.height > bodyHeight) && newTop > 0) )
+        {
+            $("_popup").style.top = newTop + "px";
+            if ($("_popupMask")) $("_popupMask").style.top = newTop  + "px";
+        }
+
+        var a = $area($("_popup"));
+        $("_popupMask").style.height = a.height + 'px';
+
+        //scrolling.
+        if (curr != -1) $("combo").scrollTop = $("comboItem" + curr).offsetTop;
+    }
+
+    function comboReturn(comboName, val)
+    {
+        $(comboName).value=val;
+        $hidePopup();
+    }
+
+    function comboEventHide(e)
+    {
+        var _hide   = false;
+        var _cancel = false;
+
+        var evt = (window.event)   ? event : e;
+        var src = (evt.srcElement) ? evt.srcElement.id : evt.target.id;
+
+        if (gBrowser.isIE) { var _key=evt.keyCode; var _button=evt.button; if(_button==1 || _key == 27) _hide=true; if (_key == 27) _cancel=true; }
+        if (gBrowser.isNS) { var _key=evt.keyCode; var _button=evt.button; if(_button==0 || _key == 27) _hide=true; if (_key == 27) _cancel=true; }
+
+        if (_cancel)
+        {
+            $(src).value = comboValue;
+            $(src).blur();
+        }
+        if (_hide)
+        {
+            if (gBrowser.isIE) { document.detachEvent("onkeyup",comboEventHide); document.detachEvent("onmouseup", comboEventHide);}
+            if (gBrowser.isNS) { document.removeEventListener("keyup", comboEventHide, false); document.removeEventListener("mouseup", comboEventHide, false);}
+            $hidePopup();
+        }
+    }
+
+    function createPage(curr, total, func)
+    {
+        var pages = 10, _html = "";
+        _html += (curr > 1) ? "<span class=item><a href='JavaScript:" + func + ", " + (curr-1) + ")'>Prev</a></span>" : "<span class=item>Prev</span>";
+
+        var start = (curr < pages) ? 1 : curr - pages / 2;
+        var end   = start + pages - 1;
+        if (end > total) end = total;
+
+        for (var i=start; i<=end; i++)
+        {
+            if (i == curr)
+                _html += "<span class=curr>" + i + "</span>";
+            else
+                _html += "<span class=item><a href='JavaScript:" + func + ", " + i + ")'>" + i + "</a></span>";
+        }
+        _html += (curr < total) ? "<span class=item><a href='JavaScript:" + func + ", " + (curr+1) + ")'>Next</a></span>" : "<span class=item>Next</span>";
+
+        return "<span class=page>" + _html + "</span>";
+    }
+</script>
+            <script>
+                var comboTotal = 2;
+                var comboUrl = "/course.php?courseID=40596&f=news&page=";
+                var comboValue = '';
+            </script>
+         <span class=page><span class=item>Prev</span><span class=curr>1</span><span class=item><a href='/course.php?courseID=40596&f=news&page=2'>2</a></span><span class=item><a href='/course.php?courseID=40596&f=news&page=2'>Next</a></span></span><script>
+    function addNews()
+    {
+        $showModal('新增公告', '/course/doc_insert.php?resType=10&folderID=188683', 800, 500, onFinish);
+    }
+    function editNews(id)
+    {
+        $showModal('編輯公告', '/course/doc_edit.php?resType=10&id=' + id, 800, 500, onFinish);
+    }
+    function delNews(id)
+    {
+        if (!confirm('確定要刪除嗎?')) return;
+        $load('/course/http_doc_delete.php', {id:id}, onFinish);
+    }
+
+    function newsBox(id, edit)
+    {
+        if ($("newsDetail" + id).style.display == "block")
+        {
+            $("newsDetail" + id).style.display = "none";
+            return ;
+        }
+
+        $("newsDetail" + id).style.display = "block";
+        $load("/home/http_event_select.php", _param = {id:id, type:"n", edit:edit}, newscb);
+    }
+
+    function newscb(obj)
+    {
+        var n = obj.news;
+
+        var _html  = "<div>" + n.note + "</div>";
+            _html += (n.attach) ? "<div>" + n.attach + "</div>" : "";
+            _html += (n.admin) ? "<div style='padding-top:5px'>" + n.admin + "</div>" : "";
+        $("newsDetail" + n.id).innerHTML = _html;
+    }
+
+    function add()
+    {
+        $showModal('新增活動', '/course/doc_insert.php?folderID=188683', 800, 500, onFinish);
+    }
+    function edit(id)
+    {
+        $showModal('編輯公告', '/course/doc_edit.php?id=' + id, 800, 500, onFinish);
+    }
+    function del(id)
+    {
+        if (!confirm('確定要刪除嗎?')) return;
+        $load('/course/http_doc_delete.php', {id:id}, onFinish);
+    }
+    function onFinish()
+    {
+        window.location.reload();
+    }
+    function attachDisplay(docID, display, ajax)
+    {
+        if (display == 0 && !confirm("其他使用者將無法看到附件列表，是否確定要隱藏?"))
+            return;
+
+        if (ajax)
+            $load("/course/http_attach_display.php", {courseID:"40596", docID:docID, display:display}, onAttachDisplayFinish);
+        else
+            onFinish();
+    }
+    function onAttachDisplayFinish(obj)
+    {
+        if (obj && obj.ret.status == "true")
+        {
+            $load("/home/http_event_select.php", {id:obj.ret.docID, type:"n", edit:0}, newscb);
+        }
+    }
+</script>                </div>
+                <div class=clear></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>         </div>
+    </div>
+</body>
+</html>

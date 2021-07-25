@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta name="keywords" content="" />
+<meta name="description" content="國立清華大學 iLMS數位學習平台" />
+<title>國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/sys/style/dom.css");</style>
+<style>@import URL("/sysdata/index/1/themes/1/style.css");</style>
+<style>@import URL("/sys/style/form.css");</style>
+<style>@import URL('/sys/style/highslide.css');</style>
+<style>@import URL('/sys/style/cycle.css');</style>
+<link rel="apple-touch-icon-precomposed" href="/sys/res/icon/mobile/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/sys/res/icon/mobile/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/sys/res/icon/mobile/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sys/res/icon/mobile/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sys/res/icon/mobile/apple-touch-icon-114x114.png">
+<script src='/sys/lib/js/dom.js'></script>
+<script src='/sys/lib/js/lib.js'></script>
+<script src='/lib/js/calendar.js'></script>
+<script src='/sys/lib/js/active_control.js'></script>
+<script src='/sys/lib/js/charts.js'></script>
+<script src='/sys/lib/js/highslide-with-html.js'></script>
+<script src="/sys/lib/js/jquery.js"></script>
+<script src="/sys/lib/js/jquery.cycle2.min.js"></script>
+
+<script>
+    function insertBulletin()
+    {
+        $showModal('新增', '/sys/adm/bulletin_insert.php?modal=1&folderID=1', 800, 475, onCloseModal);
+    }
+    function onCloseModal()
+    {
+        if ($modalarg && $modalarg.status == "true")
+        {
+            window.location.reload();
+            return ;
+        }
+
+        $closeModal();
+    }
+    function onReload()
+    {
+        window.location.reload();
+    }
+    function init()
+    {
+        showChartList();
+    }
+    function menuPopup(src, id)
+    {
+        var display;
+        var obj = src.parentNode;
+        if (obj.getElementsByTagName('ul')[0])
+        {
+            display = obj.getElementsByTagName('ul')[0].style.display;
+            if ("1" == "1")
+            {
+                var ids = $getCookie("cookie_menu_0");
+                if (display == "block")
+                {
+                    if (ids.indexOf("," + id + ",",0) >= 0)
+                    {
+                        ids = ids.replace("," + id + ",", ",");
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+                else
+                {
+                    if (ids.indexOf("," + id + ",",0) < 0)
+                    {
+                        ids = (ids == "") ? "," + id + "," : ids + id + ",";
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+            }
+            obj.getElementsByTagName('ul')[0].style.display = (display == "block") ? "none" : "block";
+        }
+    }
+    function menuPopup2(obj, display)
+    {
+        display = (display == 1) ? "block" : "none";
+        if (obj.getElementsByTagName('ul')[0])
+            obj.getElementsByTagName('ul')[0].style.display = display;
+    }
+    function nothing(){}
+    function insertRss(id, h)
+    {
+        var obj = $("rss_body_" + id);
+        if (obj) obj.innerHTML = h;
+    }
+    function funcEdit(id)
+    {
+        $showModal('編輯', '/index/layout/func_edit.php?id=' + id + '&themeID=1&noOrder=1', 750, 350, onReload);
+    }
+    function divInit()
+    {
+        var cols = Math.floor($j("#divisionBox").width() / $j("#divisionBox .dir").width());
+        var count = $j("#divisionBox .dir").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#divisionBox .dir:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+    function statisticInit()
+    {
+        var cols = Math.floor($j("#statisticBox").width() / $j("#statisticBox .chart").width());
+        var count = $j("#statisticBox .chart").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#statisticBox .chart:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+</script>
+</head>
+
+<body onload="init();">    
+<div id=base>
+<div id=base2>
+<div id=base3>
+    <div id=sysbar>
+    <div id=sysbar2>
+    <div id=sysbar3>
+            <div id=login>
+        <script type="text/javascript">var gRedirectHome = true;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明',
+        noaccount:  '請輸入: 帳號',
+        nopassword: '請輸入: 密碼',
+        noseccode:  '請輸入: 校驗碼'
+    }, 
+    sysconf = {
+        domain    : 'lms.nthu.edu.tw', 
+        ssl_login : 0    };
+    
+    var checkSecCode;		
+        checkSecCode = true;
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/lib/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/sys/res/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("")'>登入</a>    </div>
+    <div id=search>
+中文(台灣)<img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English(US)</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/sys/res/icon/line.gif' style='padding: 0 8px;'>線上人數: <span id='counter'>247</span>&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'><img style='cursor:pointer' onclick='$searchSubmit()' src='/sys/res/icon/find.png' align=absmiddle>    </div>
+    <div class=clear></div>
+
+<script>
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search_db.php?scope=1&area=251&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        if (newLang == "all")
+        { 
+            $showModal("選擇語言版本", "/languages.php", 500, 300, onCloseModal); 
+        }
+        else
+        {
+            $setCookie("ck_locale", newLang, 365);
+            $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+        }
+    }
+    
+    function m_onChangeLang(obj) { window.location.reload(); }
+
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+
+    function m_mgrHomeMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("idxMgr", m_onIdxMgrMenuClick);
+
+        var _arg = {};
+        $mnu.m_append("首頁設定", "profile", _arg);
+        $mnu.m_append("選單管理", "menu", _arg);
+        $mnu.m_append("版面配置", "layout", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+
+        var a = $area($("idxMgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onIdxMgrMenuClick(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":     m_mgrIdxProfile(); break;
+            case "menu":        m_mgrIdxMenus(); break;
+            case "layout":      m_mgrIdxLayout(); break;
+            case "theme":       m_mgrIdxTheme(); break;
+            case "css":         m_mgrIdxCss(); break;
+        }
+    }
+    function m_mgrIdxProfile()      { $showModal("首頁設定", "/index/profile_edit.php?id=1", 750, 480, onCloseModal); }
+    function m_mgrIdxMenus()        { $showModal("選單管理", "/index/menu/menu.php?id=1", 720, 450, onReload); }
+    function m_mgrIdxLayout()       { window.location.href = "/index/layout/layout.php?id=1"}
+    function m_mgrIdxTheme()        { $showModal("套用版面樣式", "/index/theme.php?id=1", 800, 500, onCloseModal); }
+    function m_mgrIdxCss()          { $showModal("編輯樣式",   "/index/theme_edit.php?id=1", 800, 550, onCloseModal); }
+</script>  
+      </div>
+    </div>
+    </div>
+    <div id=mainBody>
+    <div id=mainBody2>
+    <div id=mainBody3>
+        <div id=banner>
+        <div id=banner2>
+        <div id=banner3>
+                <div><a href='/course/index.php'><img id=logo src='/sysdata/index/1/logo.jpg'></a></div>
+            <div style='clear:both'></div>
+                 </div>
+        </div>
+        </div>
+        <div id=content>
+        <div id=content2>
+        <div id=content3>
+<script>
+    function changeFilter()
+    {
+        var term = $V("fmTerm");
+        var keyword = encodeURIComponent($V("fmKeyword"));
+        window.location.href = "/course/index.php?nav=course&t=open&term=" + term + "&keyword=" + keyword;
+    }
+    function getKey(e)
+    {
+        var e = (!e) ? window.event : e;
+        var key = e.keyCode;
+        switch(key)
+        {
+            // enter
+            case 13:
+                    changeFilter();
+                    e.returnValue = false;
+                    e.cancelBubble = true;
+                    //e.keyCode = 0;
+                    return true;
+                    break;
+            default:
+                return true;
+        }
+    }
+</script>
+<div id=currPos style='text-align:left'>
+    位置 : <a href='index.php'>首頁</a> > <span class=blockTitleTab>開放課程</span>
+</div>
+
+<div style='text-align:left'>
+   <div style='width:100%; text-align:right; padding-bottom:2px' class=blockTitle>學期: <select id=fmTerm name=fmTerm onchange='changeFilter()'><option value=-1 >全部</option><option value=43 >1093</option><option value=42 >1092</option><option value=41 >1091</option><option value=40 >1083</option><option value=39 >1082</option><option value=38 selected>1081</option><option value=37 >1073</option><option value=36 >1072</option><option value=35 >1071</option><option value=34 >1063</option><option value=33 >1062</option><option value=32 >1061</option><option value=31 >1053</option><option value=30 >1052</option><option value=29 >1051</option><option value=28 >1043</option><option value=27 >1042</option><option value=26 >1041</option><option value=25 >1033</option><option value=24 >1032</option><option value=22 >1031</option><option value=23 >1023</option><option value=21 >1022</option><option value=20 >1021</option><option value=19 >1013</option><option value=18 >1012</option><option value=16 >1011</option><option value=17 >1003</option><option value=15 >1002</option><option value=13 >1001</option><option value=14 >993</option><option value=12 >992</option><option value=11 >991</option><option value=10 >982</option><option value=3 >981</option><option value=0 >不分學期</option></select> &nbsp; 搜尋: <input type=text id='fmKeyword' name='fmKeyword' value='' style='width: 120px' onkeypress='getKey(event)' onclick='this.select();' class=Text> <input type=button class=button name=bt1 value='確定' onclick='changeFilter()'></div>
+                <div class=tableBox>
+                <table cellspacing=1px width=100%>
+                    <tr class=listHeader>
+                        <td align=center width=50px>項次</td>
+                        <td align=center width=120px>課程編號</td>
+                        <td align=center>課程名稱</td>
+                        <td align=center width=70px>文件</td>
+                        <td align=center width=50px>討論</td>
+                        <td align=center width=70px>旁聽</td>
+                        <td align=center width=130px>老師</td>
+                        <td align=center width=130px>班級</td>
+                    </tr>
+                    
+                    <tr class=listRow2 onmouseover='this.className="listRowOver"' onmouseout='this.className="listRow2"'>
+                        <td align=center width=50px class=listTD>21</td>
+                        <td align=center width=120px class=listTD><div class=hidden style='width:120px' title='10810PHYS541000'>10810PHYS541000</div></td>
+                        <td class=listTD><a href='/course/42764' class=link>量子力學一Quantum Mechanics  (I)</a></td>
+                        <td align=center width=70px class=listTD>23</td>
+                        <td align=center width=50px class=listTD>0</td>
+                        <td align=center width=70px class=listTD>開放</td>
+                        <td align=center width=130px class=listTD><div class=hidden style='width:130px' title='王道維'>王道維</div></td>
+                        <td align=center width=130px class=listTD>碩士班</td>
+                    </tr>
+                 
+                    <tr class=listRow onmouseover='this.className="listRowOver"' onmouseout='this.className="listRow"'>
+                        <td align=center width=50px class=listTD>22</td>
+                        <td align=center width=120px class=listTD><div class=hidden style='width:120px' title='10810PHYS531000'>10810PHYS531000</div></td>
+                        <td class=listTD><a href='/course/42763' class=link>電動力學一Electrodynamics (I)</a></td>
+                        <td align=center width=70px class=listTD>14</td>
+                        <td align=center width=50px class=listTD>0</td>
+                        <td align=center width=70px class=listTD>開放</td>
+                        <td align=center width=130px class=listTD><div class=hidden style='width:130px' title='張存續'>張存續</div></td>
+                        <td align=center width=130px class=listTD>碩士班</td>
+                    </tr>
+                 
+                    <tr class=listRow2 onmouseover='this.className="listRowOver"' onmouseout='this.className="listRow2"'>
+                        <td align=center width=50px class=listTD>23</td>
+                        <td align=center width=120px class=listTD><div class=hidden style='width:120px' title='10810LING593700'>10810LING593700</div></td>
+                        <td class=listTD><a href='/course/42183' class=link>進階形式語意學與語用學Advanced Formal Semantics and Pragmatics</a></td>
+                        <td align=center width=70px class=listTD>12</td>
+                        <td align=center width=50px class=listTD>0</td>
+                        <td align=center width=70px class=listTD>開放</td>
+                        <td align=center width=130px class=listTD><div class=hidden style='width:130px' title='謝易達'>謝易達</div></td>
+                        <td align=center width=130px class=listTD>碩士班</td>
+                    </tr>
+                 
+                    <tr class=listRow onmouseover='this.className="listRowOver"' onmouseout='this.className="listRow"'>
+                        <td align=center width=50px class=listTD>24</td>
+                        <td align=center width=120px class=listTD><div class=hidden style='width:120px' title='10810BMES511101'>10810BMES511101</div></td>
+                        <td class=listTD><a href='/course/40311' class=link>書報討論Seminar</a></td>
+                        <td align=center width=70px class=listTD>5</td>
+                        <td align=center width=50px class=listTD>2</td>
+                        <td align=center width=70px class=listTD>開放</td>
+                        <td align=center width=130px class=listTD><div class=hidden style='width:130px' title='許志&#26983;'>許志&#26983;</div></td>
+                        <td align=center width=130px class=listTD>碩士班</td>
+                    </tr>
+                 
+                    <tr class=listRow2 onmouseover='this.className="listRowOver"' onmouseout='this.className="listRow2"'>
+                        <td align=center width=50px class=listTD>25</td>
+                        <td align=center width=120px class=listTD><div class=hidden style='width:120px' title='10810HSS230200'>10810HSS230200</div></td>
+                        <td class=listTD><a href='/course/41236' class=link>比較語法Syntax  from a comparative perspective</a></td>
+                        <td align=center width=70px class=listTD>3</td>
+                        <td align=center width=50px class=listTD>0</td>
+                        <td align=center width=70px class=listTD>開放</td>
+                        <td align=center width=130px class=listTD><div class=hidden style='width:130px' title='謝易達'>謝易達</div></td>
+                        <td align=center width=130px class=listTD>二年級</td>
+                    </tr>
+                 
+                </table>
+                </div>
+            <script>
+    function pageComboEnter(e)
+    {
+        var e = (!e) ? window.event : e;
+        var key = e.keyCode;
+        switch(key)
+        {
+            // enter
+            case 13:
+                    goPage('PageCombo', $V('PageCombo'));
+                    e.returnValue = false;
+                    e.cancelBubble = true;
+                    return true;
+                    break;
+            default:
+                return true;
+        }
+    }
+    function showPageCombo(total)
+    {
+        var comboList = new Array(comboTotal);
+        var i=0;
+        for(var j=1; j<=comboTotal; j++)
+        {
+            comboList[i++] = j;
+        }
+        showCombo('PageCombo', comboList, 'goPage', 'top')
+    }
+    function goPage(comboName, val)
+    {
+        if (!$isInt(val) || val < 1 || val > comboTotal)
+        {
+            alert('頁數錯誤，請重新輸入！');
+            $(comboName).focus();
+            $(comboName).select();
+            return;
+        }
+        window.location.href = comboUrl + val;
+    }
+    function changePageSize()
+    {
+        var ps = $V("pageSize");
+        window.location.href = comboUrl + "1&psize=" + ps;
+    }
+
+    function showPercentCombo()
+    {
+        var comboList = new Array(11);
+        var i=0;
+        for(var j=100; j>=0; j-=10)
+        {
+            comboList[i++] = j;
+        }
+        showCombo("fmScorePercent", comboList, "comboReturn", "top")
+    }
+
+    //combo
+    function showCombo(comboName, values, cb, align)
+    {
+        $hidePopup();
+        $(comboName).setAttribute("autocomplete","off");
+
+        $EvtListener(document, "mouseup", comboEventHide);
+        $EvtListener(document, "keyup"  , comboEventHide);
+
+        align = (align) ? align : "bottom";
+        var maxHeight = 200;
+        var a = $area($(comboName));
+        var curr = -1;
+        comboValue = $V(comboName);
+
+        //drop list.
+        var _body = "<div id=combo class=combo style='width:" + (a.width-2) + "px; overflow:auto' onmouseup='$EvtCancelBubble(event)'>";
+        for (var i=0; i<values.length; i++)
+        {
+            if (values[i].toString() == comboValue)
+            {
+                curr = i;
+                _body += "<div id=comboItem" + i + " class=curr onclick='" + cb + "(\"" + comboName + "\", " + values[i] + ")' >" + values[i] + "</div>";
+            }
+            else
+                _body += "<div id=comboItem" + i + " class=combo onclick='" + cb + "(\"" + comboName + "\", " + values[i] + ")' onmouseover='this.className=\"over\"' onmouseOut='this.className=\"combo\"'>" + values[i] + "</div>";
+        }
+        _body += "</div>";
+
+        var browserScreenHeight = $getBrowserSize().height;
+        if (document.body.scrollHeight > browserScreenHeight)
+            var bodyHeight = document.body.scrollHeight;
+        else
+            var bodyHeight = browserScreenHeight;
+        $showPopup2(_body, a.left, a.top+a.height, a.width-2, 50);
+
+        //limit height.
+        var combo_ctrl = $("combo");
+        if (combo_ctrl.offsetHeight > maxHeight)
+        {
+            combo_ctrl.style.height = maxHeight + "px";
+            combo_ctrl.style.width = a.width + 15;
+        }
+
+        //overflow.
+        var a2 = $area(combo_ctrl);
+        var newTop = a2.top - a2.height - a.height - 4;
+        if ( (align == "top") || ((a2.top + a2.height > bodyHeight) && newTop > 0) )
+        {
+            $("_popup").style.top = newTop + "px";
+            if ($("_popupMask")) $("_popupMask").style.top = newTop  + "px";
+        }
+
+        var a = $area($("_popup"));
+        $("_popupMask").style.height = a.height + 'px';
+
+        //scrolling.
+        if (curr != -1) $("combo").scrollTop = $("comboItem" + curr).offsetTop;
+    }
+
+    function comboReturn(comboName, val)
+    {
+        $(comboName).value=val;
+        $hidePopup();
+    }
+
+    function comboEventHide(e)
+    {
+        var _hide   = false;
+        var _cancel = false;
+
+        var evt = (window.event)   ? event : e;
+        var src = (evt.srcElement) ? evt.srcElement.id : evt.target.id;
+
+        if (gBrowser.isIE) { var _key=evt.keyCode; var _button=evt.button; if(_button==1 || _key == 27) _hide=true; if (_key == 27) _cancel=true; }
+        if (gBrowser.isNS) { var _key=evt.keyCode; var _button=evt.button; if(_button==0 || _key == 27) _hide=true; if (_key == 27) _cancel=true; }
+
+        if (_cancel)
+        {
+            $(src).value = comboValue;
+            $(src).blur();
+        }
+        if (_hide)
+        {
+            if (gBrowser.isIE) { document.detachEvent("onkeyup",comboEventHide); document.detachEvent("onmouseup", comboEventHide);}
+            if (gBrowser.isNS) { document.removeEventListener("keyup", comboEventHide, false); document.removeEventListener("mouseup", comboEventHide, false);}
+            $hidePopup();
+        }
+    }
+
+    function createPage(curr, total, func)
+    {
+        var pages = 10, _html = "";
+        _html += (curr > 1) ? "<span class=item><a href='JavaScript:" + func + ", " + (curr-1) + ")'>Prev</a></span>" : "<span class=item>Prev</span>";
+
+        var start = (curr < pages) ? 1 : curr - pages / 2;
+        var end   = start + pages - 1;
+        if (end > total) end = total;
+
+        for (var i=start; i<=end; i++)
+        {
+            if (i == curr)
+                _html += "<span class=curr>" + i + "</span>";
+            else
+                _html += "<span class=item><a href='JavaScript:" + func + ", " + i + ")'>" + i + "</a></span>";
+        }
+        _html += (curr < total) ? "<span class=item><a href='JavaScript:" + func + ", " + (curr+1) + ")'>Next</a></span>" : "<span class=item>Next</span>";
+
+        return "<span class=page>" + _html + "</span>";
+    }
+</script>
+            <script>
+                var comboTotal = 2;
+                var comboUrl = "/course/index.php?nav=course&term=38&keyword=&t=open&page=";
+                var comboValue = '';
+            </script>
+         <span class=page><span class=item><a href='/course/index.php?nav=course&term=38&keyword=&t=open&&page=1'>Prev</a></span><span class=item><a href='/course/index.php?nav=course&term=38&keyword=&t=open&page=1'>1</a></span><span class=curr>2</span><span class=item>Next</span></span><p></div>        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div id=copyright >
+    <div id=copyright2>
+    <div id=copyright3>
+        <div style="text-align: center;">Copyright&copy;2010-2021 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料，並依授權規範合理使用。</span></div>
+<div style="text-align: center;"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>     </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
